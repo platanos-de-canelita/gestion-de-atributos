@@ -38,7 +38,7 @@
          </li>
          <li class="nav-item">
              <a class="nav-link list-group-item-action" id="investigadores-tab" data-toggle="tab" href="#investigadores"
-                 role="tab" aria-controls="profile" aria-selected="false">Examenes</a>
+                 role="tab" aria-controls="profile" aria-selected="false">Criterios</a>
          </li>
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
