@@ -1,4 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Seguimiento de atributos</title>
+    <!--Fuentes de google-->
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|PT+Sans+Narrow" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+
+</head>
+
+<body>
 <?php include '../templates/header.php'; ?>
 <div class="container">
   <div id="row">
@@ -24,3 +42,5 @@
   <br>
   </div>
 </div>
+</body>
+</html>
