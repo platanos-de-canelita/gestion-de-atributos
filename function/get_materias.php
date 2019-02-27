@@ -1,4 +1,5 @@
  <?php
+ //Incluimos la base de datos
  include_once 'bdconexion.php';
 
      $info=[];
