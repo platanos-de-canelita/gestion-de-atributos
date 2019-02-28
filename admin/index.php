@@ -47,12 +47,12 @@
 
      <!--seccion de gestion-->
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
-         <!--Seccion de proyectos-->
+
          <div class="tab-pane fade show active" id="proyectos" role="tabpanel" aria-labelledby="proyectos-tab">
              <div class="row">
                  <div class="col-lg-4">
                    <form class="formulario" id="form" method="post">
-                     <p>Nombre de la materia: </p>
+                     <p>Nombre del atributos: </p>
                      <input type="text" class="form-control" name="materia" value="" placeholder="Nombre"><br><br>
                      <button class="btn" name="login" onclick="insertarMateria()">Agregar</button>
                    </form>
