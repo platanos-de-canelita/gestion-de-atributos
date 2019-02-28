@@ -46,8 +46,13 @@
      </ul>
 
      <!--seccion de gestion-->
+<<<<<<< HEAD
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
 
+=======
+     <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
+         <!--Seccion de proyectos-->
+>>>>>>> 641ef761713d7bb9552f9777b3c111e4becb774a
          <div class="tab-pane fade show active" id="proyectos" role="tabpanel" aria-labelledby="proyectos-tab">
              <div class="row">
                  <div class="col-lg-4">
