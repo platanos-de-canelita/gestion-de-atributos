@@ -22,7 +22,9 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/main.css">
+
      <title>Administración</title>
+
  </head>
 
  <body style="background: #f8f8f8">
@@ -35,11 +37,11 @@
      <!--Navegacion de secciones-->
      <ul class="nav nav-tabs sticky-top" id="myTab" role="tablist" style="background: #f0f0f0;">
          <li class="nav-item">
-             <a class="nav-link active list-group-item-action" id="proyectos-tab" data-toggle="tab" href="#proyectos"
+             <a class="nav-link active list-group-item-action" id="atributos-tab" data-toggle="tab" href="#atributos"
                  role="tab" aria-controls="home" aria-selected="false">Atributos</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="investigadores-tab" data-toggle="tab" href="#investigadores"
+             <a class="nav-link list-group-item-action" id="criterios-tab" data-toggle="tab" href="#criterios"
                  role="tab" aria-controls="profile" aria-selected="false">Criterios</a>
          </li>
          <li class="nav-item">
@@ -56,14 +58,17 @@
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
          <!--Seccion de proyectos-->
 
-         <div class="tab-pane fade show active" id="proyectos" role="tabpanel" aria-labelledby="proyectos-tab">
+         <div class="tab-pane fade show active" id="atributos" role="tabpanel" aria-labelledby="atributos-tab">
              <div class="row">
                  <div class="col-lg-3">
-                   <form class="formulario" id="form" method="post">
+                   <form class="formulario" id="form" >
                      <p>Nombre del atributos: </p>
-                     <input type="text" class="form-control" name="materia" value="" placeholder="Nombre"><br><br>
-                     <button class="btn" name="login" onclick="insertarMateria()">Agregar</button>
+                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
+                     <br><br>
+
                    </form>
+                   <button id="btn_atrib" class="btn">Agregar</button>
                  </div>
                  <div class="col-lg-9">
                      <form class="form-inline">
@@ -107,7 +112,7 @@
          </div>
 
          <!--Seccion de investigadores-->
-         <div class="tab-pane fade" id="investigadores" role="tabpanel" aria-labelledby="investigadores-tab">
+         <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
            <div class="row">
                <div class="col-lg-3">
                  <form class="formulario" action="" method="post">
@@ -117,15 +122,18 @@
 
                    </select>
                    <br><br>
+
                    <select class="form-control" name="tipo">
                      <option value="individual">Individual</option>
                      <option value="grupal">Grupal</option>
                    </select>
                    <br><br>
+                   <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
+                   <br><br>
                    <button type="submit" class="btn" name="login">Agregar</button>
                  </form>
                </div>
-               <div class="col-lg-8">
+               <div class="col-lg-9">
                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
@@ -445,8 +453,22 @@
 
      <script src="../js/jquery-3.3.1.min.js"></script>
      <script src="../js/bootstrap.min.js"></script>
+     <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
      <script src="../js/admin/admin.js"></script>
+     <script>
+        //añado un click listener para el boton de agregar atributo.
+        document.getElementById("btn_atrib").addEventListener("click", function(){
+          //invoco al modal de sweet alert para mostrar el mensaje de exito
+          Swal.fire(
+            'Atributo agregado exitosamente!',
+            '',
+            'success'
+          )
+         });
+
+     </script>
  </body>
 
  </html>

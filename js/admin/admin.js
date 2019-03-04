@@ -5,7 +5,7 @@ var name;
 
 $( document ).ready(function() {
   $("#paginas").empty();
-  verMaterias();
+
 
 });
 
