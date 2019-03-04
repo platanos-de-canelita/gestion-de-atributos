@@ -42,27 +42,30 @@
              <a class="nav-link list-group-item-action" id="investigadores-tab" data-toggle="tab" href="#investigadores"
                  role="tab" aria-controls="profile" aria-selected="false">Criterios</a>
          </li>
+         <li class="nav-item">
+             <a class="nav-link list-group-item-action" id="profesores-tab" data-toggle="tab" href="#profesores"
+                 role="tab" aria-controls="profile" aria-selected="false">Profesores</a>
+         </li>
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
 
      <!--seccion de gestion-->
-<<<<<<< HEAD
+
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
 
-=======
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
          <!--Seccion de proyectos-->
->>>>>>> 641ef761713d7bb9552f9777b3c111e4becb774a
+
          <div class="tab-pane fade show active" id="proyectos" role="tabpanel" aria-labelledby="proyectos-tab">
              <div class="row">
-                 <div class="col-lg-4">
+                 <div class="col-lg-3">
                    <form class="formulario" id="form" method="post">
                      <p>Nombre del atributos: </p>
                      <input type="text" class="form-control" name="materia" value="" placeholder="Nombre"><br><br>
                      <button class="btn" name="login" onclick="insertarMateria()">Agregar</button>
                    </form>
                  </div>
-                 <div class="col-lg-8">
+                 <div class="col-lg-9">
                      <form class="form-inline">
                          <div class="form-group" style="margin:1%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
@@ -106,10 +109,19 @@
          <!--Seccion de investigadores-->
          <div class="tab-pane fade" id="investigadores" role="tabpanel" aria-labelledby="investigadores-tab">
            <div class="row">
-               <div class="col-lg-4">
+               <div class="col-lg-3">
                  <form class="formulario" action="" method="post">
-                   <p>Nombre del examen: </p>
-                   <input type="text" class="form-control" name="examen" value="" placeholder="Nombre"><br><br>
+                   <p>Agregar criterios: </p>
+                   <select id="atrib" class="form-control" name="atributo">
+                     <option value=""></option>
+
+                   </select>
+                   <br><br>
+                   <select class="form-control" name="tipo">
+                     <option value="individual">Individual</option>
+                     <option value="grupal">Grupal</option>
+                   </select>
+                   <br><br>
                    <button type="submit" class="btn" name="login">Agregar</button>
                  </form>
                </div>
@@ -165,7 +177,62 @@
            </div>
          </div>
 
+         <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
+           <div class="row">
+
+               <div class="col-lg-12">
+                   <form class="form-inline">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                       </div>
+                   </form>
+                   <br>
+                   <table class="table">
+                      <thead class="">
+                        <tr>
+                          <th scope="col">id</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Preguntas</th>
+                          <th scope="col">Modificar</th>
+                          <th scope="col">Eliminar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>Eliminar</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                          <td>Eliminar</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                          <td>Eliminar</td>
+                        </tr>
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
      </div>
+
 
 
       <!-- Modal -->
