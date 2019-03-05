@@ -10,15 +10,13 @@
 
   	header("Location: login.php");
   	exit();
-  }*/
+  }
 =======
-    /*
-      Se mantendra así hasta finalizar el sprint.
-    */
+
   	//header("Location: login.php");
   	//exit();
-  }
->>>>>>> 9415577803a1081c17e2fa47f5ed5b169e50c388
+  }*/
+
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -54,6 +52,10 @@
          <li class="nav-item">
              <a class="nav-link list-group-item-action" id="profesores-tab" data-toggle="tab" href="#profesores"
                  role="tab" aria-controls="profile" aria-selected="false">Profesores</a>
+         </li>
+         <li class="nav-item">
+             <a class="nav-link list-group-item-action" id="carreras-tab" data-toggle="tab" href="#carreras"
+                 role="tab" aria-controls="profile" aria-selected="false">Carreras</a>
          </li>
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
@@ -193,6 +195,61 @@
          </div>
 
          <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
+           <div class="row">
+
+               <div class="col-lg-12">
+                   <form class="form-inline">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                       </div>
+                   </form>
+                   <br>
+                   <table class="table">
+                      <thead class="">
+                        <tr>
+                          <th scope="col">id</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Preguntas</th>
+                          <th scope="col">Modificar</th>
+                          <th scope="col">Eliminar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>Eliminar</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                          <td>Eliminar</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                          <td>Eliminar</td>
+                        </tr>
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
+
+         <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
            <div class="row">
 
                <div class="col-lg-12">
