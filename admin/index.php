@@ -7,7 +7,7 @@
 
   }else{
     /*
-      Se mantendra así hasta finalizar el sprint
+      Se mantendra así hasta finalizar el sprint.
     */
   	//header("Location: login.php");
   	//exit();
