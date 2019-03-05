@@ -6,10 +6,19 @@
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
   }else{
+<<<<<<< HEAD
 
   	header("Location: login.php");
   	exit();
   }*/
+=======
+    /*
+      Se mantendra así hasta finalizar el sprint.
+    */
+  	//header("Location: login.php");
+  	//exit();
+  }
+>>>>>>> 9415577803a1081c17e2fa47f5ed5b169e50c388
  ?>
  <!DOCTYPE html>
  <html lang="en">
