@@ -54,6 +54,10 @@
                  role="tab" aria-controls="profile" aria-selected="false">Profesores</a>
          </li>
          <li class="nav-item">
+             <a class="nav-link list-group-item-action" id="departamentos-tab" data-toggle="tab" href="#departamentos"
+                 role="tab" aria-controls="profile" aria-selected="false">Departamentos</a>
+         </li>
+         <li class="nav-item">
              <a class="nav-link list-group-item-action" id="carreras-tab" data-toggle="tab" href="#carreras"
                  role="tab" aria-controls="profile" aria-selected="false">Carreras</a>
          </li>
@@ -209,11 +213,11 @@
                    <table class="table">
                       <thead class="">
                         <tr>
-                          <th scope="col">id</th>
+                          <th scope="col">RFC</th>
                           <th scope="col">Nombre</th>
-                          <th scope="col">Preguntas</th>
-                          <th scope="col">Modificar</th>
-                          <th scope="col">Eliminar</th>
+                          <th scope="col">Apellidos</th>
+                          <th scope="col">Departamentos</th>
+                          <th scope="col">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -221,23 +225,17 @@
                           <th scope="row">1</th>
                           <td>Mark</td>
                           <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>Eliminar</td>
+                          <td>Industrial</td>
+                          <td>Autorizar | Rechazar</td>
                         </tr>
                         <tr>
                           <th scope="row">2</th>
                           <td>Jacob</td>
                           <td>Thornton</td>
-                          <td>@fat</td>
-                          <td>Eliminar</td>
+                          <td>Sistemas</td>
+                          <td>Autorizar | Rechazar</td>
                         </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                          <td>Eliminar</td>
-                        </tr>
+
                       </tbody>
                     </table>
                </div>
@@ -251,8 +249,23 @@
 
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
            <div class="row">
-
-               <div class="col-lg-12">
+               <div class="col-lg-3">
+                 <form class="formulario" action="" method="post">
+                   <p>Agregar carreras: </p>
+                   <br>
+                   <p>Nombre de la carrera:</p>
+                   <input type="text" class="form-control"></input>
+                   <br><br>
+                  <p>Selecciona un departamento:</p>
+                   <select class="form-control" name="tipo">
+                    <option value="industrial">Industrial</option>
+                     <option value="sistemas">Sistemas y computación</option>
+                   </select>
+                   <br><br>
+                   <button type="submit" class="btn" name="login">Agregar</button>
+                 </form>
+               </div>
+               <div class="col-lg-9">
                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
@@ -264,37 +277,84 @@
                    <table class="table">
                       <thead class="">
                         <tr>
-                          <th scope="col">id</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Preguntas</th>
-                          <th scope="col">Modificar</th>
-                          <th scope="col">Eliminar</th>
+                          <th scope="col">Carrera</th>
+                          <th scope="col">departamento</th>
+                          <th scope="col">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
+                          <td>Informática</td>
+                          <td>Sistemas y computación</td>
                           <td>Eliminar</td>
                         </tr>
                         <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
+                          <td>Industrial</td>
+                          <td>Industrial</td>
                           <td>Eliminar</td>
                         </tr>
+
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
+
+         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
+           <div class="row">
+               <div class="col-lg-3">
+                 <form class="formulario" id="form" >
+                   <p>Nombre del departamento: </p>
+                   <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                   <input type="file" class="form-control" name="logo">
+                   <br><br>
+
+                 </form>
+                 <button id="btn_atrib" class="btn">Agregar</button>
+               </div>
+               <div class="col-lg-9">
+                   <form class="form-inline">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                       </div>
+                   </form>
+                   <br>
+                   <table class="table">
+                      <thead>
                         <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                          <td>Eliminar</td>
+
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Logo</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="filas">
+                        <tr>
+
+                          <th scope="col">Sistemas y computación</th>
+                          <th scope="col">logo7.png</th>
+                          <th scope="col">Modificar|Eliminar</th>
                         </tr>
                       </tbody>
                     </table>
+                    <div class="paginador">
+                      <ul id="paginas" style="list-style: none; ">
+
+                        <!--<li><a href="#">|<<</a></li>
+                        <li><a href="#"><<</a></li>
+                        <li class="pageSelected">1</li>
+
+                        <li><a href="#">>></a></li>
+                        <li><a href="#">>>|</a></li>-->
+                      </ul>
+                    </div>
                </div>
            </div>
            <div class="container" style="margin-top:1em;">

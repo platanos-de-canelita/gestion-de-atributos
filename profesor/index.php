@@ -21,7 +21,7 @@
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/main.css">
 
-     <title>Administración</title>
+     <title>Profesor</title>
 
  </head>
 
@@ -29,23 +29,28 @@
 
      <!--Barra superior-->
      <div style="background: rgb(27, 57, 106); height: 4em; display: flex; justify-content: center; align-items: center;">
-         <h1 style="color:#f8f8f8">Administracion</h1>
+         <h1 style="color:#f8f8f8">Profesores</h1>
      </div>
 
      <!--Navegacion de secciones-->
      <ul class="nav nav-tabs sticky-top" id="myTab" role="tablist" style="background: #f0f0f0;">
          <li class="nav-item">
-             <a class="nav-link active list-group-item-action" id="atributos-tab" data-toggle="tab" href="#atributos"
-                 role="tab" aria-controls="home" aria-selected="false">Atributos</a>
+             <a class="nav-link active list-group-item-action" id="alumnos-tab" data-toggle="tab" href="#alumnos"
+                 role="tab" aria-controls="home" aria-selected="false">Alumnos</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="criterios-tab" data-toggle="tab" href="#criterios"
-                 role="tab" aria-controls="profile" aria-selected="false">Criterios</a>
+             <a class="nav-link list-group-item-action" id="grupos-tab" data-toggle="tab" href="#grupos"
+                 role="tab" aria-controls="home" aria-selected="false">Grupos</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="profesores-tab" data-toggle="tab" href="#profesores"
-                 role="tab" aria-controls="profile" aria-selected="false">Profesores</a>
+             <a class="nav-link list-group-item-action" id="evaluaciones-tab" data-toggle="tab" href="#evaluaciones"
+                 role="tab" aria-controls="profile" aria-selected="false">Evaluaciones</a>
          </li>
+         <li class="nav-item">
+             <a class="nav-link list-group-item-action" id="informes-tab" data-toggle="tab" href="#informes"
+                 role="tab" aria-controls="profile" aria-selected="false">Informes</a>
+         </li>
+
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
 
@@ -56,124 +61,179 @@
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
          <!--Seccion de proyectos-->
 
-         <div class="tab-pane fade show active" id="atributos" role="tabpanel" aria-labelledby="atributos-tab">
-             <div class="row">
-                 <div class="col-lg-3">
-                   <form class="formulario" id="form" >
-                     <p>Nombre del atributos: </p>
-                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
-                     <br><br>
-
-                   </form>
-                   <button id="btn_atrib" class="btn">Agregar</button>
+         <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
+           <div class="container">
+             <div id="row">
+               <div class="row">
+                 <div class="col-md-12 titulo">
+                   <h2>Registrar alumno</h2>
                  </div>
-                 <div class="col-lg-9">
-                     <form class="form-inline">
-                         <div class="form-group" style="margin:1%;">
-                             <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                         </div>
-                     </form>
-                     <br>
-                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="filas">
+               </div>
 
-                        </tbody>
-                      </table>
-                      <div class="paginador">
-                        <ul id="paginas" style="list-style: none; ">
-
-                          <!--<li><a href="#">|<<</a></li>
-                          <li><a href="#"><<</a></li>
-                          <li class="pageSelected">1</li>
-
-                          <li><a href="#">>></a></li>
-                          <li><a href="#">>>|</a></li>-->
-                        </ul>
-                      </div>
-                 </div>
+               <div class="row" style="padding-left: 20em; padding-right: 20em">
+                 <br>
+                 <form class="col-md-12" action="" method="post">
+                   <br><br>
+                   <input type="text" class="form-control" name="txtnombre" value=""
+                     placeholder="Nombre"><br>
+                   <input type="text" class="form-control" name="txtnc" value=""
+                     placeholder="Número de control"><br>
+                   <select class="form-control" name="carrera">
+                     <option value="">Seleccionar carrera</option>
+                     <option value="industrial">Industrial</option>
+                   </select><br>
+                   <select class="form-control" name="materia">
+                     <option value="">Seleccione carrera</option>
+                     <option value="m1">Materia 1</option>
+                     <option value="m2">Materia 2</option>
+                     <option value="m3">Materia 3</option>
+                     <option value="m4">Materia 4</option>
+                   </select><br>
+                   <select class="form-control" name="profesor">
+                     <option value="">Seleccione profesor</option>
+                     <option value="p1">José Perez</option>
+                     <option value="p2">Oscar Torres</option>
+                     <option value="p3">Javier Calderon</option>
+                   </select><br>
+                   <select class="form-control" name="especialidad">
+                     <option value="">Seleccione especialidad</option>
+                     <option value="esp1">Especialidad 1</option>
+                     <option value="esp2">Especialidad 2</option>
+                     <option value="esp3">Especialidad 3</option>
+                   </select><br>
+                   <select class="form-control" name="semestre">
+                     <option value="">Seleccione semestre</option>
+                     <option value="s7">7° Semestre</option>
+                     <option value="s8">8° Semestre</option>
+                     <option value="s9">9° Semestre</option>
+                     <option value="s10">10° Semestre</option>
+                     <option value="s11">11° Semestre</option>
+                   </select><br><br>
+                   <button type="submit" class="btn" name="altaregistro">Restistrar</button><br><br>
+                   <div class="col-md-12 titulo">
+                     <h2>Carga mediante Excel</h2>
+                   </div><br><br>
+                   <h3>Selecciona el documento de Excel que contiene los alumnos.</h3>
+                   <br><br>
+                   <input type="file" name="excel"><br><br>
+                   <button type="submit" class="btn" name="alta">Cargar archivo</button>
+                 </form>
+               </div>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
              </div>
-             <div class="container" style="margin-top:1em;">
-                 <div id="contenedor_proyectos" class="row">
+           </div>
+         </div>
 
+         <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
+           <div class="container">
+             <div id="row">
+               <div class="row">
+                 <div class="col-md-12 titulo">
+                   <h2>Crear grupo de estudio</h2>
                  </div>
+               </div>
+
+               <div class="row" style="padding-left: 20em; padding-right: 20em">
+                 <br>
+                 <form class="col-md-12" action="" method="post">
+                   <br><br>
+                   <input type="text" class="form-control" placeholder="Nombre del grupo"></input>
+                   <br>
+                   <select class="form-control" name="carrera">
+                     <option value="">Seleccionar carrera</option>
+                     <option value="industrial">Industrial</option>
+                   </select><br>
+                   <select class="form-control" name="materia">
+                     <option value="">Seleccionar materia</option>
+                     <option value="industrial">Ingenieria economica</option>
+                   </select><br>
+                   <select class="form-control" name="alumnos">
+                     <option value="">Alberto Robles</option>
+                     <option value="industrial">Alejandro Nuñez</option>
+                   </select>
+                   <br><br>
+                   <button class="btn" onclick="">Agregar alumno</button>
+                  <br><br>
+                   <button type="submit" class="btn" name="altaregistro">Crear grupo</button><br><br>
+
+                 </form>
+               </div>
+               <br>
+               <br>
+               <br>
+
              </div>
+           </div>
+           <form class="form-inline">
+               <div class="form-group" style="margin:1%;">
+                   <label for="in_palabra_proyecto">Filtros:</label>
+                   <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                   <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+               </div>
+           </form>
+           <br>
+           <table class="table">
+              <thead>
+                <tr>
+
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Carrera</th>
+                  <th scope="col">Materia</th>
+                  <th scope="col">Ver integrantes</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="filas">
+                <tr>
+
+                  <th scope="col">Platanitos</th>
+                  <th scope="col">Industrial</th>
+                  <th scope="col">Ingenieria economica</th>
+                  <th scope="col">Detalles</th>
+                  <th scope="col">Modificar|Eliminar</th>
+                </tr>
+              </tbody>
+            </table>
+            <div class="paginador">
+              <ul id="paginas" style="list-style: none; ">
+
+                <!--<li><a href="#">|<<</a></li>
+                <li><a href="#"><<</a></li>
+                <li class="pageSelected">1</li>
+
+                <li><a href="#">>></a></li>
+                <li><a href="#">>>|</a></li>-->
+              </ul>
+            </div>
          </div>
 
          <!--Seccion de investigadores-->
-         <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
+         <div class="tab-pane fade" id="informes" role="tabpanel" aria-labelledby="informes-tab">
            <div class="row">
-               <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
-                   <p>Agregar criterios: </p>
-                   <select id="atrib" class="form-control" name="atributo">
-                     <option value=""></option>
 
-                   </select>
-                   <br><br>
-
-                   <select class="form-control" name="tipo">
-                     <option value="individual">Individual</option>
-                     <option value="grupal">Grupal</option>
-                   </select>
-                   <br><br>
-                   <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
-                   <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
-                 </form>
-               </div>
-               <div class="col-lg-9">
+               <div class="col-lg-12">
                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <label for="in_palabra_proyecto">Filtrar por alumno:</label>
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
                            <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
                        </div>
+                       <div class="form-group" style="margin:1%;">
+                          <label for="in_palabra_proyecto">Por generacion</label>
+                          <select class="form-control mx-sm-3">
+                            <option value="">Periodo Ene-Jun 2018</option>
+                            <option value="">Periodo Ago-Dic 2018</option>
+                          </select>
+                       </div>
                    </form>
                    <br>
-                   <table class="table">
-                      <thead class="">
-                        <tr>
-                          <th scope="col">id</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Preguntas</th>
-                          <th scope="col">Modificar</th>
-                          <th scope="col">Eliminar</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>Eliminar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                          <td>Eliminar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                          <td>Eliminar</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                   <img src="../image/GRAFICA 7.png"/>
                </div>
            </div>
            <div class="container" style="margin-top:1em;">
@@ -183,7 +243,7 @@
            </div>
          </div>
 
-         <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
+         <div class="tab-pane fade" id="evaluaciones" role="tabpanel" aria-labelledby="evaluaciones-tab">
            <div class="row">
 
                <div class="col-lg-12">
@@ -193,49 +253,82 @@
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
                            <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
                        </div>
-                   </form>
-                   <br>
-                   <table class="table">
-                      <thead class="">
-                        <tr>
-                          <th scope="col">id</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Preguntas</th>
-                          <th scope="col">Modificar</th>
-                          <th scope="col">Eliminar</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>Eliminar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                          <td>Eliminar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                          <td>Eliminar</td>
-                        </tr>
-                      </tbody>
-                    </table>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
+                       </form>
+                </div>
+            </div>
+            <div class="row">
+              <br>
+              <br>
+              <div class="col-lg-4">
+                <select class="form-control" name="carrera">
+                  <option value="">Tipo de evaluación</option>
+                  <option value="industrial">Parcial</option>
+                  <option value="industrial">Final</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Materia evaluada</option>
+                  <option value="industrial">Parcial</option>
+                  <option value="industrial">Final</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Año</option>
+                  <option value="industrial">2018</option>
+                  <option value="industrial">2019</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Semestre</option>
+                  <option value="industrial">Ene-Jun</option>
+                  <option value="industrial">Ago-Dic</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Equipo a evaluar</option>
+                  <option value="industrial">Pollo choncho</option>
+                  <option value="industrial">Abarrotera Enrique Silva</option>
+                </select><br>
+              </div><br>
+              <div class="col-lg-8">
+                <table class="table">
+                   <thead class="">
+                     <tr>
+                       <th scope="col">Atributo</th>
+                       <th scope="col">Ponderación</th>
+                       <th scope="col">Calificación</th>
 
-               </div>
-           </div>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                       <th scope="row">Trabajo en equipo</th>
+                       <td>15%</td>
+                       <td><input type="number" class="form-control"></input></td>
+
+                     </tr>
+                     <tr>
+                       <th scope="row">Resultados obtenidos</th>
+                       <td>55%</td>
+                       <td><input type="number" class="form-control"></input></td>
+
+                     </tr>
+                     <tr>
+                       <th scope="row">Calidad de analisis</th>
+                       <td>30%</td>
+                       <td><input type="number" class="form-control"></input></td>
+
+                     </tr>
+                   </tbody>
+                 </table>
+              </div>
+
+
+
+
+              <div class="container" style="margin-top:1em;">
+              <div id="contenedor_proyectos" class="row">
+
+              </div>
+              </div>
+            </div>
+
          </div>
      </div>
 
