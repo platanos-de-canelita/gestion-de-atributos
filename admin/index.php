@@ -61,6 +61,10 @@
              <a class="nav-link list-group-item-action" id="carreras-tab" data-toggle="tab" href="#carreras"
                  role="tab" aria-controls="profile" aria-selected="false">Carreras</a>
          </li>
+         <li class="nav-item">
+             <a class="nav-link list-group-item-action" id="informes-tab" data-toggle="tab" href="#informes"
+                 role="tab" aria-controls="profile" aria-selected="false">Estadísticas</a>
+         </li>
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
 
@@ -130,8 +134,10 @@
                <div class="col-lg-3">
                  <form class="formulario" action="" method="post">
                    <p>Agregar criterios: </p>
+                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Nombre">
+                   <br><br>
                    <select id="atrib" class="form-control" name="atributo">
-                     <option value=""></option>
+                     <option value="">Atributo</option>
 
                    </select>
                    <br><br>
@@ -142,6 +148,8 @@
                    </select>
                    <br><br>
                    <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
+                   <br><br>
+                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Descripción">
                    <br><br>
                    <button type="submit" class="btn" name="login">Agregar</button>
                  </form>
@@ -158,35 +166,23 @@
                    <table class="table">
                       <thead class="">
                         <tr>
-                          <th scope="col">id</th>
+
                           <th scope="col">Nombre</th>
-                          <th scope="col">Preguntas</th>
-                          <th scope="col">Modificar</th>
-                          <th scope="col">Eliminar</th>
+                          <th scope="col">Descripción</th>
+                          <th scope="col">Ponderación</th>
+                          <th scope="col">Tipo</th>
+                          <th scope="col">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>Eliminar</td>
+                          <th scope="row">Trabajo en equipo</th>
+                          <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
+                          <td>50%</td>
+                          <td>Individual</td>
+                          <td>Modificar | Eliminar</td>
                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                          <td>Eliminar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                          <td>Eliminar</td>
-                        </tr>
+
                       </tbody>
                     </table>
                </div>
@@ -355,6 +351,35 @@
                         <li><a href="#">>>|</a></li>-->
                       </ul>
                     </div>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
+
+         <div class="tab-pane fade" id="informes" role="tabpanel" aria-labelledby="informes-tab">
+           <div class="row">
+
+               <div class="col-lg-12">
+                   <!--<form class="form-inline">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtrar por alumno:</label>
+                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                       </div>
+                       <div class="form-group" style="margin:1%;">
+                          <label for="in_palabra_proyecto">Por generacion</label>
+                          <select class="form-control mx-sm-3">
+                            <option value="">Periodo Ene-Jun 2018</option>
+                            <option value="">Periodo Ago-Dic 2018</option>
+                          </select>
+                       </div>
+                   </form>-->
+                   <br>
+                   <img src="../image/GRAFICA 7.png"/>
                </div>
            </div>
            <div class="container" style="margin-top:1em;">

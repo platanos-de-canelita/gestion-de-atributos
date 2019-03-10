@@ -43,13 +43,14 @@
                  role="tab" aria-controls="home" aria-selected="false">Grupos</a>
          </li>
          <li class="nav-item">
+             <a class="nav-link list-group-item-action" id="materias-tab" data-toggle="tab" href="#materias"
+                 role="tab" aria-controls="profile" aria-selected="false">Materias</a>
+         </li>
+         <li class="nav-item">
              <a class="nav-link list-group-item-action" id="evaluaciones-tab" data-toggle="tab" href="#evaluaciones"
                  role="tab" aria-controls="profile" aria-selected="false">Evaluaciones</a>
          </li>
-         <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="informes-tab" data-toggle="tab" href="#informes"
-                 role="tab" aria-controls="profile" aria-selected="false">Informes</a>
-         </li>
+
 
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
@@ -109,7 +110,7 @@
                      <option value="s10">10° Semestre</option>
                      <option value="s11">11° Semestre</option>
                    </select><br><br>
-                   <button type="submit" class="btn" name="altaregistro">Restistrar</button><br><br>
+                   <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
                    <div class="col-md-12 titulo">
                      <h2>Carga mediante Excel</h2>
                    </div><br><br>
@@ -213,27 +214,50 @@
             </div>
          </div>
 
-         <!--Seccion de investigadores-->
-         <div class="tab-pane fade" id="informes" role="tabpanel" aria-labelledby="informes-tab">
+         <!--Seccion de materias-->
+         <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
            <div class="row">
-
-               <div class="col-lg-12">
+               <div class="col-lg-3">
+                 <form class="formulario" action="" method="post">
+                   <p>Agregar materias: </p>
+                   <br>
+                   <p>Nombre de la materia:</p>
+                   <input type="text" class="form-control"></input>
+                   <br><br>
+                  <p>Selecciona un carrera:</p>
+                   <select class="form-control" name="tipo">
+                    <option value="industrial">Industrial</option>
+                     <option value="sistemas">Sistemas y computación</option>
+                   </select>
+                   <br><br>
+                   <button type="submit" class="btn" name="login">Agregar</button>
+                 </form>
+               </div>
+               <div class="col-lg-9">
                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtrar por alumno:</label>
+                           <label for="in_palabra_proyecto">Filtros:</label>
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
                            <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
                        </div>
-                       <div class="form-group" style="margin:1%;">
-                          <label for="in_palabra_proyecto">Por generacion</label>
-                          <select class="form-control mx-sm-3">
-                            <option value="">Periodo Ene-Jun 2018</option>
-                            <option value="">Periodo Ago-Dic 2018</option>
-                          </select>
-                       </div>
                    </form>
                    <br>
-                   <img src="../image/GRAFICA 7.png"/>
+                   <table class="table">
+                      <thead class="">
+                        <tr>
+                          <th scope="col">Materia</th>
+                          <th scope="col">Carrera</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Procesos de manufactura</td>
+                          <td>Ingenieria Industrial</td>
+                          <td>Modificar | Eliminar</td>
+                        </tr>
+                      </tbody>
+                    </table>
                </div>
            </div>
            <div class="container" style="margin-top:1em;">
