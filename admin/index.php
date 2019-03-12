@@ -79,10 +79,11 @@
              <div class="row">
                  <div class="col-lg-3">
                    <form class="formulario" id="form" >
-                     <p>Nombre del atributos: </p>
+                     <p>Agregar atributo: </p>
                      <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
-                     <br><br>
+                     <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
+                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
+                      <br><br>
 
                    </form>
                    <button id="btn_atrib" class="btn">Agregar</button>
@@ -99,13 +100,17 @@
                      <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">id</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
                           </tr>
                         </thead>
-                        <tbody id="filas">
-
+                        <tbody id="tabla_atributos">
+                          <td>Atrib1</td>
+                          <td>Descripcion1</td>
+                          <td>Activo</td>
+                          <td>Modificar/<a href=>Eliminar</td>
                         </tbody>
                       </table>
                       <div class="paginador">
@@ -174,7 +179,7 @@
                           <th scope="col">Acciones</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="criterios_tabla">
                         <tr>
                           <th scope="row">Trabajo en equipo</th>
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
