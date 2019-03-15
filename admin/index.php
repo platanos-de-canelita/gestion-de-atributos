@@ -3,15 +3,16 @@
   //reanuda la sesion
   session_start();
   //valida si la sesion esta activa
-  if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
+ // if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
-  }else{
+  //}
+  //else{
     /*
       Se mantendra así hasta finalizar el sprint
     */
   	//header("Location: login.php");
   	//exit();
-  }
+  //}
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -46,13 +47,12 @@
      </ul>
 
      <!--seccion de gestion-->
-<<<<<<< HEAD
+<!--			<<<<<<< HEAD  -->	
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
 
-=======
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
          <!--Seccion de proyectos-->
->>>>>>> 641ef761713d7bb9552f9777b3c111e4becb774a
+<!--        >>>>>>> 641ef761713d7bb9552f9777b3c111e4becb774a -->
          <div class="tab-pane fade show active" id="proyectos" role="tabpanel" aria-labelledby="proyectos-tab">
              <div class="row">
                  <div class="col-lg-4">
