@@ -11,14 +11,15 @@ $( document ).ready(function() {
 
 
 
-function insertarMateria(){
+function consultar_atributo(){
   $.ajax({
     type: "POST",
     async: true,
-    url: "../function/registrar_materia.php",
+    url: "../function/atributos.php",
     timeout: 12000,
-    data: $("#form").serialize(),
-    success: function()
+    data: {func:"consultar",},
+    dataType:json,
+    success: function(response)
     {
       alert("Materia cargada.");
     },

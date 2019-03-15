@@ -7,7 +7,7 @@
       header("Location: ../admin/login.php");
       exit();
     }
-    $sql = mysqli_query($conn,"SELECT * FROM administrador WHERE user = '$usuario' and pass ='$pass'");
+    $sql = mysqli_query($conn,"SELECT * FROM administrador WHERE usuario = '$usuario' and pass ='$pass'");
     if($row = mysqli_fetch_array($sql)){
       session_start();
       $_SESSION['usuario'] = $usuario;

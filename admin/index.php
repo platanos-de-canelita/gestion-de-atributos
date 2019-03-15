@@ -1,21 +1,19 @@
 
 <?php
+/*
   //reanuda la sesion
-  /*session_start();
+  session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
   }else{
-<<<<<<< HEAD
+
 
   	header("Location: login.php");
   	exit();
   }
-=======
+*/
 
-  	//header("Location: login.php");
-  	//exit();
-  }*/
 
  ?>
  <!DOCTYPE html>
