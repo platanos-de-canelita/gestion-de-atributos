@@ -6,17 +6,10 @@
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
   }else{
-<<<<<<< HEAD
 
   	header("Location: login.php");
   	exit();
-  }
-=======
-
-  	//header("Location: login.php");
-  	//exit();
   }*/
-
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -27,15 +20,8 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/main.css">
-     <script src="../js/admin/admin.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-      <!-- Latest compiled JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-     <title>Administración</title>
+     <title>Profesor</title>
 
  </head>
 
@@ -43,35 +29,29 @@
 
      <!--Barra superior-->
      <div style="background: rgb(27, 57, 106); height: 4em; display: flex; justify-content: center; align-items: center;">
-         <h1 style="color:#f8f8f8">Administración</h1>
+         <h1 style="color:#f8f8f8">Profesores</h1>
      </div>
 
      <!--Navegacion de secciones-->
      <ul class="nav nav-tabs sticky-top" id="myTab" role="tablist" style="background: #f0f0f0;">
          <li class="nav-item">
-             <a class="nav-link active list-group-item-action" id="atributos-tab" data-toggle="tab" href="#atributos"
-                 role="tab" aria-controls="home" aria-selected="false" onclick="getAllAtributos();">Atributos</a>
+             <a class="nav-link active list-group-item-action" id="alumnos-tab" data-toggle="tab" href="#alumnos"
+                 role="tab" aria-controls="home" aria-selected="false">Alumnos</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="criterios-tab" data-toggle="tab" href="#criterios"
-                 role="tab" aria-controls="profile" aria-selected="false">Criterios</a>
+             <a class="nav-link list-group-item-action" id="grupos-tab" data-toggle="tab" href="#grupos"
+                 role="tab" aria-controls="home" aria-selected="false">Grupos</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="profesores-tab" data-toggle="tab" href="#profesores"
-                 role="tab" aria-controls="profile" aria-selected="false">Profesores</a>
+             <a class="nav-link list-group-item-action" id="materias-tab" data-toggle="tab" href="#materias"
+                 role="tab" aria-controls="profile" aria-selected="false">Materias</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="departamentos-tab" data-toggle="tab" href="#departamentos"
-                 role="tab" aria-controls="profile" aria-selected="false">Departamentos</a>
+             <a class="nav-link list-group-item-action" id="evaluaciones-tab" data-toggle="tab" href="#evaluaciones"
+                 role="tab" aria-controls="profile" aria-selected="false">Evaluaciones</a>
          </li>
-         <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="carreras-tab" data-toggle="tab" href="#carreras"
-                 role="tab" aria-controls="profile" aria-selected="false">Carreras</a>
-         </li>
-         <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="informes-tab" data-toggle="tab" href="#informes"
-                 role="tab" aria-controls="profile" aria-selected="false">Estadísticas</a>
-         </li>
+
+
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
 
@@ -82,193 +62,169 @@
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
          <!--Seccion de proyectos-->
 
-         <div class="tab-pane fade show active" id="atributos" role="tabpanel" aria-labelledby="atributos-tab">
-             <div class="row">
-                 <div class="col-lg-3">
-                   <form class="formulario" id="form" >
-                     <p>Nombre del atributos: </p>
-                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
-                     <br><br>
-
-                   </form>
-                   <button id="btn_atrib" class="btn">Agregar</button>
+         <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
+           <div class="container">
+             <div id="row">
+               <div class="row">
+                 <div class="col-md-12 titulo">
+                   <h2>Registrar alumno</h2>
                  </div>
-                 <div class="col-lg-9">
-                     <form id="Atributos" class="form-inline">
-                        <?php
-                          $var="";
-                          $campos;
-                        ?>
-                        <?php
-                         ?>
-                         <div class="form-group" style="margin:1%;">
-                             <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" type="text" name="filtro" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos();">Buscar</button>
-                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos();">Ver todos</button>
-                          </div>
-                         
-                     </form>
-                     <br>
-                     <table id="atributos_table" class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Ponderación</th>
-                            <th scope="col">Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="filas">
-                        </tbody>
-                      </table>
-                      <div class="paginador">
-                        <ul id="paginas" style="list-style: none; ">
+               </div>
 
-                          <!--<li><a href="#">|<<</a></li>
-                          <li><a href="#"><<</a></li>
-                          <li class="pageSelected">1</li>
-
-                          <li><a href="#">>></a></li>
-                          <li><a href="#">>>|</a></li>-->
-                        </ul>
-                      </div>
-                 </div>
-             </div>
-             <div class="container" style="margin-top:1em;">
-                 <div id="contenedor_proyectos" class="row">
-
-                 </div>
-             </div>
-         </div>
-
-         <!--Seccion de investigadores-->
-         <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
-           <div class="row">
-               <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
-                   <p>Agregar criterios: </p>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Nombre">
+               <div class="row" style="padding-left: 20em; padding-right: 20em">
+                 <br>
+                 <form class="col-md-12" action="" method="post">
                    <br><br>
-                   <select id="atrib" class="form-control" name="atributo">
-                     <option value="">Atributo</option>
-
-                   </select>
+                   <input type="text" class="form-control" name="txtnombre" value=""
+                     placeholder="Nombre"><br>
+                   <input type="text" class="form-control" name="txtnc" value=""
+                     placeholder="Número de control"><br>
+                   <select class="form-control" name="carrera">
+                     <option value="">Seleccionar carrera</option>
+                     <option value="industrial">Industrial</option>
+                   </select><br>
+                   <select class="form-control" name="materia">
+                     <option value="">Seleccione carrera</option>
+                     <option value="m1">Materia 1</option>
+                     <option value="m2">Materia 2</option>
+                     <option value="m3">Materia 3</option>
+                     <option value="m4">Materia 4</option>
+                   </select><br>
+                   <select class="form-control" name="profesor">
+                     <option value="">Seleccione profesor</option>
+                     <option value="p1">José Perez</option>
+                     <option value="p2">Oscar Torres</option>
+                     <option value="p3">Javier Calderon</option>
+                   </select><br>
+                   <select class="form-control" name="especialidad">
+                     <option value="">Seleccione especialidad</option>
+                     <option value="esp1">Especialidad 1</option>
+                     <option value="esp2">Especialidad 2</option>
+                     <option value="esp3">Especialidad 3</option>
+                   </select><br>
+                   <select class="form-control" name="semestre">
+                     <option value="">Seleccione semestre</option>
+                     <option value="s7">7° Semestre</option>
+                     <option value="s8">8° Semestre</option>
+                     <option value="s9">9° Semestre</option>
+                     <option value="s10">10° Semestre</option>
+                     <option value="s11">11° Semestre</option>
+                   </select><br><br>
+                   <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
+                   <div class="col-md-12 titulo">
+                     <h2>Carga mediante Excel</h2>
+                   </div><br><br>
+                   <h3>Selecciona el documento de Excel que contiene los alumnos.</h3>
                    <br><br>
-
-                   <select class="form-control" name="tipo">
-                     <option value="individual">Individual</option>
-                     <option value="grupal">Grupal</option>
-                   </select>
-                   <br><br>
-                   <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
-                   <br><br>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Descripción">
-                   <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
+                   <input type="file" name="excel"><br><br>
+                   <button type="submit" class="btn" name="alta">Cargar archivo</button>
                  </form>
                </div>
-               <div class="col-lg-9">
-                   <form class="form-inline">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table">
-                      <thead class="">
-                        <tr>
-
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Descripción</th>
-                          <th scope="col">Ponderación</th>
-                          <th scope="col">Tipo</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Trabajo en equipo</th>
-                          <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
-                          <td>50%</td>
-                          <td>Individual</td>
-                          <td>Modificar | Eliminar</td>
-                        </tr>
-
-                      </tbody>
-                    </table>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
-
-               </div>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+             </div>
            </div>
          </div>
 
-         <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
-           <div class="row">
+         <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
+           <div class="container">
+             <div id="row">
+               <div class="row">
+                 <div class="col-md-12 titulo">
+                   <h2>Crear grupo de estudio</h2>
+                 </div>
+               </div>
 
-               <div class="col-lg-12">
-                   <form class="form-inline">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
-                   </form>
+               <div class="row" style="padding-left: 20em; padding-right: 20em">
+                 <br>
+                 <form class="col-md-12" action="" method="post">
+                   <br><br>
+                   <input type="text" class="form-control" placeholder="Nombre del grupo"></input>
                    <br>
-                   <table class="table">
-                      <thead class="">
-                        <tr>
-                          <th scope="col">RFC</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Apellidos</th>
-                          <th scope="col">Departamentos</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>Industrial</td>
-                          <td>Autorizar | Rechazar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>Sistemas</td>
-                          <td>Autorizar | Rechazar</td>
-                        </tr>
+                   <select class="form-control" name="carrera">
+                     <option value="">Seleccionar carrera</option>
+                     <option value="industrial">Industrial</option>
+                   </select><br>
+                   <select class="form-control" name="materia">
+                     <option value="">Seleccionar materia</option>
+                     <option value="industrial">Ingenieria economica</option>
+                   </select><br>
+                   <select class="form-control" name="alumnos">
+                     <option value="">Alberto Robles</option>
+                     <option value="industrial">Alejandro Nuñez</option>
+                   </select>
+                   <br><br>
+                   <button class="btn" onclick="">Agregar alumno</button>
+                  <br><br>
+                   <button type="submit" class="btn" name="altaregistro">Crear grupo</button><br><br>
 
-                      </tbody>
-                    </table>
+                 </form>
                </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
+               <br>
+               <br>
+               <br>
 
-               </div>
+             </div>
            </div>
+           <form class="form-inline">
+               <div class="form-group" style="margin:1%;">
+                   <label for="in_palabra_proyecto">Filtros:</label>
+                   <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                   <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+               </div>
+           </form>
+           <br>
+           <table class="table">
+              <thead>
+                <tr>
+
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Carrera</th>
+                  <th scope="col">Materia</th>
+                  <th scope="col">Ver integrantes</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="filas">
+                <tr>
+
+                  <th scope="col">Platanitos</th>
+                  <th scope="col">Industrial</th>
+                  <th scope="col">Ingenieria economica</th>
+                  <th scope="col">Detalles</th>
+                  <th scope="col">Modificar|Eliminar</th>
+                </tr>
+              </tbody>
+            </table>
+            <div class="paginador">
+              <ul id="paginas" style="list-style: none; ">
+
+                <!--<li><a href="#">|<<</a></li>
+                <li><a href="#"><<</a></li>
+                <li class="pageSelected">1</li>
+
+                <li><a href="#">>></a></li>
+                <li><a href="#">>>|</a></li>-->
+              </ul>
+            </div>
          </div>
 
-         <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
+         <!--Seccion de materias-->
+         <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
            <div class="row">
                <div class="col-lg-3">
                  <form class="formulario" action="" method="post">
-                   <p>Agregar carreras: </p>
+                   <p>Agregar materias: </p>
                    <br>
-                   <p>Nombre de la carrera:</p>
-                   <input type="text" class="form-control">
+                   <p>Nombre de la materia:</p>
+                   <input type="text" class="form-control"></input>
                    <br><br>
-                  <p>Selecciona un departamento:</p>
+                  <p>Selecciona un carrera:</p>
                    <select class="form-control" name="tipo">
                     <option value="industrial">Industrial</option>
                      <option value="sistemas">Sistemas y computación</option>
@@ -289,23 +245,17 @@
                    <table class="table">
                       <thead class="">
                         <tr>
+                          <th scope="col">Materia</th>
                           <th scope="col">Carrera</th>
-                          <th scope="col">departamento</th>
                           <th scope="col">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>Informática</td>
-                          <td>Sistemas y computación</td>
-                          <td>Eliminar</td>
+                          <td>Procesos de manufactura</td>
+                          <td>Ingenieria Industrial</td>
+                          <td>Modificar | Eliminar</td>
                         </tr>
-                        <tr>
-                          <td>Industrial</td>
-                          <td>Industrial</td>
-                          <td>Eliminar</td>
-                        </tr>
-
                       </tbody>
                     </table>
                </div>
@@ -317,92 +267,92 @@
            </div>
          </div>
 
-         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
+         <div class="tab-pane fade" id="evaluaciones" role="tabpanel" aria-labelledby="evaluaciones-tab">
            <div class="row">
-               <div class="col-lg-3">
-                 <form class="formulario" id="form" >
-                   <p>Nombre del departamento: </p>
-                   <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                   <input type="file" class="form-control" name="logo">
-                   <br><br>
 
-                 </form>
-                 <button id="btn_atrib" class="btn">Agregar</button>
-               </div>
-               <div class="col-lg-9">
+               <div class="col-lg-12">
                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
                            <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
                        </div>
-                   </form>
-                   <br>
-                   <table class="table">
-                      <thead>
-                        <tr>
+                       </form>
+                </div>
+            </div>
+            <div class="row">
+              <br>
+              <br>
+              <div class="col-lg-4">
+                <select class="form-control" name="carrera">
+                  <option value="">Tipo de evaluación</option>
+                  <option value="industrial">Parcial</option>
+                  <option value="industrial">Final</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Materia evaluada</option>
+                  <option value="industrial">Parcial</option>
+                  <option value="industrial">Final</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Año</option>
+                  <option value="industrial">2018</option>
+                  <option value="industrial">2019</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Semestre</option>
+                  <option value="industrial">Ene-Jun</option>
+                  <option value="industrial">Ago-Dic</option>
+                </select><br>
+                <select class="form-control" name="carrera">
+                  <option value="">Equipo a evaluar</option>
+                  <option value="industrial">Pollo choncho</option>
+                  <option value="industrial">Abarrotera Enrique Silva</option>
+                </select><br>
+              </div><br>
+              <div class="col-lg-8">
+                <table class="table">
+                   <thead class="">
+                     <tr>
+                       <th scope="col">Atributo</th>
+                       <th scope="col">Ponderación</th>
+                       <th scope="col">Calificación</th>
 
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Logo</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody id="filas">
-                        <tr>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                       <th scope="row">Trabajo en equipo</th>
+                       <td>15%</td>
+                       <td><input type="number" class="form-control"></input></td>
 
-                          <th scope="col">Sistemas y computación</th>
-                          <th scope="col">logo7.png</th>
-                          <th scope="col">Modificar|Eliminar</th>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="paginador">
-                      <ul id="paginas" style="list-style: none; ">
+                     </tr>
+                     <tr>
+                       <th scope="row">Resultados obtenidos</th>
+                       <td>55%</td>
+                       <td><input type="number" class="form-control"></input></td>
 
-                        <!--<li><a href="#">|<<</a></li>
-                        <li><a href="#"><<</a></li>
-                        <li class="pageSelected">1</li>
+                     </tr>
+                     <tr>
+                       <th scope="row">Calidad de analisis</th>
+                       <td>30%</td>
+                       <td><input type="number" class="form-control"></input></td>
 
-                        <li><a href="#">>></a></li>
-                        <li><a href="#">>>|</a></li>-->
-                      </ul>
-                    </div>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
+                     </tr>
+                   </tbody>
+                 </table>
+              </div>
 
-               </div>
-           </div>
-         </div>
 
-         <div class="tab-pane fade" id="informes" role="tabpanel" aria-labelledby="informes-tab">
-           <div class="row">
 
-               <div class="col-lg-12">
-                   <!--<form class="form-inline">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtrar por alumno:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
-                       <div class="form-group" style="margin:1%;">
-                          <label for="in_palabra_proyecto">Por generacion</label>
-                          <select class="form-control mx-sm-3">
-                            <option value="">Periodo Ene-Jun 2018</option>
-                            <option value="">Periodo Ago-Dic 2018</option>
-                          </select>
-                       </div>
-                   </form>-->
-                   <br>
-                   <img src="../image/GRAFICA 7.png"/>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
 
-               </div>
-           </div>
+              <div class="container" style="margin-top:1em;">
+              <div id="contenedor_proyectos" class="row">
+
+              </div>
+              </div>
+            </div>
+
          </div>
      </div>
 
@@ -615,10 +565,13 @@
      </div>
      <!--/Modal de nuevo proyecto-->
 
+
+     <script src="../js/jquery-3.3.1.min.js"></script>
+     <script src="../js/bootstrap.min.js"></script>
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-     
+     <script src="../js/admin/admin.js"></script>
      <script>
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
