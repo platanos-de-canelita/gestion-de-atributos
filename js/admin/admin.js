@@ -11,17 +11,25 @@ $( document ).ready(function() {
 
 
 
+<<<<<<< HEAD
 function consultar_atributo(){
   $.ajax({
     type: "POST",
     async: true,
     url: "../function/atributos.php",
+=======
+function insertarAtributo(){
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/registrar_Atributo.php",
+>>>>>>> 409a5792a636ec2038806a7303c8a51b7e80fbbf
     timeout: 12000,
     data: {func:"consultar",},
     dataType:json,
     success: function(response)
     {
-      alert("Materia cargada.");
+      alert("Atributo cargada.");
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
@@ -29,7 +37,7 @@ function consultar_atributo(){
   });
 }
 
-function verMaterias(p){
+function verAtributos(p){
   $("#filas").empty();
   $("#paginas").empty();
   if(p==null)p=1;
@@ -37,7 +45,7 @@ function verMaterias(p){
   $.ajax({
     type: "GET",
     async: true,
-    url: "../function/get_materias.php",
+    url: "../function/get_Atributos.php",
     timeout: 12000,
     data:{pagina:p},
     dataType: "json",
@@ -50,8 +58,8 @@ function verMaterias(p){
               "<th scope='row'>"+ value.sub_id +"</th>"+
               "<td>"+value.sub_name+"</td>"+
               "<td>"+
-              "<a href='' onclick='modificarMateria("+value.sub_id+")'>Modificar</a>"+
-              "|<a href='#' id='href"+value.sub_id+"' onclick='eliminarMateria("+value.sub_id+")'>Eliminar</a>"+
+              "<a href='' onclick='modificarAtributo("+value.sub_id+")'>Modificar</a>"+
+              "|<a href='#' id='href"+value.sub_id+"' onclick='eliminarAtributo("+value.sub_id+")'>Eliminar</a>"+
               "</td>"+
             "</tr>"
           );
@@ -86,11 +94,11 @@ function getPaginas(){
       }
 
       for (var i = 0; i <= pag+1; i++) {
-        if(i==0)$("#paginas").append("<li onclick='verMaterias(1)'><a>|<<</a></li><li><a><<</a></li>");
-        else if(i==pag+1) $("#paginas").append("<li><a>>></a></li><li onclick='verMaterias("+pag+")'><a>>>|</a></li>");
+        if(i==0)$("#paginas").append("<li onclick='verAtributos(1)'><a>|<<</a></li><li><a><<</a></li>");
+        else if(i==pag+1) $("#paginas").append("<li><a>>></a></li><li onclick='verAtributos("+pag+")'><a>>>|</a></li>");
         else{
           if(i==a) $("#paginas").append("<li class='pageSelected'>"+i+"</li>");
-          else $("#paginas").append("<li onclick='verMaterias("+i+")'><a>"+i+"</a></li>");
+          else $("#paginas").append("<li onclick='verAtributos("+i+")'><a>"+i+"</a></li>");
         }
 
       }
@@ -101,7 +109,7 @@ function getPaginas(){
     }
   });
 }
-function modificarMateria(value){
+function modificarAtributo(value){
   $('#modificar').modal('show');
 
 }
@@ -109,19 +117,21 @@ function confirmMod(){
   $.ajax({
     type: "GET",
     async: true,
-    url: "../function/modificar_materia.php",
+    url: "../function/modificar_Atributo.php",
     timeout: 12000,
-    data:{materia:del},
+    data:{Atributo:del},
     success: function()
     {
-      alert("Materia eliminada");
+      alert("Atributo eliminada");
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
     }
   });
 }
-function eliminarMateria(value){
+
+
+function eliminarAtributo(value){
   $('#eliminar').modal('show');
   $("#dato").append(value);
   del = value;
@@ -130,12 +140,12 @@ function confirmDelete(){
   $.ajax({
     type: "GET",
     async: true,
-    url: "../function/borrar_materia.php",
+    url: "../function/borrar_Atributo.php",
     timeout: 12000,
-    data:{materia:del},
+    data:{Atributo:del},
     success: function()
     {
-      alert("Materia eliminada");
+      alert("Atributo eliminada");
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
