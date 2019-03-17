@@ -1,20 +1,25 @@
 <?php
-  require_once('bdconexion.php');
-  if(isset($_POST['login'])) {
+require_once("bdconexion.php");
+if(isset($_POST['login'])){
     $usuario = $_POST['txtusuario'];
-    $pass = $_POST['txtpass'];
-    if(empty($usuario) | empty($pass)){
-      header("Location: ../admin/login.php");
-      exit();
+    $password = $_POST['txtpass'];
+    $pass_cifrado =password_hash($password, PASSWORD_DEFAULT);
+    if(empty($usuario) | empty($password)){
+        header("Location: ../admin/login.php");
+        echo "";
+        exit();
     }
-    $sql = mysqli_query($conn,"SELECT * FROM administrador WHERE usuario = '$usuario' and pass ='$pass'");
-    if($row = mysqli_fetch_array($sql)){
-      session_start();
-      $_SESSION['usuario'] = $usuario;
-      //indica aqui la ruta a donde te redireccionara en caso que el login sea correcto
-      header("Location: ../admin/index.php");
+    $stm = $conn->query("CALL LOGIN('$usuario')");
+    $pas = $stm->fetch_row();
+    if(password_verify($password,$pas[0])){
+        session_start();
+        $_SESSION['usuario'] = $usuario;
+        header("Location: ../admin/index.php");
+        //indica aqui la ruta a donde te redireccionara en caso que el login sea correcto
     }else{
-      header("Location: ../admin/login.php");
+        header("Location: ../admin/login.php");
     }
-  }
+}else{
+
+}
  ?>
