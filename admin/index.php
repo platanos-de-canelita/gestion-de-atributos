@@ -108,7 +108,7 @@
                           <td>Atrib1</td>
                           <td>Descripcion1</td>
                           <td>Activo</td>
-                          <td>Modificar/<a href=>Eliminar</td>
+                          <td>Modificar/<button type="button" class="btn btn-primary" onclick="eliminarAtributo("+i+")">Eliminar</button></td>
                         </tbody>
                       </table>
                       <div class="paginador">
