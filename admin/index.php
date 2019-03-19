@@ -1,6 +1,6 @@
 
 <?php
-/*
+
   //reanuda la sesion
   session_start();
   //valida si la sesion esta activa
@@ -12,7 +12,7 @@
   	header("Location: login.php");
   	exit();
   }
-*/
+
 
 
  ?>
