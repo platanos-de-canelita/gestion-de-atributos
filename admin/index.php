@@ -91,7 +91,8 @@
                          <div class="form-group" style="margin:1%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
                              <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos();">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos($_SESSION[]);">Ver todos</button>
                          </div>
                      </form>
                      <br>
