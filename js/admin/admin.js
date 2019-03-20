@@ -5,25 +5,25 @@ var name;
 
 $( document ).ready(function() {
   $("#paginas").empty();
-
+  verAtributos();
 
 });
 
 
 
-<<<<<<< HEAD
+
 function consultar_atributo(){
   $.ajax({
     type: "POST",
     async: true,
     url: "../function/atributos.php",
-=======
+  });
+}
 function insertarAtributo(){
   $.ajax({
     type: "POST",
     async: true,
     url: "../function/registrar_Atributo.php",
->>>>>>> 409a5792a636ec2038806a7303c8a51b7e80fbbf
     timeout: 12000,
     data: {func:"consultar",},
     dataType:json,
@@ -38,28 +38,30 @@ function insertarAtributo(){
 }
 
 function verAtributos(p){
-  $("#filas").empty();
+  $("#tabla_atributos").empty();
   $("#paginas").empty();
   if(p==null)p=1;
   a=p;
+  var fun = "consultar";
   $.ajax({
     type: "GET",
     async: true,
-    url: "../function/get_Atributos.php",
+    url: "../function/atributos.php",
     timeout: 12000,
-    data:{pagina:p},
+    data:{pagina:p,func:fun,nombre:"x"},
     dataType: "json",
     success: function(response)
     {
       var i=0;
       $.each(response, function(key, value) {
-          $("#filas").append(
+          $("#tabla_atributos").append(
             "<tr>"+
-              "<th scope='row'>"+ value.sub_id +"</th>"+
-              "<td>"+value.sub_name+"</td>"+
+              "<th scope='row'>"+ value.nombre +"</th>"+
+              "<td>"+value.desc+"</td>"+
+              "<td>"+"1"+"</td>"+
               "<td>"+
-              "<a href='' onclick='modificarAtributo("+value.sub_id+")'>Modificar</a>"+
-              "|<a href='#' id='href"+value.sub_id+"' onclick='eliminarAtributo("+value.sub_id+")'>Eliminar</a>"+
+              "<a href='#' onclick='modificarAtributo("+value.id+")'>Modificar</a>"+
+              "|<a href='#' id='href"+value.id+"' onclick='eliminarAtributo("+value.id+")'>Eliminar</a>"+
               "</td>"+
             "</tr>"
           );
