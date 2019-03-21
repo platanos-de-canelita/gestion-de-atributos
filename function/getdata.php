@@ -1,6 +1,6 @@
 <?php 
     include_once "bdconexion.php";
-    $atributos = [];
+    
     try{
         if($_POST["filtro"]=='All'){
             $query = "SELECT id_atributo_pk, nombre, descripcion, ponderacion FROM atributo";
