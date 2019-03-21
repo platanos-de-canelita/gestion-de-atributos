@@ -1,6 +1,6 @@
 
 <?php
-
+/*
   //reanuda la sesion
   session_start();
   //valida si la sesion esta activa
@@ -13,7 +13,7 @@
   	exit();
   }
 
-
+*/
 
  ?>
  <!DOCTYPE html>
@@ -428,14 +428,16 @@
             </div>
             <div class="modal-body">
               <form class="" action="index.html" method="post">
-                <input type="text" name="" value="">
-                <input type="text" name="" value="">
+                <h3 align="center">Nuevos Datos </h3>
+                <input type="text" class="form-control" name="txnombre" value=""
+                  placeholder="Nombre"><br>
+                <input type="text" class="form-control" name="txdesc" value="" placeholder="Descripción">
 
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="confirmDelete()">Aceptar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmMod()">Aceptar</button>
             </div>
           </div>
         </div>

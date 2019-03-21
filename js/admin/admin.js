@@ -171,26 +171,6 @@ function getPaginas(){
     }
   });
 }
-function modificarAtributo(value){
-  $('#modificar').modal('show');
-
-}
-function confirmMod(){
-  $.ajax({
-    type: "GET",
-    async: true,
-    url: "../function/modificar_Atributo.php",
-    timeout: 12000,
-    data:{Atributo:del},
-    success: function()
-    {
-      alert("Atributo eliminada");
-    },
-    error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
-    }
-  });
-}
 
 
 function eliminarAtributo(value){
@@ -208,6 +188,29 @@ function confirmDelete(){
     success: function()
     {
       alert("Atributo eliminada");
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      console.log(errorThrown);
+    }
+  });
+}
+
+
+function modificarAtributo(value){
+  $('#modificar').modal('show');
+  del = value;
+
+}
+function confirmMod(){
+  $.ajax({
+    type: "GET",
+    async: true,
+    url: "../function/modificar_Atributo.php",
+    timeout: 12000,
+    data:{Atributo:del},
+    success: function()
+    {
+      alert("Atributo modificado");
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
