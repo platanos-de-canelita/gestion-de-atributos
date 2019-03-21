@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 function actualizar_atributo(){
   require_once("bdconexion.php");
   $nombre = $_POST['nombre'];
@@ -31,11 +28,17 @@ function buscar_atributo(){
 }
 
 function eliminar_atributo(){
-
+  require_once("bdconexion.php");
+  $id=$_POST['id'];
+  if($conn->query("CALL DEL_ATRIBUTO($id)")){
+    $msg['msg'] = "Atributo eliminado correctamente.";
+    echo json_encode($msg);
+  }
 }
 
 function insertar_atributo(){
   require_once("bdconexion.php");
+
 }
 
 function consultar_atributo(){
@@ -47,23 +50,23 @@ function consultar_atributo(){
 
   $por_pagina = 10;
   //si no se envia una pagina en la url configuramos la busqueda en la primera pagina de resultados
-  if(empty($_GET['pagina'])){
+  if(empty($_POST['pagina'])){
     $pagina = 1;
   }else{
-    $pagina = $_GET['pagina'];
+    $pagina = $_POST['pagina'];
   }
 
   $desde = ($pagina-1) * $por_pagina;
   $total_paginas = ceil($total_registro / $por_pagina);
 
-  $sql = "SELECT * FROM atributo";
+  $sql = "SELECT * FROM atributo WHERE Estado=1";
   if ($datos = $conn->query($sql)) {
       while ($dato=$datos->fetch_assoc()) {
           $informacion=array(
             'id'=>utf8_encode($dato['id_atributo_pk']),
             'nombre'=>utf8_encode($dato['Nombre']),
-            'desc'=>utf8_encode($dato['Descripcion'])
-
+            'desc'=>utf8_encode($dato['Descripcion']),
+            'estado'=>utf8_encode($dato['Estado'])
           );
           $info[]=$informacion;
       }
@@ -71,7 +74,7 @@ function consultar_atributo(){
   }
 }
 
-switch ($_GET['func']) {
+switch ($_POST['func']) {
   case 'buscar':
     buscar_atributo($nombre);
     break;
@@ -79,13 +82,13 @@ switch ($_GET['func']) {
     actualizar_atributo($nombre);
     break;
   case 'eliminar':
-    eliminar_atributo($nombre);
+    eliminar_atributo();
     break;
   case 'consultar':
     consultar_atributo();
     break;
   case 'insertar':
-    insertar_atributo($nombre);
+    insertar_atributo();
     break;
   default:
     // code...

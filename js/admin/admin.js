@@ -60,7 +60,7 @@ function getAllAtributos(){
           $("#atributos_table > thead").html("<tr><th class='center'>No hay atributos registrados</th></tr>");
           $("#atributos_table tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.jpg"+"'>"+"</td></tr>");
         }
-        else{      
+        else{
           $("#atributos_table > thead").html("");
           $("#atributos_table thead").append("<tr>"+
           "<th scope='col'>id</th>"+
@@ -80,16 +80,18 @@ function getAllAtributos(){
   });
 }
 function insertarAtributo(){
+  var insertar="insertar";
   $.ajax({
     type: "POST",
     async: true,
-    url: "../function/registrar_Atributo.php",
+    url: "../function/atributos.php",
     timeout: 12000,
-    data: {func:"consultar",},
-    dataType:json,
+    data: $('#form').serialize()+'&func='+insertar,
+
     success: function(response)
     {
-      alert("Atributo cargada.");
+      alert("Atributo cargado.");
+      verAtributos();
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
@@ -104,7 +106,7 @@ function verAtributos(p){
   a=p;
   var fun = "consultar";
   $.ajax({
-    type: "GET",
+    type: "POST",
     async: true,
     url: "../function/atributos.php",
     timeout: 12000,
@@ -118,7 +120,7 @@ function verAtributos(p){
             "<tr>"+
               "<th scope='row'>"+ value.nombre +"</th>"+
               "<td>"+value.desc+"</td>"+
-              "<td>"+"1"+"</td>"+
+              "<td>"+value.estado+"</td>"+
               "<td>"+
               "<a href='#' onclick='modificarAtributo("+value.id+")'>Modificar</a>"+
               "|<a href='#' id='href"+value.id+"' onclick='eliminarAtributo("+value.id+")'>Eliminar</a>"+
@@ -138,7 +140,7 @@ function verAtributos(p){
 function getPaginas(){
   $("#paginas").empty();
   $.ajax({
-    type: "GET",
+    type: "POST",
     async: true,
     url: "../function/get_paginas.php",
     timeout: 12000,
@@ -179,15 +181,19 @@ function eliminarAtributo(value){
   del = value;
 }
 function confirmDelete(){
+  var fun = "eliminar";
   $.ajax({
-    type: "GET",
+    type: "POST",
     async: true,
-    url: "../function/borrar_Atributo.php",
+    url: "../function/atributos.php",
     timeout: 12000,
-    data:{Atributo:del},
-    success: function()
+    data:{func:fun,id:del},
+    success: function(response)
     {
-      alert("Atributo eliminada");
+      var obj = JSON.parse(response);
+      alert(obj.msg);
+      verAtributos();
+      $('#eliminar').modal('hide');
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
@@ -198,19 +204,24 @@ function confirmDelete(){
 
 function modificarAtributo(value){
   $('#modificar').modal('show');
-  del = value;
+  mod = value;
 
 }
 function confirmMod(){
+  var name = $("#txnombre").val();
+  var desc = $("#txdesc").val();
   $.ajax({
-    type: "GET",
+    type: "POST",
     async: true,
     url: "../function/modificar_Atributo.php",
     timeout: 12000,
-    data:{Atributo:del},
-    success: function()
+    data: {Atributo:mod,Nombre:name, Descripcion:desc},
+    success: function(response)
     {
-      alert("Atributo modificado");
+      alert(response);
+
+      $('#modificar').modal('hide');
+      verAtributos();
     },
     error: function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);

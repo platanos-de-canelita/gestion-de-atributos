@@ -82,9 +82,9 @@
                      <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
                      <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
                       <br><br>
-
+                      <button id="btn_atrib" class="btn" onclick="insertarAtributo()">Agregar</button>
                    </form>
-                   <button id="btn_atrib" class="btn">Agregar</button>
+
                  </div>
                  <div class="col-lg-9">
                      <form class="form-inline">
@@ -155,7 +155,7 @@
                    <br><br>
                    <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Descripción">
                    <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
+                   <button type="submit" class="btn" name="login" >Agregar</button>
                  </form>
                </div>
                <div class="col-lg-9">
@@ -429,9 +429,9 @@
             <div class="modal-body">
               <form class="" action="index.html" method="post">
                 <h3 align="center">Nuevos Datos </h3>
-                <input type="text" class="form-control" name="txnombre" value=""
+                <input type="text" class="form-control" id="txnombre" name="txnombre" value=""
                   placeholder="Nombre"><br>
-                <input type="text" class="form-control" name="txdesc" value="" placeholder="Descripción">
+                <input type="text" class="form-control" id="txdesc" name="txdesc" value="" placeholder="Descripción">
 
               </form>
             </div>
