@@ -208,15 +208,18 @@ function confirmMod(){
   $.ajax({
     type: "POST",
     async: true,
-    url: "../function/modificar_Atributo.php",
+    url: "../function/atributos.php",
     timeout: 12000,
-    data: {Atributo:mod,Nombre:name, Descripcion:desc},
+    data: {func:"actualizar",Atributo:mod,Nombre:name, Descripcion:desc},
+    dataType:"json",
     success: function(response)
     {
-      alert(response);
+      //var obje = JSON.parse(response);
+      JSON.stringify(response);
+      alert(response.msga);
 
       $('#modificar').modal('hide');
-      verAtributos();
+      getAllAtributos();
     },
     error: function(jqXHR, textStatus, errorThrown){
       //console.log(errorThrown);

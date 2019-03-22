@@ -1,12 +1,32 @@
 <?php
 function actualizar_atributo(){
-  require_once("bdconexion.php");
-  $nombre = $_POST['nombre'];
+
+  require_once('bdconexion.php');
+//$admin = $_SESSION['usuario'];
+
+  $nombre = $_POST['Atributo'];
+  $nombreNuevo = $_POST['Nombre'];
+
+  $descripcion = $_POST['Descripcion'];
+  if(empty($nombre)){
+    $msg['msga'] = "Atributo insertado correctamente.";
+    echo json_encode($msg);
+  }else{
+    $sql ="UPDATE atributo SET Nombre ='$nombreNuevo', Descripcion='$descripcion' WHERE id_atributo_pk='$nombre'";
+    if($conn->query($sql)){
+      $msg['msga'] = "Atributo insertado correctamente.";
+      echo json_encode($msg);
+    }else{
+      $msg['msga'] = "Error.";
+      echo json_encode($msg);
+    }
+  }
+  /*$nombre = $_POST['nombre'];
   $id = $_POST['id'];
   if($conn->query("UPDATE atributo SET nombre=$nombre WHERE idmateria=$id")){
     $msg['msg'] = "Atributo insertado correctamente.";
     echo json_encode($msg);
-  }
+  }*/
 }
 
 function buscar_atributo(){
@@ -94,7 +114,7 @@ switch ($_POST['func']) {
     buscar_atributo($nombre);
     break;
   case 'actualizar':
-    actualizar_atributo($nombre);
+    actualizar_atributo();
     break;
   case 'eliminar':
     eliminar_atributo();
