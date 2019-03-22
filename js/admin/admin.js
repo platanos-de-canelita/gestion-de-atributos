@@ -1,19 +1,8 @@
-var a=0;
-var del;
-var mod;
-var name;
-
-$( document ).ready(function() {
-  $("#paginas").empty();
-  verAtributos();
-
-});
-
-
-
 
 function getAtributos(){
+
   $("#atributos_table > tbody").html("");
+  console.log('En getAtributos');
   $.ajax({
     type: 'POST',
     url: '../function/getdata.php',
@@ -21,7 +10,8 @@ function getAtributos(){
     async: true,
     data: $("#Atributos").serialize(),
     success:function(data){
-      if(data != null){
+      console.log(data);
+      if(data != ''){
         if(data == "Sin Atributos"){
           $("#atributos_table > thead").html("<tr><th class='center'>No se encontrarón atributos relacionados con la busqueda</th></tr>");
           $("#atributos_table tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
@@ -37,6 +27,10 @@ function getAtributos(){
         +"</tr>");
           $("#atributos_table tbody").append(data);
         }
+      }
+      else
+      {
+        console.log(data);
       }
     },
     error:function(jqXHR, textStatus, errorThrown){
@@ -55,7 +49,7 @@ function getAllAtributos(){
     async: true,
     data: {'filtro':"All"},
     success:function(data){
-      if(data != null){
+      if(data != ''){
         if(data == "Sin Atributos"){
           $("#atributos_table > thead").html("<tr><th class='center'>No hay atributos registrados</th></tr>");
           $("#atributos_table tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.jpg"+"'>"+"</td></tr>");
@@ -80,21 +74,22 @@ function getAllAtributos(){
   });
 }
 function insertarAtributo(){
-  var insertar="insertar";
+  alert("entre aqui");
+  let data = $('#form').serialize();
+  data = data + '&func=insertar';
   $.ajax({
     type: "POST",
     async: true,
     url: "../function/atributos.php",
     timeout: 12000,
-    data: $('#form').serialize()+'&func='+insertar,
-
+    data: data,
     success: function(response)
     {
-      alert("Atributo cargado.");
-      verAtributos();
+      console.log(response);
+      alert("Atributo cargada.");
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+   //   console.log(errorThrown);
     }
   });
 }
@@ -133,7 +128,7 @@ function verAtributos(p){
 
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+     // console.log(errorThrown);
     }
   });
 }
@@ -169,7 +164,7 @@ function getPaginas(){
 
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      //console.log(errorThrown);
     }
   });
 }
@@ -192,11 +187,11 @@ function confirmDelete(){
     {
       var obj = JSON.parse(response);
       alert(obj.msg);
-      verAtributos();
+      getAllAtributos();
       $('#eliminar').modal('hide');
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      //console.log(errorThrown);
     }
   });
 }
@@ -224,7 +219,7 @@ function confirmMod(){
       verAtributos();
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      //console.log(errorThrown);
     }
   });
 }

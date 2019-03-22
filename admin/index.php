@@ -1,8 +1,8 @@
 
 <?php
-/*
+
   //reanuda la sesion
-  session_start();
+  /*session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
@@ -11,9 +11,9 @@
 
   	header("Location: login.php");
   	exit();
-  }
+  }*/
 
-*/
+
 
  ?>
  <!DOCTYPE html>
@@ -24,7 +24,10 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
      <link rel="stylesheet" href="../css/main.css">
+     <script src="../js/admin/admin.js"></script>
 
      <title>Administración</title>
 
@@ -78,25 +81,25 @@
                  <div class="col-lg-3">
                    <form class="formulario" id="form" >
                      <p>Agregar atributo: </p>
-                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                     <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
-                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
+                     <input id="name" type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                     <input id="descr" type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
+                     <input id="pond" type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
                       <br><br>
-                      <button id="btn_atrib" class="btn" onclick="insertarAtributo()">Agregar</button>
+                      <button id="btn_atrib" class="btn" type="button" onclick="insertarAtributo()">Agregar</button>
                    </form>
 
                  </div>
                  <div class="col-lg-9">
-                     <form class="form-inline">
+                     <form id="Atributos" class="form-inline">
                          <div class="form-group" style="margin:1%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos();">Buscar</button>
-                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos($_SESSION[]);">Ver todos</button>
+                             <input id="in_palabra_proyecto" type="text" name="filtro" placeholder="buscar" class="form-control mx-sm-3">
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos()">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos()">Ver todos</button>
                          </div>
                      </form>
                      <br>
-                     <table class="table">
+                     <table id="atributos_table" class="table">
                         <thead>
                           <tr>
                             <th scope="col">Nombre</th>
@@ -106,10 +109,7 @@
                           </tr>
                         </thead>
                         <tbody id="tabla_atributos">
-                          <td>Atrib1</td>
-                          <td>Descripcion1</td>
-                          <td>Activo</td>
-                          <td>Modificar/<button type="button" class="btn btn-primary" onclick="eliminarAtributo("+i+")">Eliminar</button></td>
+
                         </tbody>
                       </table>
                       <div class="paginador">
@@ -611,7 +611,7 @@
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-     <script src="../js/admin/admin.js"></script>
+
      <script>
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){

@@ -1,5 +1,4 @@
 <?php
-
 function actualizar_atributo(){
   require_once("bdconexion.php");
   $nombre = $_POST['nombre'];
@@ -29,9 +28,9 @@ function buscar_atributo(){
 
 function eliminar_atributo(){
   require_once("bdconexion.php");
-  $id=$_POST['id'];
+  $id = $_POST['id'];
   if($conn->query("CALL DEL_ATRIBUTO($id)")){
-    $msg['msg'] = "Atributo eliminado correctamente.";
+    $msg['msg'] = "Atributo eliminado.";
     echo json_encode($msg);
   }
 }
@@ -39,6 +38,23 @@ function eliminar_atributo(){
 function insertar_atributo(){
   require_once("bdconexion.php");
 
+
+   /*$sql = "SELECT id_admin_pk FROM administador WHERE usuario = '" . $_POST['usuario'] . "'";
+   $result = $conn->query($sql);
+   $data = $result->fetch_row();*/
+
+    $nombre = $_POST['nombre'];
+    $desc = $_POST['descripcion'];
+    $ponde = $_POST['ponderacion'];
+    if(empty($nombre) || empty($desc) || empty($ponde) ){
+        echo "no se puede dar de alta atributo ";
+    }else{
+        //var $idAdmin, $idCarrera
+        $sql = "INSERT INTO atributo (id_atributo_pk, Nombre, Descripcion, Estado, Ponderacion, Admin_id, id_carrera) VALUES (NULL, '$nombre', '$desc', '1', $ponde, 1, 1)";
+        $result = $conn->query($sql);
+        //$info = $result->fetch_row();
+        echo "Registrado correctamente";
+      }
 }
 
 function consultar_atributo(){
@@ -73,7 +89,6 @@ function consultar_atributo(){
       echo json_encode($info);
   }
 }
-
 switch ($_POST['func']) {
   case 'buscar':
     buscar_atributo($nombre);
@@ -94,6 +109,4 @@ switch ($_POST['func']) {
     // code...
     break;
 }
-
-
- ?>
+?>
