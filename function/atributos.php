@@ -6,15 +6,15 @@ function actualizar_atributo(){
 
   $nombre = $_POST['Atributo'];
   $nombreNuevo = $_POST['Nombre'];
-
+  $ponderacion = $_POST['Ponderacion'];
   $descripcion = $_POST['Descripcion'];
   if(empty($nombre)){
-    $msg['msga'] = "Atributo insertado correctamente.";
+    $msg['msga'] = "Debes indicar un nombre.";
     echo json_encode($msg);
   }else{
-    $sql ="UPDATE atributo SET Nombre ='$nombreNuevo', Descripcion='$descripcion' WHERE id_atributo_pk='$nombre'";
+    $sql ="UPDATE atributo SET Nombre ='$nombreNuevo', Descripcion='$descripcion', Ponderacion=$ponderacion WHERE id_atributo_pk='$nombre'";
     if($conn->query($sql)){
-      $msg['msga'] = "Atributo insertado correctamente.";
+      $msg['msga'] = "Modificacion realizada.";
       echo json_encode($msg);
     }else{
       $msg['msga'] = "Error.";

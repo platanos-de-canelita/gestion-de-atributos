@@ -1,3 +1,6 @@
+$( document ).ready(function() {
+  getAllAtributos();
+});
 
 function getAtributos(){
 
@@ -205,12 +208,13 @@ function modificarAtributo(value){
 function confirmMod(){
   var name = $("#txnombre").val();
   var desc = $("#txdesc").val();
+  var pond = $("#txpond").val();
   $.ajax({
     type: "POST",
     async: true,
     url: "../function/atributos.php",
     timeout: 12000,
-    data: {func:"actualizar",Atributo:mod,Nombre:name, Descripcion:desc},
+    data: {func:"actualizar",Atributo:mod,Nombre:name, Descripcion:desc,Ponderacion:pond},
     dataType:"json",
     success: function(response)
     {

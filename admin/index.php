@@ -432,6 +432,8 @@
                 <input type="text" class="form-control" id="txnombre" name="txnombre" value=""
                   placeholder="Nombre"><br>
                 <input type="text" class="form-control" id="txdesc" name="txdesc" value="" placeholder="Descripción">
+                <br>
+                <input type="number" class="form-control" id="txpond" name="txpond" value="" placeholder="Ponderación">
 
               </form>
             </div>
@@ -616,11 +618,7 @@
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
+        
          });
 
      </script>
