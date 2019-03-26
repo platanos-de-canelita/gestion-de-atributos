@@ -15,7 +15,7 @@
             echo "Sin Atributos";
 
         while($row = $sql_query->fetch_assoc()){
-            echo "<tr><td>" . $row["id_atributo_pk"] . "</td><td>" . $row["nombre"] . "</td><td>" . $row["descripcion"] . "</td><td>" . $row["ponderacion"] . "</td><td><button style='margin-right: 15px;' class='btn btn-default' onclick='modificarAtributo(".$row["id_atributo_pk"].")'><span style='color: rgb(27, 57, 106);'><i class='fas fa-pencil-alt'></i></span></button><button class='btn btn-default' onclick='eliminarAtributo(".$row["id_atributo_pk"].")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
+            echo "<tr><td>" . $row["id_atributo_pk"] . "</td><td>" . utf8_encode($row["nombre"]) . "</td><td>" . utf8_encode($row["descripcion"]) . "</td><td>" . $row["ponderacion"] . "</td><td><button style='margin-right: 15px;' class='btn btn-default' onclick='modificarAtributo(".$row["id_atributo_pk"].")'><span style='color: rgb(27, 57, 106);'><i class='fas fa-pencil-alt'></i></span></button><button class='btn btn-default' onclick='eliminarAtributo(".$row["id_atributo_pk"].")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
         }
     }
     catch(PDOException $e){
