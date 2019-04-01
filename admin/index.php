@@ -27,7 +27,7 @@
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
      <link rel="stylesheet" href="../css/main.css">
-     <script src="../js/admin/admin.js"></script>
+
 
      <title>Administración</title>
 
@@ -199,52 +199,87 @@
          </div>
 
          <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
-           <div class="row">
+             <div class="row">
 
-               <div class="col-lg-12">
-                   <form class="form-inline">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table">
-                      <thead class="">
-                        <tr>
-                          <th scope="col">RFC</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Apellidos</th>
-                          <th scope="col">Departamentos</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>Industrial</td>
-                          <td>Autorizar | Rechazar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>Sistemas</td>
-                          <td>Autorizar | Rechazar</td>
-                        </tr>
+                 <div class="col-lg-12">
+                     <form class="form-inline">
+                         <div class="form-group" style="margin:1%;">
+                             <label for="in_palabra_proyecto">Filtros:</label>
+                             <input id="busca_profe" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                         </div>
+                     </form>
+                     <br>
 
-                      </tbody>
-                    </table>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
 
-               </div>
-           </div>
+                                          <div class="container">
+                                            <div class="row">
+                                              <div class="col-sm">
+                                                <div id="rbusqueda"></div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-sm">
+                                                 Profesores candidatos
+                                                <table class="table">
+                                                   <thead>
+                                                     <tr>
+                                                       <th scope="col">id</th>
+                                                       <th scope="col">Nombre</th>
+                                                       <th scope="col">Correo</th>
+                                                       <th scope="col">Acciones</th>
+                                                     </tr>
+                                                   </thead>
+
+
+                                                   <tbody id="filas1">
+
+                                                   </tbody>
+                                                 </table>
+                                              </div>
+
+                                              <div class="col-sm">
+                                                Profesores autorizados
+                                                <table class="table">
+                                                   <thead>
+                                                     <tr>
+                                                       <th scope="col">id</th>
+                                                       <th scope="col">Nombre</th>
+                                                       <th scope="col">Correo</th>
+                                                       <th scope="col">Acciones</th>
+                                                     </tr>
+                                                   </thead>
+                                                   <tbody id="filas2">
+
+                                                   </tbody>
+                                                 </table>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+
+
+
+
+                      <div class="paginador">
+                        <ul id="paginas" style="list-style: none; ">
+
+                          <!--<li><a href="#">|<<</a></li>
+                          <li><a href="#"><<</a></li>
+                          <li class="pageSelected">1</li>
+
+                          <li><a href="#">>></a></li>
+                          <li><a href="#">>>|</a></li>-->
+                        </ul>
+                      </div>
+                 </div>
+             </div>
+             <div class="container" style="margin-top:1em;">
+                 <div id="contenedor_proyectos" class="row">
+
+                 </div>
+             </div>
          </div>
 
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
@@ -610,6 +645,7 @@
 
      <script src="../js/jquery-3.3.1.min.js"></script>
      <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/admin/admin.js"></script>
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
@@ -618,7 +654,7 @@
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-        
+
          });
 
      </script>
