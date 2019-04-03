@@ -1,17 +1,14 @@
-
 <?php
 
   //reanuda la sesion
-  /*session_start();
+  session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
-
+    $session_value=$_SESSION['usuario'];
   }else{
-
-
   	header("Location: login.php");
   	exit();
-  }*/
+  }
 
 
 
@@ -651,6 +648,10 @@
 
 
      <script>
+        var myvar='<?php echo $session_value;?>';
+        console.log(myvar);
+        
+        get_datos_sesion();
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito

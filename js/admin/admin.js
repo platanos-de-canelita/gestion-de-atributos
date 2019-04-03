@@ -1,5 +1,6 @@
 $( document ).ready(function() {
   getAllAtributos();
+
 });
 
 function getAtributos(){
@@ -283,4 +284,14 @@ function rechazar_profe(ide){
  });
  $("#rbusqueda").html("");
 
+}
+function get_datos_sesion(){
+  $.ajax({
+      url:"../function/get_datos_sesion.php",
+      method: "POST",
+      data:{usuario:myvar},
+      success: function (data) {
+        alert(data);
+      }
+  });
 }
