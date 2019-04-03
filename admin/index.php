@@ -648,9 +648,10 @@
 
 
      <script>
+        //obtenemos la variable de sesion
         var myvar='<?php echo $session_value;?>';
         console.log(myvar);
-        
+        //llamamos al metodo get_datos para obtener todos los datos del administrador
         get_datos_sesion();
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
