@@ -76,34 +76,6 @@ function insertar_atributo(){
         echo "Registrado correctamente";
       }
 }
-function insertar_Cricterio(){
-  require_once("bdconexion.php");
-
-
-   /*$sql = "SELECT id_admin_pk FROM administador WHERE usuario = '" . $_POST['usuario'] . "'";
-   $result = $conn->query($sql);
-   $data = $result->fetch_row();*/
-
-    $nombre = $_POST['Nombre'];
-    $desc = $_POST['descripción'];
-    $ponde = $_POST['ponderacion'];
-
-    $Tipo = $_POST['tipo'];
-    if(empty($nombre) || empty($desc) || empty($ponde) ){
-        echo "no se puede dar de alta atributo ";
-    }else{
-        //var $idAdmin, $idCarrera
-      $sql ="INSERT INTO criterio_ev (id_criterio, Nombre, Descripcion, ponderacion, id_atributo) VALUES (, $nombre,  $desc, $ponde,)"; 
-       // $sql = "INSERT INTO atributo (id_atributo_pk, Nombre, Descripcion, Estado, Ponderacion, Admin_id, id_carrera) VALUES (NULL, '$nombre', '$desc', '1', $ponde, 1, 1)";
-        $result = $conn->query($sql);
-        //$info = $result->fetch_row();
-        echo "Registrado correctamente";
-      }
-}
-function get_Atributos(){
-  require_once("bdconexion.php");
-  $conn->query("SELECT * ");
-}
 
 function consultar_atributo(){
   require_once("bdconexion.php");

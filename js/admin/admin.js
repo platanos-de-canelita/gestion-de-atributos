@@ -77,7 +77,7 @@ function getAllAtributos(){
   });
 }
 function insertarAtributo(){
-  alert("entre aqui");
+  
   let data = $('#form').serialize();
   data = data + '&func=insertar';
   $.ajax({
@@ -96,6 +96,27 @@ function insertarAtributo(){
     }
   });
 }
+function insertarCricterio(){
+  
+  let data = $('#formcrit').serialize();
+  data = data + '&func=insertar';
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/atributos.php",
+    timeout: 12000,
+    data: data,
+    success: function(response)
+    {
+      console.log(response);
+      alert("Atributo cargada.");
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+   //   console.log(errorThrown);
+    }
+  });
+}
+
 
 function verAtributos(p){
   $("#tabla_atributos").empty();

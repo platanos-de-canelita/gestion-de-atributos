@@ -27,8 +27,7 @@
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
      <link rel="stylesheet" href="../css/main.css">
-     <script src="../js/admin/admin.js"></script>
-
+   
      <title>Administración</title>
 
  </head>
@@ -136,9 +135,9 @@
          <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
+                 <form class="formulario" action="" method="post" id="formcrit">
                    <p>Agregar criterios: </p>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Nombre">
+                   <input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre">
                    <br><br>
                    <select id="atrib" class="form-control" name="atributo">
                      <option value="">Atributo</option>
@@ -153,7 +152,7 @@
                    <br><br>
                    <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
                    <br><br>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Descripción">
+                   <input type="text" min="0" max="100" class="form-control" name="Descripción" placeholder="Descripción">
                    <br><br>
                    <button type="submit" class="btn" name="login" >Agregar</button>
                  </form>
@@ -610,6 +609,8 @@
 
      <script src="../js/jquery-3.3.1.min.js"></script>
      <script src="../js/bootstrap.min.js"></script>
+       <script src="../js/admin/admin.js"></script>
+
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
