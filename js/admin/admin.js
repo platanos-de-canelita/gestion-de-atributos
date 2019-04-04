@@ -291,7 +291,7 @@ function get_datos_sesion(){
       method: "POST",
       data:{usuario:myvar},
       success: function (data) {
-        alert(data);
+        return data;
       }
   });
 }
