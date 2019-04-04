@@ -100,6 +100,8 @@ function insertarCricterio(){
   
   let data = $('#formcrit').serialize();
   data = data + '&func=insertar';
+  var id = String(get_datos_sesion())
+  data =data + '&carrera='+id;
   $.ajax({
     type: "POST",
     async: true,
