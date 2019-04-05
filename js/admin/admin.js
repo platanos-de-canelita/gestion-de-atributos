@@ -1,6 +1,6 @@
 $( document ).ready(function() {
   getAllAtributos();
-
+  get_atributos_criterio();
 });
 
 function getAtributos(){
@@ -292,6 +292,17 @@ function get_datos_sesion(){
       data:{usuario:myvar},
       success: function (data) {
         return data;
+      }
+  });
+}
+function get_atributos_criterio(){
+  $.ajax({
+      url:"../function/get_atributos.php",
+      method: "POST",
+      dataType:"text",
+      success: function (data) {
+       const contenido=document.getElementById('atrib');
+       contenido.innerHTML=data;
       }
   });
 }
