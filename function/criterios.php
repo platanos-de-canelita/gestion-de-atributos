@@ -7,9 +7,7 @@ function actualizar_criterio(){
 function eliminar_criterio(){
   require_once("bdconexion.php");
   $id = $_POST['id'];
-  $idA = $_POST['idA'];
-  $usr = $_POST['usr'];
-  if($conn->query("CALL DEL_CRITERIO($id,$idA,$usr)")){
+  if($conn->query("CALL DEL_CRITERIO($id)")){
     $msg['msg'] = "Criterio eliminado.";
     echo json_encode($msg);
   }
