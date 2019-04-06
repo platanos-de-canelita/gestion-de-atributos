@@ -1,8 +1,8 @@
 <?php
  require_once("bdconexion.php");
  try{
-
-     $query = "SELECT id_atributo_pk, nombre FROM atributo WHERE Estado=1";
+     $id = $_POST['id'];
+     $query = "SELECT id_atributo_pk, nombre FROM atributo WHERE Estado=1 AND id_carrera='$id'";
      $sql_query = $conn->query($query);
 
      if($sql_query->num_rows == 0)
