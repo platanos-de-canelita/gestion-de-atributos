@@ -184,7 +184,7 @@ function confirmDelete(){
   $.ajax({
     type: "POST",
     async: true,
-    url: "../function/atributos.php",
+    url: "../function/criterios.php",
     timeout: 12000,
     data:{func:fun,id:del},
     success: function(response)
@@ -308,5 +308,31 @@ function get_atributos_criterio(){
        const contenido=document.getElementById('atrib');
        contenido.innerHTML=data;
       }
+  });
+}
+//Necesita id_criterio,nombre_criterio
+function eliminarCriterio(idC,nomC){
+  $('#eliminar').modal('show');
+  $("#dato").append(nomC);
+  del = idC;
+}
+function confirmDelete(){
+  var fun = "eliminarC";
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/criterios.php",
+    timeout: 12000,
+    data:{func:fun,id:del},
+    success: function(response)
+    {
+      var obj = JSON.parse(response);
+      alert(obj.msg);
+      //getAllCriterios();
+      $('#eliminar').modal('hide');
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      //console.log(errorThrown);
+    }
   });
 }

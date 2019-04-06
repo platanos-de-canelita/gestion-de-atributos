@@ -181,7 +181,7 @@
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
                           <td>50%</td>
                           <td>Individual</td>
-                          <td>Modificar | Eliminar</td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCriterio(3,'Trabaja en equipo')">Eliminar</button></td>
                         </tr>
 
                       </tbody>

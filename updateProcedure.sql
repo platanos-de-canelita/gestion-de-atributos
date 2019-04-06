@@ -25,3 +25,14 @@ CALL Update_Atributo ("PruebaUpdate", "AFK", 100, @idd_admin_pk, @idd_carrera);
 /*INSERT INTO `atributo` (`id_atributo_pk`, `Nombre`, `Descripcion`, `Admin_id`, `id_carrera`) VALUES
 (2, 'Atributo a', 'Este es el atributo a', 1, 1);*/
 
+BEGIN
+UPDATE criterio_ev SET Estado=false WHERE Nombre = Criterio_name AND id_atributo = Atrib_id AND Estado=true;
+END
+
+
+BEGIN
+SELECT id_admin_pk into idd_admin_pk from (atributos.administrador 
+	admin inner join atributos.carrera carrera on admin.id_depto_fk = carrera.id_depto)  where admin.usuario = usr AND admin.pass = passW;
+SELECT  id_carrera into idd_carrera from (atributos.administrador 
+	admin inner join atributos.carrera carrera on admin.id_depto_fk = carrera.id_depto)  where admin.usuario = usr AND admin.pass = passW;
+END
