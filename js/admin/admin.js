@@ -184,7 +184,7 @@ function confirmDelete(){
   $.ajax({
     type: "POST",
     async: true,
-    url: "../function/criterios.php",
+    url: "../function/atributos.php",
     timeout: 12000,
     data:{func:fun,id:del},
     success: function(response)
@@ -302,11 +302,11 @@ function get_datos_sesion(){
 
 //Necesita id_criterio,nombre_criterio
 function eliminarCriterio(idC,nomC){
-  $('#eliminar').modal('show');
-  $("#dato").append(nomC);
+  $('#eliminarc').modal('show');
+  $("#datoc").append(nomC);
   del = idC;
 }
-function confirmDelete(){
+function confirmDeleteC(){
   var fun = "eliminarC";
   $.ajax({
     type: "POST",
@@ -319,7 +319,7 @@ function confirmDelete(){
       var obj = JSON.parse(response);
       alert(obj.msg);
       //getAllCriterios();
-      $('#eliminar').modal('hide');
+      $('#eliminarc').modal('hide');
     },
     error: function(jqXHR, textStatus, errorThrown){
       //console.log(errorThrown);
