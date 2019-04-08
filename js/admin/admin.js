@@ -354,3 +354,30 @@ function confirmDeleteDto(){
     }
   });
 }
+
+//Necesita id_ carrera,nombre_carrera
+function eliminarCarrera(id,nomC){
+  $('#eliminarCarrera').modal('show');
+  $("#datocarrera").html(nomC);
+  del = id;
+}
+function confirmDeleteCarrera(){
+  var fun = "eliminarCarrera";
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/carreras.php",
+    timeout: 12000,
+    data:{func:fun,id:del},
+    success: function(response)
+    {
+      var obj = JSON.parse(response);
+      alert(obj.msg);
+      //getAllCriterios();
+      $('#eliminarCarrera').modal('hide');
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      //console.log(errorThrown);
+    }
+  });
+}

@@ -318,12 +318,12 @@
                         <tr>
                           <td>Informática</td>
                           <td>Sistemas y computación</td>
-                          <td>Eliminar</td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCarrera(1,'Sistemas')">Eliminar</button></td>
                         </tr>
                         <tr>
                           <td>Industrial</td>
                           <td>Industrial</td>
-                          <td>Eliminar</td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCarrera(2,'Industrial')">Eliminar</button></td>
                         </tr>
 
                       </tbody>
@@ -681,6 +681,26 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <button type="button" class="btn btn-primary" onclick="confirmDeleteDto()">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal eliminar Departamento-->
+      <div class="modal fade" id="eliminarCarrera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Está seguro que desea borrar: <span id="datocarrera"></span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmDeleteCarrera()">Aceptar</button>
             </div>
           </div>
         </div>
