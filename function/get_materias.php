@@ -6,7 +6,7 @@
 
      try {
        //contamos cuantas tuplas hay en la tabla de donde queremos extraer informacion
-       $sql_registe=$conn->query("SELECT COUNT(*) AS total_registro FROM materia");
+       $sql_registe=$conn->query("SELECT COUNT(*) AS total_registro FROM atributo");
        $result_register = $sql_registe->fetch_assoc();
        $total_registro = $result_register['total_registro'];
 
