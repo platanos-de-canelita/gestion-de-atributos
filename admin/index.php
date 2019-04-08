@@ -372,7 +372,13 @@
 
                           <th scope="col">Sistemas y computación</th>
                           <th scope="col">logo7.png</th>
-                          <th scope="col">Modificar|Eliminar</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(1,'Sistemas')">Eliminar</button></th>
+                        </tr>
+                        <tr>
+
+                          <th scope="col">Industrial</th>
+                          <th scope="col">logo6.png</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(2,'Industrial')">Eliminar</button></th>
                         </tr>
                       </tbody>
                     </table>
@@ -658,8 +664,28 @@
           </div>
         </div>
       </div>
+      
+       <!-- Modal eliminar Departamento-->
+       <div class="modal fade" id="eliminarDto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Está seguro que desea borrar: <span id="datodto"></span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmDeleteDto()">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Modal -->
-
      <script src="../js/jquery-3.3.1.min.js"></script>
      <script src="../js/bootstrap.min.js"></script>
      <script src="../js/admin/admin.js"></script>

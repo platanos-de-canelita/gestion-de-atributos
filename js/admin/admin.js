@@ -176,7 +176,7 @@ function getPaginas(){
 
 function eliminarAtributo(value){
   $('#eliminar').modal('show');
-  $("#dato").append(value);
+  $("#dato").html(value);
   del = value;
 }
 function confirmDelete(){
@@ -303,7 +303,7 @@ function get_datos_sesion(){
 //Necesita id_criterio,nombre_criterio
 function eliminarCriterio(idC,nomC){
   $('#eliminarc').modal('show');
-  $("#datoc").append(nomC);
+  $("#datoc").html(nomC);
   del = idC;
 }
 function confirmDeleteC(){
@@ -320,6 +320,34 @@ function confirmDeleteC(){
       alert(obj.msg);
       //getAllCriterios();
       $('#eliminarc').modal('hide');
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      //console.log(errorThrown);
+    }
+  });
+}
+
+
+//Necesita id_departamento,nombre_departamento
+function eliminarDto(id,nomC){
+  $('#eliminarDto').modal('show');
+  $("#datodto").html(nomC);
+  del = id;
+}
+function confirmDeleteDto(){
+  var fun = "eliminarDto";
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/departamentos.php",
+    timeout: 12000,
+    data:{func:fun,id:del},
+    success: function(response)
+    {
+      var obj = JSON.parse(response);
+      alert(obj.msg);
+      //getAllCriterios();
+      $('#eliminarDto').modal('hide');
     },
     error: function(jqXHR, textStatus, errorThrown){
       //console.log(errorThrown);
