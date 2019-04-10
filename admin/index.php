@@ -340,14 +340,14 @@
          <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" id="form" >
+                 <form class="formulario" method="post" action="" enctype="multipart/form-data" id="myform">
                    <p>Nombre del departamento: </p>
-                   <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                   <input type="file" class="form-control" name="logo">
+                   <input id="nombre_depto" type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                   <input id="file" type="file" class="form-control" name="file">
                    <br><br>
 
                  </form>
-                 <button id="btn_atrib" class="btn">Agregar</button>
+                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
                </div>
                <div class="col-lg-9">
                    <form class="form-inline">

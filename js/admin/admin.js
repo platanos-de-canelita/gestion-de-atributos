@@ -292,13 +292,13 @@ function get_datos_sesion(){
       data:{usuario:myvar},
       success: function (data) {
         return data;
-        alert(data);
+        
       }
   });
 }
 function get_atributos_criterio(){
   var admin = get_datos_sesion();
-  alert(admin);
+
   $.ajax({
       url:"../function/get_atributos.php",
       method: "POST",
@@ -318,6 +318,7 @@ function eliminarCriterio(idC,nomC){
 }
 function confirmDelete(){
   var fun = "eliminarC";
+
   $.ajax({
     type: "POST",
     async: true,
@@ -330,6 +331,33 @@ function confirmDelete(){
       alert(obj.msg);
       //getAllCriterios();
       $('#eliminar').modal('hide');
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      //console.log(errorThrown);
+    }
+  });
+}
+function insertar_departamento(){
+  var fun = "insertar";
+  var fd = new FormData();
+  var files = $('#file')[0].files[0];
+  fd.append('file',files);
+  var nombre=$("#nombre_depto").val();
+
+  console.log(nombre);
+  fd.append('nombre',nombre);
+  //fd.append('func',fun);
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/departamento.php",
+    contentType: false,
+    processData: false,
+    timeout: 12000,
+    data: fd,
+    success: function(response)
+    {
+
     },
     error: function(jqXHR, textStatus, errorThrown){
       //console.log(errorThrown);
