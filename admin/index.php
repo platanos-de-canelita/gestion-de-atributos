@@ -1,21 +1,19 @@
 
 <?php
+
   //reanuda la sesion
   /*session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
   }else{
-<<<<<<< HEAD
+
 
   	header("Location: login.php");
   	exit();
-  }
-=======
-
-  	//header("Location: login.php");
-  	//exit();
   }*/
+
+
 
  ?>
  <!DOCTYPE html>
@@ -26,8 +24,10 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
-     <link rel="stylesheet" href="../css/main.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+     <link rel="stylesheet" href="../css/main.css">
+   
      <title>Administración</title>
 
  </head>
@@ -80,24 +80,25 @@
                  <div class="col-lg-3">
                    <form class="formulario" id="form" >
                      <p>Agregar atributo: </p>
-                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                     <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
-                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
+                     <input id="name" type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                     <input id="descr" type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
+                     <input id="pond" type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
                       <br><br>
-
+                      <button id="btn_atrib" class="btn" type="button" onclick="insertarAtributo()">Agregar</button>
                    </form>
-                   <button id="btn_atrib" class="btn">Agregar</button>
+
                  </div>
                  <div class="col-lg-9">
-                     <form class="form-inline">
+                     <form id="Atributos" class="form-inline">
                          <div class="form-group" style="margin:1%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                             <input id="in_palabra_proyecto" type="text" name="filtro" placeholder="buscar" class="form-control mx-sm-3">
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos()">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos()">Ver todos</button>
                          </div>
                      </form>
                      <br>
-                     <table class="table">
+                     <table id="atributos_table" class="table">
                         <thead>
                           <tr>
                             <th scope="col">Nombre</th>
@@ -107,10 +108,7 @@
                           </tr>
                         </thead>
                         <tbody id="tabla_atributos">
-                          <td>Atrib1</td>
-                          <td>Descripcion1</td>
-                          <td>Activo</td>
-                          <td>Modificar/<a href=>Eliminar</td>
+
                         </tbody>
                       </table>
                       <div class="paginador">
@@ -137,9 +135,9 @@
          <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
+                 <form class="formulario" action="" method="post" id="formcrit">
                    <p>Agregar criterios: </p>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Nombre">
+                   <input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre">
                    <br><br>
                    <select id="atrib" class="form-control" name="atributo">
                      <option value="">Atributo</option>
@@ -147,16 +145,20 @@
                    </select>
                    <br><br>
 
-                   <select class="form-control" name="tipo">
-                     <option value="individual">Individual</option>
-                     <option value="grupal">Grupal</option>
+                   <select class="form-control" name="tipo" id="opc">
+                     <option value="Individual/Grupal">Individual/Grupal</option>
+                     <option value="Individual">Individual</option>
+                     <option value="Grupal">Grupal</option>
+                    
                    </select>
                    <br><br>
-                   <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
+                   <input type="number" min="0" max="100" class="form-control" id="PonderaciónIndividual" name="ponderacion" placeholder="Ponderación Individual " >
                    <br><br>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Descripción">
+                   <input type="number" min="0" max="100" class="form-control" id="PonderaciónGrupal" name="ponderacion" placeholder="Ponderación Grupal" >
                    <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
+                   <input type="text" min="0" max="100" class="form-control" name="Descripción" placeholder="Descripción">
+                   <br><br>
+                   <button type="submit" class="btn" name="login" onclick=" insertarCricterio()">Agregar</button>
                  </form>
                </div>
                <div class="col-lg-9">
@@ -429,14 +431,18 @@
             </div>
             <div class="modal-body">
               <form class="" action="index.html" method="post">
-                <input type="text" name="" value="">
-                <input type="text" name="" value="">
+                <h3 align="center">Nuevos Datos </h3>
+                <input type="text" class="form-control" id="txnombre" name="txnombre" value=""
+                  placeholder="Nombre"><br>
+                <input type="text" class="form-control" id="txdesc" name="txdesc" value="" placeholder="Descripción">
+                <br>
+                <input type="number" class="form-control" id="txpond" name="txpond" value="" placeholder="Ponderación">
 
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="confirmDelete()">Aceptar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmMod()">Aceptar</button>
             </div>
           </div>
         </div>
@@ -607,19 +613,17 @@
 
      <script src="../js/jquery-3.3.1.min.js"></script>
      <script src="../js/bootstrap.min.js"></script>
+       <script src="../js/admin/admin.js"></script>
+
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-     <script src="../js/admin/admin.js"></script>
+
      <script>
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
+        
          });
 
      </script>
