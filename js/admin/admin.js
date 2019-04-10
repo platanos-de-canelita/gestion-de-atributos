@@ -1,5 +1,49 @@
 $( document ).ready(function() {
   getAllAtributos();
+    get_atributos_criterio();
+   var opc = document.getElementById('opc');
+       opc.addEventListener( 'change', function(){
+      var tipo = this.options[opc.selectedIndex];
+          console.log(tipo.value);
+          if(tipo.value == 'Individual/Grupal'){
+            $("#PonderaciónGrupal").show();
+            $("#PonderaciónIndividual").show();
+            
+          }
+          else
+          {
+             $("#PonderaciónGrupal").hide();
+            $("#PonderaciónIndividual").hide();
+            
+          }
+        });
+   function revisacrit(){
+ 
+    var podindiv=document.getElementById('PonderaciónIndividual');
+    var pongrup=document.getElementById('PonderaciónGrupal');
+    if ((pongrup.value+podindiv.value)==100) {
+       insertarCricterio(podindiv, pongrup);
+
+    }
+      if(tipo.value == 'Individual'){
+         podindiv=100; 
+         pongrup=0;
+         insertarCricterio(podindiv, pongrup);
+
+    }
+        if(tipo.value == 'Grupal'){
+          podindiv=0
+         pongrup=100;   
+         insertarCricterio(podindiv, pongrup);
+    }
+    else{
+      alert("no se puede insertar debido a que no acumulan el 100% ambos atributos")
+    }
+
+
+}
+
+
 });
 
 function getAtributos(){
@@ -96,12 +140,12 @@ function insertarAtributo(){
     }
   });
 }
-function insertarCricterio(){
+function insertarCricterio(podindiv, pongrup){
   
   let data = $('#formcrit').serialize();
   data = data + '&func=insertar';
   var id = String(get_datos_sesion())
-  data =data + '&carrera='+id;
+  data =data + '&carrera='+id +'&podindiv' +'pongrup';
   $.ajax({
     type: "POST",
     async: true,
@@ -118,6 +162,17 @@ function insertarCricterio(){
     }
   });
 }
+
+function get_atributos_criterio(){
+  $.ajax({
+      url:"../function/get_atributos.php",
+      method: "POST",
+      dataType:"text",
+      success: function (data) {
+       const contenido=document.getElementById('atrib');
+       contenido.innerHTML=data;
+      }
+  });
 
 
 function verAtributos(p){
@@ -252,4 +307,5 @@ function confirmMod(){
       //console.log(errorThrown);
     }
   });
+}
 }

@@ -145,16 +145,20 @@
                    </select>
                    <br><br>
 
-                   <select class="form-control" name="tipo">
-                     <option value="individual">Individual</option>
-                     <option value="grupal">Grupal</option>
+                   <select class="form-control" name="tipo" id="opc">
+                     <option value="Individual/Grupal">Individual/Grupal</option>
+                     <option value="Individual">Individual</option>
+                     <option value="Grupal">Grupal</option>
+                    
                    </select>
                    <br><br>
-                   <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
+                   <input type="number" min="0" max="100" class="form-control" id="PonderaciónIndividual" name="ponderacion" placeholder="Ponderación Individual " >
+                   <br><br>
+                   <input type="number" min="0" max="100" class="form-control" id="PonderaciónGrupal" name="ponderacion" placeholder="Ponderación Grupal" >
                    <br><br>
                    <input type="text" min="0" max="100" class="form-control" name="Descripción" placeholder="Descripción">
                    <br><br>
-                   <button type="submit" class="btn" name="login" >Agregar</button>
+                   <button type="submit" class="btn" name="login" onclick=" insertarCricterio()">Agregar</button>
                  </form>
                </div>
                <div class="col-lg-9">

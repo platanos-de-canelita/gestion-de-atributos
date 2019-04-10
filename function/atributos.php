@@ -85,19 +85,28 @@ function insertar_Cricterio(){
    /*$sql = "SELECT id_admin_pk FROM administador WHERE usuario = '" . $_POST['usuario'] . "'";
    $result = $conn->query($sql);
    $data = $result->fetch_row();*/
-
+  $sql = SELECT id_criterio MAX(id_criterio) FROM Products;
+  // 
+  if ($datos = $conn->query($sql)) {
+          $id_crit=>utf8_encode($dato['id_criterio']),
+       
     $nombre = $_POST['Nombre'];
     $desc = $_POST['descripción'];
     $ponde = $_POST['ponderacion'];
+    $carrera $_POST['carrera']
         $Tipo = $_POST['tipo'];
     if(empty($nombre) || empty($desc) || empty($ponde) ){
         echo "no se puede dar de alta atributo ";
     }else{
-        //var $idAdmin, $idCarrera
-      $sql ="INSERT INTO criterio_ev (id_criterio, Nombre, Descripcion, ponderacion, id_atributo) VALUES (, $nombre,  $desc, $ponde,)"; 
-       // $sql = "INSERT INTO atributo (id_atributo_pk, Nombre, Descripcion, Estado, Ponderacion, Admin_id, id_carrera) VALUES (NULL, '$nombre', '$desc', '1', $ponde, 1, 1)";
+        
+      $sql ="INSERT INTO criterio_ev (id_criterio, Nombre, Descripcion, id_atributo) 
+      VALUES (, $nombre,  $desc,$Tipo)"; 
+     $sq2 ="INSERT INTO ind_gpal (id_criterio,P_Ind,P_Gpal,Tipo) VALUES ($id_crit,$podindiv,$pongrup,Tipo)"; 
+     
+
         $result = $conn->query($sql);
-        //$info = $result->fetch_row();
+        $result2 = $conn->query($sql2);
+        
         echo "Registrado correctamente";
       }
 }
@@ -125,6 +134,7 @@ function consultar_atributo(){
   $total_paginas = ceil($total_registro / $por_pagina);
 
   $sql = "SELECT * FROM atributo WHERE Estado=1";
+
   if ($datos = $conn->query($sql)) {
       while ($dato=$datos->fetch_assoc()) {
           $informacion=array(
