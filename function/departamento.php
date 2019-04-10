@@ -33,8 +33,8 @@ if($contador==2){
   }else{
      /* Upload file */
      if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-       //$sql = "INSERT INTO departamento (`Nombre`,`Logo`) values ('$nombre','$location')";
-       $sql = "CALL Insertar_depto";
+       $sql = "INSERT INTO departamento (`Nombre`,`Logo`) values ('$nombre','$location')";
+
        if($conn->query($sql)){
          echo $location;
        }
