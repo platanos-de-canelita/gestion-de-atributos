@@ -25,6 +25,14 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/main.css">
+     <script src="../js/admin/admin.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
      <title>Administración</title>
 
@@ -34,7 +42,7 @@
 
      <!--Barra superior-->
      <div style="background: rgb(27, 57, 106); height: 4em; display: flex; justify-content: center; align-items: center;">
-         <h1 style="color:#f8f8f8">Administracion</h1>
+         <h1 style="color:#f8f8f8">Administración</h1>
      </div>
 
      <!--Navegacion de secciones-->
@@ -77,26 +85,28 @@
              <div class="row">
                  <div class="col-lg-3">
                    <form class="formulario" id="form" >
-                     <p>Agregar atributo: </p>
-                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                     <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
-                     <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación"><br><br>
-                      <br><br>
-
+                    <p>Agregar atributo: </p>
+                    <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                    <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
+                    <select id="carreras_atributo" style="margin-left: 0px !important" name="carreraFiltro" class="form-control mx-sm-3">
+                      <option disabled selected>Selecciona una carrera</option>
+                    </select>
+                    <br>
+                    <button id="btn_atrib" class="btn" onclick="insertarAtributo()">Agregar</button>
                    </form>
-                   <button id="btn_atrib" class="btn">Agregar</button>
+                   
                  </div>
                  <div class="col-lg-9">
-                     <form class="form-inline">
+                     <form class="form-inline" id="Atributos">
                          <div class="form-group" style="margin:1%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos();">Buscar</button>
-                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos($_SESSION[]);">Ver todos</button>
+                             <input id="in_palabra_proyecto" name="filtro" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos(/*departamento*/);">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos(/*departamento*/);">Ver todos</button>
                          </div>
                      </form>
                      <br>
-                     <table class="table">
+                     <table class="table" id="tabla_atributos">
                         <thead>
                           <tr>
                             <th scope="col">Nombre</th>
@@ -105,11 +115,8 @@
                             <th scope="col">Acciones</th>
                           </tr>
                         </thead>
-                        <tbody id="tabla_atributos">
-                          <td>Atrib1</td>
-                          <td>Descripcion1</td>
-                          <td>Activo</td>
-                          <td>Modificar/<button type="button" class="btn btn-primary" onclick="eliminarAtributo("+i+")">Eliminar</button></td>
+                        <tbody >
+                          
                         </tbody>
                       </table>
                       <div class="paginador">
@@ -136,9 +143,9 @@
          <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
-                   <p>Agregar criterios: </p>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Nombre">
+                 <form class="formulario" id="formcrit">
+                 <p>Agregar criterios: </p>
+                   <input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre">
                    <br><br>
                    <select id="atrib" class="form-control" name="atributo">
                      <option value="">Atributo</option>
@@ -146,39 +153,50 @@
                    </select>
                    <br><br>
 
-                   <select class="form-control" name="tipo">
-                     <option value="individual">Individual</option>
-                     <option value="grupal">Grupal</option>
+                   <select class="form-control" name="tipo" id="opc">
+                     <option value="individual/grupal">Individual/Grupal</option>
+                     <option value="Individual">Individual</option>
+                     <option value="Grupal">Grupal</option>
+                    
                    </select>
                    <br><br>
-                   <input type="number" min="0" max="100" class="form-control" name="ponderacion" placeholder="Ponderación">
+                   <input type="number" min="0" max="100" class="form-control" id="PonderaciónIndividual" name="ponderacionI" placeholder="Ponderación Individual " >
                    <br><br>
-                   <input type="text" min="0" max="100" class="form-control" name="ponderacion" placeholder="Descripción">
+                   <input type="number" min="0" max="100" class="form-control" id="PonderaciónGrupal" name="ponderacionG" placeholder="Ponderación Grupal" >
                    <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
+                   <input type="text" min="0" max="100" class="form-control" name="Descripción" placeholder="Descripción">
+                   <br><br>
                  </form>
+                 <button class="btn" name="login" onclick="revisacrit()">Agregar</button>
                </div>
                <div class="col-lg-9">
-                   <form class="form-inline">
+                   <form id="criterios_form" class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
+                           <select id="carreras_criterio" name="carreraFiltro" class="form-control mx-sm-3">
+                            <option disabled selected>Selecciona una carrera</option>
+                           </select>
+                           <select id="atributos_criterio" name="atributoFiltro" class="form-control mx-sm-3">
+                            <option disabled selected>Selecciona un atributo</option>
+                           </select>
+                           <button id="tbn_refrescar_filtros_proyectos" onclick="getCriterios()" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllCriterios()">Ver todos</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table">
+                   <table class="table" id="table_criterios">
                       <thead class="">
                         <tr>
-
                           <th scope="col">Nombre</th>
                           <th scope="col">Descripción</th>
                           <th scope="col">Ponderación</th>
+                          <th scope="col">Atributo</th>
                           <th scope="col">Tipo</th>
                           <th scope="col">Acciones</th>
                         </tr>
                       </thead>
-                      <tbody id="criterios_tabla">
+                      <tbody>
                         <tr>
                           <th scope="row">Trabajo en equipo</th>
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
@@ -186,7 +204,6 @@
                           <td>Individual</td>
                           <td>Modificar | Eliminar</td>
                         </tr>
-
                       </tbody>
                     </table>
                </div>
@@ -205,39 +222,53 @@
                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
+                           <input id="buscarPC" type="text" placeholder="Buscar candidatos" class="form-control mx-sm-3">
+                           </div>
+                       <div class="form-group" style="margin-right:1%;position: absolute;right: 0px;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="buscarPA" type="text" placeholder="Buscar aceptados" class="form-control mx-sm-3">
+                        </div>
                    </form>
                    <br>
-                   <table class="table">
-                      <thead class="">
-                        <tr>
-                          <th scope="col">RFC</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Apellidos</th>
-                          <th scope="col">Departamentos</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>Industrial</td>
-                          <td>Autorizar | Rechazar</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>Sistemas</td>
-                          <td>Autorizar | Rechazar</td>
-                        </tr>
-
-                      </tbody>
-                    </table>
+                   <div class="container">
+                    <div class="row">
+                      <div class="col-sm">
+                        <div id="rbusqueda"></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm">
+                          Profesores candidatos
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody id="filas1">
+                            </tbody>
+                          </table>
+                      </div>
+                      <div class="col-sm">
+                        Profesores autorizados
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody id="filas2">
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
+                  </div>
                </div>
            </div>
            <div class="container" style="margin-top:1em;">
@@ -250,31 +281,26 @@
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
+                 <form class="formulario" id="formCarreraI">
                    <p>Agregar carreras: </p>
                    <br>
                    <p>Nombre de la carrera:</p>
-                   <input type="text" class="form-control"></input>
-                   <br><br>
-                  <p>Selecciona un departamento:</p>
-                   <select class="form-control" name="tipo">
-                    <option value="industrial">Industrial</option>
-                     <option value="sistemas">Sistemas y computación</option>
-                   </select>
-                   <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
+                   <input id="nameCarrI" type="text" name="carrera_insert" class="form-control">
+                   <br>
                  </form>
+                 <button class="btn" onclick="insert_carrera()">Agregar</button>
                </div>
                <div class="col-lg-9">
-                   <form class="form-inline">
+                   <form class="form-inline" id="formCarrera">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <input id="in_palabra_proyecto" type="text" name="carrera" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getCarrerasFiltro('filtro')">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getCarrerasFiltro('All')">Ver todo</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table">
+                   <table class="table" id="tableCarrera">
                       <thead class="">
                         <tr>
                           <th scope="col">Carrera</th>
@@ -283,17 +309,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Informática</td>
-                          <td>Sistemas y computación</td>
-                          <td>Eliminar</td>
-                        </tr>
-                        <tr>
-                          <td>Industrial</td>
-                          <td>Industrial</td>
-                          <td>Eliminar</td>
-                        </tr>
-
+                        
                       </tbody>
                     </table>
                </div>
@@ -308,25 +324,26 @@
          <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" id="form" >
+                 <form class="formulario" id="formDeptoInsert" >
                    <p>Nombre del departamento: </p>
-                   <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                   <input type="file" class="form-control" name="logo">
+                   <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
                    <br><br>
 
                  </form>
-                 <button id="btn_atrib" class="btn">Agregar</button>
+                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
                </div>
                <div class="col-lg-9">
-                   <form class="form-inline">
+                   <form class="form-inline" id="formDeptos">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <input id="in_palabra_proyecto" type="text" name="deptoName" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getDeptoFiltro()">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAlldeptos()">Ver todos</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table">
+                   <table class="table" id="departamentos">
                       <thead>
                         <tr>
 
@@ -428,14 +445,15 @@
             </div>
             <div class="modal-body">
               <form class="" action="index.html" method="post">
-                <input type="text" name="" value="">
-                <input type="text" name="" value="">
-
+                <h3 align="center">Nuevos Datos </h3>
+                <input type="text" class="form-control" id="txnombre" name="txnombre" value="" placeholder="Nombre"><br>
+                <input type="text" class="form-control" id="txdesc" name="txdesc" value="" placeholder="Descripción">
+                <br>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="confirmDelete()">Aceptar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmMod()">Aceptar</button>
             </div>
           </div>
         </div>
@@ -603,14 +621,286 @@
      </div>
      <!--/Modal de nuevo proyecto-->
 
+     <!-- Modal actualización de departamento -->                            
+     <div class="modal fade" id="actualizarDepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <form id="modifDepto">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualización de departamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <label for="id_depto">ID departamento</label>
+                <br>
+                <p id="id_depto"></p>
+                <br>
+                <label for="updateNameDep">Departamento</label>
+                <br>
+                <input id="updateNameDep" type="text" name="nombre" style="width: 376px;" placeholder="Nombre de departamento" class="form-control mx-sm-3">
+                <br>
+                <label for="fileDepto">Logo</label>
+                <br>
+                <img id="image_logo" src="" alt="">
+                <br>
+                <br>
+                <input id="fileDepto" type="file" name="file">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="confirmActualización()">Aceptar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
-     <script src="../js/jquery-3.3.1.min.js"></script>
-     <script src="../js/bootstrap.min.js"></script>
-     <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+      <!-- Modal eliminar Criterio -->
 
-     <script src="../js/admin/admin.js"></script>
+    <div class="modal fade" id="eliminarc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      Está seguro que desea borrar: <span id="datoc"></span>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+      <button type="button" class="btn btn-primary" onclick="confirmDeleteC()">Aceptar</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+
+
+<!-- Modal eliminar Departamento-->
+
+<div class="modal fade" id="eliminarDto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      Está seguro que desea borrar: <span id="datodto"></span>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+      <button type="button" class="btn btn-primary" onclick="confirmDeleteDto()">Aceptar</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+<!-- Modal eliminar Departamento-->
+
+<div class="modal fade" id="eliminarCarrera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      Está seguro que desea borrar: <span id="datocarrera"></span>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+      <button type="button" class="btn btn-primary" onclick="confirmDeleteCarrera()">Aceptar</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+<!-- Modal ModificarCriterio-->
+<div class="modal fade" id="modificarCrit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="" action="index.html" method="post">
+                <h3 align="center">Nuevos Datos </h3>
+                <input type="text" class="form-control" id="txnombreCrit" name="txnombreCrit" value=""
+                  placeholder="Nombre"><br>
+                <input type="text" class="form-control" id="txdesCrit" name="txdesCrit" value="" placeholder="Descripción">
+                <br>
+                <select class="form-control" name="tipo" id="modifTipoCriterio">
+                  <option value="Individual">Individual</option>
+                  <option value="grupal">Grupal</option>
+                  <option value="individual/grupal">Individual/Grupal</option>
+                </select>
+                <br>
+                <input type="number" class="form-control" min="0" max="100" id="txpondCrit" name="txpondCritI" value="" placeholder="Ponderación Individual">
+                <input type="number" class="form-control" min="0" max="100" id="txpondCritG" name="txpondCritG" value="" placeholder="Ponderación Grupal">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmModCriterio()">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+<!-- Modal Modificar Carrera-->
+<div class="modal fade" id="modificarCarrera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="formModCarrera">
+                <br>
+                <h3 align="center">Nuevos Datos </h3>
+                <br>
+                <label for="id_carrera">ID carrera</label>
+                <br>
+                <p id="id_carrera"></p>
+                <input type="text" class="form-control" id="txnombreCarrera" name="txnombreCarrera" placeholder="Nombre"><br>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" onclick="confirmUpdateCarrera()">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Fin modal Update Carrera-->
+
      <script>
+
+        var myvar='<?php echo $_SESSION["usuario"];?>';
+        myvar='<?php echo $_SESSION["usuario"];?>';
+
+        //llamamos al metodo get_datos para obtener todos los datos del administrador
+
+        get_datos_sesion();
+
+        $( document ).ready(function() {
+  //getAllAtributos();
+    //get_atributos_criterio();
+   var opc = document.getElementById('opc');
+    opc.addEventListener( 'change', function(){
+    var tipo = this.options[opc.selectedIndex];
+        console.log(tipo.value);
+        if(tipo.value == 'individual/grupal'){
+          $("#PonderaciónGrupal").show();
+          $("#PonderaciónIndividual").show();
+          
+        }
+        else
+        {
+            $("#PonderaciónGrupal").hide();
+          $("#PonderaciónIndividual").hide();
+          
+        }
+      });
+    });
+
+        var select = document.getElementById('carreras_criterio');
+        select.addEventListener('change',
+        function(){
+          var selectedOption = this.options[select.selectedIndex];
+          getAtributo(selectedOption.value);
+        });
+
+        var selectTipoM = document.getElementById('modifTipoCriterio');
+        selectTipoM.addEventListener('change', function(){
+          var tipo = this.options[selectTipoM.selectedIndex];
+          console.log(tipo.value);
+          if(tipo.value == 'individual/grupal'){
+            $("#txpondCrit").show();
+            $("#txpondCritG").show();
+          }
+          else
+          {
+            $("#txpondCrit").hide();
+            $("#txpondCritG").hide();
+          }
+        });
+        getAlldeptos();
+        getAllCriterios();
+        getAllAtributos();
+        getCarreras();
+        get_atributos_criterio();
+        getCarrerasFiltro('All');
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito

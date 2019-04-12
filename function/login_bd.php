@@ -6,12 +6,11 @@ if(isset($_POST['login'])){
     $pass_cifrado =password_hash($password, PASSWORD_DEFAULT);
     if(empty($usuario) | empty($password)){
         header("Location: ../admin/login.php");
-        echo "";
         exit();
     }
     $stm = $conn->query("CALL LOGIN('$usuario')");
     $pas = $stm->fetch_row();
-    if(password_verify($password,$pas[0])){
+    if($password == $pas[0]){
         session_start();
         $_SESSION['usuario'] = $usuario;
         header("Location: ../admin/index.php");
