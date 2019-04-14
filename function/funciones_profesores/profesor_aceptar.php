@@ -1,7 +1,7 @@
 <?php
 include_once 'bdconexion.php';
 $id_p = $_GET['mi_id'];
-$q='UPDATE profesor SET status = 1 WHERE idprofesor = '.$id_p;
+$q='UPDATE profesores SET status = 1 WHERE idprofesor = '.$id_p;
 if(bd_consulta($q)){
   echo'<script type="text/javascript">
     alert("Campo  modificado");
@@ -13,6 +13,5 @@ if(bd_consulta($q)){
       window.location.href="index.php?op=90";
       </script>';
 }
-
 // header('Location: index.php');
  ?>
