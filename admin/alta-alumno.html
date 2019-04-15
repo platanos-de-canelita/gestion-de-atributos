@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro de Alumnos</title>
+    <!--Fuentes de google-->
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|PT+Sans+Narrow" rel="stylesheet">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+
+  </head>
+
+  <body>
+  <?php include '../templates/header.php'; ?>
+
+  <div class="container">
+    <div id="row">
+      <div class="row">
+        <div class="col-md-12 titulo">
+          <h2>Registrar alumno</h2>
+        </div>
+      </div>
+
+      <div class="row" style="padding-left: 20em; padding-right: 20em">
+        <br>
+        <form class="col-md-12" action="" method="post">
+          <br><br>
+          <input type="text" class="form-control" name="txtnombre" value=""
+            placeholder="Nombre"><br>
+          <input type="text" class="form-control" name="txtnc" value=""
+            placeholder="Número de control"><br>
+          <select class="form-control" name="carrera">
+            <option value="">Seleccionar carrera</option>
+            <option value="industrial">Industrial</option>
+          </select><br>
+          <select class="form-control" name="materia">
+            <option value="">Seleccione carrera</option>
+            <option value="m1">Materia 1</option>
+            <option value="m2">Materia 2</option>
+            <option value="m3">Materia 3</option>
+            <option value="m4">Materia 4</option>
+          </select><br>
+          <select class="form-control" name="profesor">
+            <option value="">Seleccione profesor</option>
+            <option value="p1">José Perez</option>
+            <option value="p2">Oscar Torres</option>
+            <option value="p3">Javier Calderon</option>
+          </select><br>
+          <select class="form-control" name="especialidad">
+            <option value="">Seleccione especialidad</option>
+            <option value="esp1">Especialidad 1</option>
+            <option value="esp2">Especialidad 2</option>
+            <option value="esp3">Especialidad 3</option>
+          </select><br>
+          <select class="form-control" name="semestre">
+            <option value="">Seleccione semestre</option>
+            <option value="s7">7° Semestre</option>
+            <option value="s8">8° Semestre</option>
+            <option value="s9">9° Semestre</option>
+            <option value="s10">10° Semestre</option>
+            <option value="s11">11° Semestre</option>
+          </select><br><br>
+          <button type="submit" class="btn" name="altaregistro">Restistrar</button><br><br>
+          <div class="col-md-12 titulo">
+            <h2>Carga mediante Excel</h2>
+          </div><br><br>
+          <h3>Selecciona el documento de Excel que contiene los alumnos.</h3>
+          <br><br>
+          <input type="file" name="excel"><br><br>
+          <button type="submit" class="btn" name="alta">Cargar archivo</button>
+        </form>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+  </body>
+</html>
