@@ -25,6 +25,260 @@ var datos_sesion;
       });
     });*/
 
+    function ResponsablesFiltro(type){
+      var datos;
+      if(type == 'All'){
+        datos = 'funcion=select&depto='+localStorage.getItem('depto');
+        $("#formResponsable").trigger("reset");
+      }
+      else{
+        datos = $("#formResponsable").serialize()+'&funcion=select&depto='+localStorage.getItem('depto');
+      }
+      console.log(datos);
+      $("#responsables tbody").html("");
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/responsable.php',
+        data : datos,
+        success : function(response){
+          if(response == "Sin Resultados"){
+            $("#responsables > thead").html("<tr><th class='center'>No se encontrarón materias con los parametros de busqueda</th></tr>");
+            $("#responsables tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
+          }
+          else
+          {
+            $("#responsables > thead").html("");
+            $("#responsables thead").append(
+              "<tr>"+
+              "<th>ID</th>"+
+              "<th>Nombre</th>"+
+              "<th>Usuario</th>"+
+              "<th>Contraseña</th>"+
+              "<th>Acciones</th>"+
+              "</tr>"
+            );
+
+            $("#responsables tbody").append(response);
+          }
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function modificarResponsable(usuario, pass, nombre, id){
+      $("#modificarResponsable").modal("show");
+      localStorage.setItem('responsable', id);
+      console.log(usuario);
+      console.log(pass);
+      console.log(nombre);
+      $("id_responsable").text(nombre);
+      $("#nombre_usuario_r").val(usuario);
+      $("#pass_r").val(pass);
+    }
+
+    function confirmarModifResponsable(){
+      let datos = 'usuario='+$("#nombre_usuario_r").val()+'&pass='+$("#pass_r").val()+'&funcion=update&id_responsable='+localStorage.getItem('responsable');
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/responsable.php',
+        data : datos,
+        success : function(response){
+          alert(response);
+          ResponsablesFiltro('All');
+          $("#modificarResponsable").modal("hide");
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+          
+        }
+      });
+    }
+
+    function deleteResponsable(nombre, id){
+      $("#eliminarResp").modal("show");
+      localStorage.setItem('responsable', id);
+      $("#datodtoR").append(nombre);
+    }
+
+    function confirmDelResponsable(){
+      let datos = 'funcion=delete&id_responsable='+localStorage.getItem('responsable');
+
+      $.ajax({
+        type: 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/responsable.php',
+        data : datos,
+        success : function(response){
+          alert(response);
+          $("#eliminarResp").modal("hide");
+          ResponsablesFiltro('All');
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function insertar_responsable(){
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/responsable.php',
+        data : $('#formResponsableInsert').serialize()+'&funcion=insert&depto='+localStorage.getItem('depto'),
+        success : function(response){
+          alert(response);
+          if(response == 'Responsable registrado con éxito'){
+            $('#formResponsableInsert').trigger("reset");
+            ResponsablesFiltro('All');
+          }
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function getProfesoresR(){
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/responsable.php',
+        data : 'funcion=profesores',
+        success : function(response){
+          $("#profesores_select").append(response);
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function modificarMateria(id, nombre){
+      $("#modificarMateria").modal("show");
+      localStorage.setItem('id_materia', id);
+      $("#nombre_carrera").val(nombre);
+    }
+
+    function confirmarModMateria(){
+      var datos = "funcion=update&id_materia="+localStorage.getItem('id_materia')+"&nombre="+$("#nombre_carrera").val();
+      console.log(datos);
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/materias.php',
+        data : datos,
+        success : function(response){
+          alert(response);
+          $("#modificarMateria").modal("hide");
+          getMaterias('All');
+
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function eliminarMateria(id, nombre){
+      $("#eliminarMateria").modal("show");
+      localStorage.setItem('id_materia', id);
+      $("#id_materia").text(nombre);
+      
+    }
+
+    function confirmarEliminarMateria(){
+      var datos = "funcion=delete&id_materia="+localStorage.getItem('id_materia');
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/materias.php',
+        data : datos,
+        success : function(response){
+          alert(response);
+          $("#eliminarMateria").modal("hide");
+          getMaterias('All');
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function getMaterias(type){
+      let depto = localStorage.getItem('depto');
+      var datos;
+      if(type == "All"){
+        datos = "funcion=select&depto="+depto;
+        $("#formMaterias").trigger("reset");
+      }
+      else{
+        datos = $("#formMaterias").serialize()+'&funcion=select&depto='+depto;
+      }
+
+      $("#materias tbody").html("");
+
+      $.ajax({
+        type : 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/materias.php',
+        data : datos,
+        success : function(response){
+          if(response == "Sin Resultados"){
+            $("#materias > thead").html("<tr><th class='center'>No se encontrarón materias con los parametros de busqueda</th></tr>");
+            $("#materias tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
+          }
+          else
+          {
+            $("#materias > thead").html("");
+            $("#materias thead").append(
+              "<tr>"+
+              "<th>ID carrera</th>"+
+              "<th>Nombre materia</th>"+
+              "<th>Carrera</th>"+
+              "<th>Acciones</th>"+
+              "</tr>"
+            );
+
+            $("#materias tbody").append(response);
+          }
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
+    function insertar_materia(){
+      $.ajax({
+        type: 'POST',
+        async : true,
+        timeout : 12000,
+        url : '../function/materias.php',
+        data : $("#formMateriaInsert").serialize()+'&funcion=insert',
+        success : function(response){
+          alert(response);
+          if(response == "Materia Registrada con éxito"){
+            $("#formMateriaInsert").trigger("reset");
+            getMaterias('All');
+          }
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+      });
+    }
+
     function insert_carrera(){
       var datos = $("#formCarreraI").serialize()+'&id_depto='+localStorage.getItem('depto')+'&accion=insert';
 
@@ -138,6 +392,8 @@ function updateAllPlatform(){
   getCarreras();
   get_atributos_criterio();
   getCarrerasFiltro('All');
+  getProfesoresR();
+  ResponsablesFiltro('All');
 }
 
     function getCarrerasFiltro(tipo){
@@ -401,6 +657,8 @@ function getCarreras(){
     success: function(data){
       $("#carreras_criterio").append(data);
       $("#carreras_atributo").append(data);
+      $("#materais_carrera").append(data);
+      $("#materias_carrera").append(data);
     },
     error: function (jqXHR, textStatus, errorThrown){
 
@@ -730,7 +988,16 @@ function confirmDelete(){
 }
 
 function setdata_sesion(data){
-  localStorage.setItem('depto', data);
+  localStorage.setItem('depto', data.split('\n')[1]);
+  getAlldeptos();
+  getAllCriterios();
+  getAllAtributos();
+  getCarreras();
+  get_atributos_criterio();
+  getCarrerasFiltro('All');
+  getMaterias('All');
+  getProfesoresR();
+  ResponsablesFiltro('All');
 }
 function get_datos_sesion(){
 
