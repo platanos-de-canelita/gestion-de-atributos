@@ -4,26 +4,7 @@ var mod;
 var name;
 var datos_sesion;
 
-/*$( document ).ready(function() {
-  //getAllAtributos();
-    //get_atributos_criterio();
-   var opc = document.getElementById('opc');
-    opc.addEventListener( 'change', function(){
-    var tipo = this.options[opc.selectedIndex];
-        console.log(tipo.value);
-        if(tipo.value == 'Individual/Grupal'){
-          $("#PonderaciónGrupal").show();
-          $("#PonderaciónIndividual").show();
-          
-        }
-        else
-        {
-            $("#PonderaciónGrupal").hide();
-          $("#PonderaciónIndividual").hide();
-          
-        }
-      });
-    });*/
+
 
     function insert_carrera(){
       var datos = $("#formCarreraI").serialize()+'&id_depto='+localStorage.getItem('depto')+'&accion=insert';
@@ -32,7 +13,7 @@ var datos_sesion;
         alert('Favor de introducir un nombre de carrera');
       }
       else
-      {
+      { 
         $.ajax({
           type: 'POST',
           async: true,
@@ -77,69 +58,56 @@ var datos_sesion;
       });
     }
 
-    //Recargar consulta de profesores en index
-  setInterval(cons1,2000);
-  function cons1 (){
-    $.ajax({
-        url:"../function/funciones_profesores/consulta_na.php",
-        method: "POST",
-        dataType:"text",
-        data: {"nombre":$("#buscarPC").val()},
-        success: function (data) {
-          const contenido=document.getElementById('filas1');
-          contenido.innerHTML=data;
-        }
-    });
-  }
-  setInterval(cons2,2000);
-  function cons2 (){
-    $.ajax({
-        url:"../function/funciones_profesores/consulta_sa.php",
-        method: "POST",
-        dataType:"text",
-        data: {"nombre": $("#buscarPA").val()},
-        success: function (data) {
-         const contenido=document.getElementById('filas2');
-         contenido.innerHTML=data;
-        }
-    });
-  }
-
-function acepar_profe(ide){
-   $.ajax({
-       url:"../function/funciones_profesores/profesor_aceptar.php?mi_id="+ide,
-       method: "GET",
-       dataType:"text",
-       success: function (data) {
-        const contenido=document.getElementById('filas2');
-        contenido.innerHTML=data;
-       }
-   });
-     $("#rbusqueda").html("");
-  }
-
-function rechazar_profe(ide){
-  $.ajax({
-    url:"../function/funciones_profesores/profesor_rechazar.php?mi_id="+ide,
-    method: "GET",
-    dataType:"text",
-    success: function (data) {
-      const contenido=document.getElementById('filas2');
-      contenido.innerHTML=data;
-    }
-  });
-  $("#rbusqueda").html("");
-}
+ 
 
 function updateAllPlatform(){
   getAlldeptos();
   getAllatrib_mate();
   getAllAtributos();
   getCarreras();
-  get_atributos_criterio();
+
   getCarrerasFiltro('All');
 }
+function getCarrerasFiltro(tipo){
+  var data_filtro;
+  $("#tableCarrera tbody").html("");
+  if(tipo == 'All'){
+    data_filtro = 'id_depto='+localStorage.getItem('depto')+'&accion=select';
+  }
+  else
+  {
+    data_filtro = $("#formCarrera").serialize()+'&id_depto='+localStorage.getItem('depto')+'&accion=select';
+  }
+  $.ajax({
+    type: 'POST',
+    async: true,
+    url: '../function/get_carreras.php',
+    timeout: 12000,
+    data: data_filtro,
+    success: function(data){
+      if(data == "Sin Resultados"){
+        $("#tableCarrera > thead").html("<tr><th class='center'>No se encontrarón carreras con los parametros de busqueda</th></tr>");
+        $("#tableCarrera tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
+      }
+      else
+      {
+        $("#tableCarrera > thead").html("");
+        $("#tableCarrera thead").append(
+          "<tr>"+
+          "<th>Carrera</th>"+
+          "<th>Departamento</th>"+
+          "<th>Acción</th>"+
+          "</tr>"
+        );
 
+        $("#tableCarrera tbody").append(data);
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+
+    }
+  });
+}
  
 
    function revisacrit(){
@@ -197,17 +165,7 @@ function insertarCricterio(podindiv, pongrup){
   });
 }
 
-function get_atributos_criterio(){
-  $.ajax({
-      url:"../function/get_atributos.php",
-      method: "POST",
-      dataType:"text",
-      success: function (data) {
-       const contenido=document.getElementById('atrib');
-       contenido.innerHTML=data;
-      }
-  });
-}
+
 
 function getAlldeptos(){
   $("#departamentos > tbody").html(
@@ -369,7 +327,7 @@ function getCarreras(){
   });
 }
 
-function getAtributo(carrera){
+function getAtributo(carrera){//---------GET MATERIA(Carrera) otro método
   $("#atributos_criterio").html("");
   $("#atributos_criterio").append("<option disabled selected>Selecciona un atributo</option>");
   console.log(carrera);
@@ -665,60 +623,8 @@ function confirmMod(){
     }
   });
 }
-setInterval(cons1,2000);
-  function cons1 (){
-    $.ajax({
-        url:"../function/funciones_profesores/consulta_na.php",
-        method: "POST",
-        dataType:"text",
-        success: function (data) {
-         const contenido=document.getElementById('filas1');
-         contenido.innerHTML=data;
-        }
-    });
-  }
-//Recargar consulta de profesores en index
-  setInterval(cons2,2000);
-    function cons2 (){
-      $.ajax({
-          url:"../function/funciones_profesores/consulta_sa.php",
-          method: "POST",
-          dataType:"text",
-          success: function (data) {
-           const contenido=document.getElementById('filas2');
-           contenido.innerHTML=data;
-          }
-      });
-    }
-
-function acepar_profe(ide){
-     $.ajax({
-         url:"../function/funciones_profesores/profesor_aceptar.php?mi_id="+ide,
-         method: "GET",
-         dataType:"text",
-         success: function (data) {
-          const contenido=document.getElementById('filas2');
-          contenido.innerHTML=data;
-         }
-     });
-       $("#rbusqueda").html("");
 
 
-    }
-
-function rechazar_profe(ide){
- $.ajax({
-     url:"../function/funciones_profesores/profesor_rechazar.php?mi_id="+ide,
-     method: "GET",
-     dataType:"text",
-     success: function (data) {
-      const contenido=document.getElementById('filas2');
-      contenido.innerHTML=data;
-     }
- });
- $("#rbusqueda").html("");
-
-}
 function confirmDelete(){
   var fun = "eliminar";
 

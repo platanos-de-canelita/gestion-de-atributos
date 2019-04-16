@@ -135,30 +135,28 @@
                    
                   <br><br>
 
-                   <select class="form-control" name="materia" id="opc">
-                   <option disabled selected>Selecciona una materia</option>
+                   <select id="materias_criterio" name="materiaFiltro" class="form-control">
+                      <option disabled selected>Selecciona una materia</option>
                    </select>
 
                    <br><br>
-                   <select id="atrib" class="form-control" name="atributo">
-                     <option value="">Atributo</option>
+                   <select id="atributos_criterio" name="atributoFiltro" class="form-control">
+                      <option disabled selected>Selecciona un atributo</option>
                    </select>
 
                    <br><br>
                  </form>
                  <button class="btn" name="login" onclick="revisacrit()">Agregar</button>
-               </div>
+               </div> 
                <div class="col-lg-9">
                    <form id="atrib_mate_form" class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
-                           <select id="carreras_criterio" name="carreraFiltro" class="form-control mx-sm-3">
+                           <select id="carreras_atributo" name="carreraFiltro" class="form-control mx-sm-3">
                             <option disabled selected>Selecciona una carrera</option>
                            </select>
-                           <select id="atributos_criterio" name="atributoFiltro" class="form-control mx-sm-3">
-                            <option disabled selected>Selecciona un atributo</option>
-                           </select>
+                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
+                          
                            <button id="tbn_refrescar_filtros_proyectos" onclick="getatrib_mate()" type="button" class="form-control mx-sm-3">Buscar</button>
                            <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllatrib_mate()">Ver todos</button>
                        </div>
@@ -362,40 +360,7 @@
                              </ul>
                          </div>
                      </div>
-                     <!---
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_publicaciones" class="font-weight-bold">Publicaciones</label>
-                             <select id="select_publicaciones" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_publicaciones" class="font-weight-bold">Publicaciones relacionadas</label>
-                             <ul id="lista_publicaciones" class="list-group">
-                                 <li class="list-group-item item list-group-item-success"">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_congresos" class="font-weight-bold">Congresos</label>
-                             <select id="select_congresos" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_congresos" class="font-weight-bold">congresos relacionados</label>
-                             <ul id="lista_congresos" class="list-group">
-                                 <li class="list-group-item item list-group-item-success"">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                     -->
+                  
                  </div>
                  <!--Pie del modal-->
                  <div class="modal-footer">
@@ -638,33 +603,17 @@
 
         get_datos_sesion();
 
-        $( document ).ready(function() {
-  //getAllAtributos();
-    //get_atributos_criterio();
-   var opc = document.getElementById('opc');
-    opc.addEventListener( 'change', function(){
-    var tipo = this.options[opc.selectedIndex];
-        console.log(tipo.value);
-        if(tipo.value == 'individual/grupal'){
-          $("#PonderaciónGrupal").show();
-          $("#PonderaciónIndividual").show();
-          
-        }
-        else
-        {
-            $("#PonderaciónGrupal").hide();
-          $("#PonderaciónIndividual").hide();
-          
-        }
-      });
-    });
+        
 
         var select = document.getElementById('carreras_criterio');
         select.addEventListener('change',
         function(){
           var selectedOption = this.options[select.selectedIndex];
           getAtributo(selectedOption.value);
+          //llamar getMateria(selectedOp)
         });
+
+
 
         var selectTipoM = document.getElementById('modifTipoCriterio');
         selectTipoM.addEventListener('change', function(){
@@ -684,7 +633,6 @@
         getAllatrib_mate();
         getAllAtributos();
         getCarreras();
-        get_atributos_criterio();
         getCarrerasFiltro('All');
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
