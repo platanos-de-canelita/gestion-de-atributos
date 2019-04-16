@@ -683,7 +683,11 @@ function confirmMod(){
     async: true,
     url: "../function/atributos.php",
     timeout: 12000,
-    data: {func:"actualizar",Atributo:mod,Nombre:name, Descripcion:desc},
+    data: {func:"actualizar",
+          Atributo:mod,
+          Nombre:name, 
+          Descripcion:desc
+        },
     dataType:"json",
     success: function(response)
     {
