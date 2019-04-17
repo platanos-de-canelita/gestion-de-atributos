@@ -134,7 +134,6 @@
                               <br>
                               <input type="text" class="form-control" id="txapellidoM" name="txapellidoM" value="" placeholder="Apellido Materno">
                               <br>
-                              <input type="text" class="form-control" id="txEspecialidad" name="txEspecialidad" value="" placeholder="Especialidad">
                             </form>
                           </div>
                           <div class="modal-footer">

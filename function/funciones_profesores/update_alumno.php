@@ -8,7 +8,6 @@ function actualizar_alumno(){
     $nuevoNombre = $_POST['Nombre'];
     $nuevoAp_P = $_POST['Apellido_p'];
     $nuevoAp_M = $_POST['Apellido_m'];
-    $nuevaEspecialidad = $_POST['Especialidad']:
 
     if(empty($id)){
   
@@ -18,7 +17,7 @@ function actualizar_alumno(){
   
     }else{
   
-        $sql = "UPDATE alumno SET Nombre = '$nuevoNombre', Ap_P = '$nuevoAp_P', Ap_M = '$nuevoAp_M', especialidad_id = '$nuevaEspecialidad' WHERE Num_Control = $id";
+        $sql = "UPDATE alumno SET Nombre = '$nuevoNombre', Ap_P = '$nuevoAp_P', Ap_M = '$nuevoAp_M' WHERE Num_Control = $id";
   
           if($conn->query($sql)){
             $msg['msga'] = "Modificacion realizada. ";
