@@ -127,35 +127,36 @@
            <div class="row">
                <div class="col-lg-3">
                  <form class="formulario" id="formcrit">
-                 <p>Agregar atributos: </p>
-                   <!--input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre"-->
-                  <select id="carreras_criterio" name="carreraFiltro" class="form-control ">
-                      <option disabled selected>Selecciona una carrera</option>
-                  </select>
-                   
-                  <br><br>
+                  <p>Agregar atributos: </p>
+                    <!--input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre"-->
+                    <select id="carreras_criterio" name="carreraFiltro" class="form-control ">
+                        <option disabled selected>Selecciona una carrera</option>
+                    </select>
+                    
+                    <br><br>
 
-                   <select id="materias_criterio" name="materiaFiltro" class="form-control">
-                      <option disabled selected>Selecciona una materia</option>
-                   </select>
+                    <select id="materias_criterio" name="materiaFiltro" class="form-control">
+                        <option disabled selected>Selecciona una materia</option>
+                    </select>
 
-                   <br><br>
-                   <select id="atributos_criterio" name="atributoFiltro" class="form-control">
-                      <option disabled selected>Selecciona un atributo</option>
-                   </select>
+                    <br><br>
+                    <select id="atributos_criterio" name="atributoFiltro" class="form-control">
+                        <option disabled selected>Selecciona un atributo</option>
+                    </select>
 
-                   <br><br>
+                    <br><br>
                  </form>
-                 <button class="btn" name="login" onclick="revisacrit()">Agregar</button>
+                 <button class="btn" name="login" onclick="revisaAsigmat()">Agregar</button>
                </div> 
                <div class="col-lg-9">
                    <form id="atrib_mate_form" class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <select id="carreras_atributo" name="carreraFiltro" class="form-control mx-sm-3">
+                           <select id="carreras_atributoo" name="carreraFiltro" class="form-control mx-sm-3">
                             <option disabled selected>Selecciona una carrera</option>
-                           </select>
+                           </select>                                               <!--name=filtro el de atributos-->
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
+                           <input id="in_palabra_proyecto" type="text" placeholder="semestre" name="semestre" class="form-control mx-sm-3">
                           
                            <button id="tbn_refrescar_filtros_proyectos" onclick="getatrib_mate()" type="button" class="form-control mx-sm-3">Buscar</button>
                            <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllatrib_mate()">Ver todos</button>
@@ -179,10 +180,16 @@
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
                           <td>50%</td>
                           <td>Individual</td>
-                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCriterio(3,'Trabaja en equipo')">Eliminar</button></td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3">Eliminar</button></td>
                         </tr>
                       </tbody>
                     </table>
+                    <div class="paginador">
+                        <ul id="paginas" style="list-style: none; ">
+
+                         
+                        </ul>
+                    </div>
                </div>
            </div>
            <div class="container" style="margin-top:1em;">
@@ -260,153 +267,7 @@
      </div>
      <!--/Moda de confirmacion-->
 
-     <!--Modal de nuevo proyecto-->
-     <div class="modal fade" id="registrar_proyecto">
-         <div class="modal-dialog modal-lg">
-             <div class="modal-content">
-                 <!--Cabecera del modal-->
-                 <div class="modal-header">
-                     <h3 id="titulo_modal_proyecto" class="modal-title">Titulo P</h3>
-                     <button id="btn_cerrar_registrar_proyectos" tyle="button" class="close" data-dismiss="modal"
-                         aria-hidden="true">&times;</button>
-                 </div>
-                 <!--Cuerpo del modal-->
-                 <div class="modal-body">
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="in_titulo_proyecto" class="font-weight-bold">Titulo</label>
-                             <input type="text" id="in_titulo_proyecto" class="form-control">
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="in_titulo_proyecto" class="font-weight-bold">Lider de proyecto</label>
-                             <select id="select_lider_proyecto_registro" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-lg-6 col-md-12">
-                             <label class="font-weight-bold">Imagen</label>
-                             <div class="input-group">
-                                 <label class="input-group-btn">
-                                     <span class="btn btn-outline-info">
-                                         Buscar&hellip; <input id="img_proyecto_ref" name="img_proyecto_ref" type="file" style="display: none;" accept="image/png, image/jpeg">
-                                     </span>
-                                 </label>
-                                 <input id="in_img_proyecto" type="text" class="form-control" readonly>
-                             </div>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_linea_proyecto_registro" class="font-weight-bold">Linea de investigación</label>
-                             <select id="select_linea_proyecto_registro" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class='col-md-6'>
-                             <div class="form-group">
-                                 <label for="fecha_inicio" class="font-weight-bold">Fecha inicio</label>
-                                 <div class='input-group date' id='fecha_inicio'>
-                                     <input id="in_fecha_inicio" type='text' class="form-control">
-                                     <span class="input-group-addon">
-                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                     </span>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class='col-md-6'>
-                             <div class="form-group">
-                                 <label for="fecha_fin" class="font-weight-bold">Fecha inicio</label>
-                                 <div class='input-group date' id='fecha_fin'>
-                                     <input id="in_fecha_fin" type='text' class="form-control">
-                                     <span class="input-group-addon">
-                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                     </span>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="row" style="margin:1em;">
-                         <div class="container col-sm-12">
-                             <div class="form-check">
-                                 <input id="check_financiado" class="form-check-input" type="checkbox" value="0">
-                                 <label class="form-check-label font-weight-bold mx-sm-3" for="check_financiado">Proyecto
-                                     financiado</label>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="form-group col-sm-12">
-                             <label for="txt_resumen_proyecto" class="font-weight-bold">Resumen</label>
-                             <textarea class="form-control" id="txt_resumen_proyecto" rows="3"></textarea>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_colaboradores" class="font-weight-bold">Colaboradores</label>
-                             <select id="select_colaboradores" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_colaboradores" class="font-weight-bold">Colaboradores agregados</label>
-                             <ul id="lista_colaboradores" class="list-group">
-                                 <li class="list-group-item item list-group-item-success">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                  
-                 </div>
-                 <!--Pie del modal-->
-                 <div class="modal-footer">
-                     <button id="btn_guardar_proyecto" class="btn btn-md btn-outline-success">Guardar</button>
-                 </div>
-             </div>
-         </div>
-     </div>
-     <!--/Modal de nuevo proyecto-->
-
-     <!-- Modal actualización de departamento -->                            
-     <div class="modal fade" id="actualizarDepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <form id="modifDepto">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualización de departamento</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <label for="id_depto">ID departamento</label>
-                <br>
-                <p id="id_depto"></p>
-                <br>
-                <label for="updateNameDep">Departamento</label>
-                <br>
-                <input id="updateNameDep" type="text" name="nombre" style="width: 376px;" placeholder="Nombre de departamento" class="form-control mx-sm-3">
-                <br>
-                <label for="fileDepto">Logo</label>
-                <br>
-                <img id="image_logo" src="" alt="">
-                <br>
-                <br>
-                <input id="fileDepto" type="file" name="file">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="confirmActualización()">Aceptar</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
+    
       <!-- Modal eliminar Criterio -->
 
     <div class="modal fade" id="eliminarc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -429,7 +290,7 @@
 
     <div class="modal-body">
 
-      Está seguro que desea borrar: <span id="datoc"></span>
+      Está seguro que desea quitar el atributo?
 
     </div>
 
@@ -449,150 +310,7 @@
 
 
 
-<!-- Modal eliminar Departamento-->
-
-<div class="modal fade" id="eliminarDto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-<div class="modal-dialog" role="document">
-
-  <div class="modal-content">
-
-    <div class="modal-header">
-
-      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-        <span aria-hidden="true">&times;</span>
-
-      </button>
-
-    </div>
-
-    <div class="modal-body">
-
-      Está seguro que desea borrar: <span id="datodto"></span>
-
-    </div>
-
-    <div class="modal-footer">
-
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
-      <button type="button" class="btn btn-primary" onclick="confirmDeleteDto()">Aceptar</button>
-
-    </div>
-
-  </div>
-
-</div>
-
-</div>
-
-<!-- Modal eliminar Departamento-->
-
-<div class="modal fade" id="eliminarCarrera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-<div class="modal-dialog" role="document">
-
-  <div class="modal-content">
-
-    <div class="modal-header">
-
-      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-        <span aria-hidden="true">&times;</span>
-
-      </button>
-
-    </div>
-
-    <div class="modal-body">
-
-      Está seguro que desea borrar: <span id="datocarrera"></span>
-
-    </div>
-
-    <div class="modal-footer">
-
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
-      <button type="button" class="btn btn-primary" onclick="confirmDeleteCarrera()">Aceptar</button>
-
-    </div>
-
-  </div>
-
-</div>
-
-</div>
-
-<!-- Modal ModificarCriterio-->
-<div class="modal fade" id="modificarCrit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form class="" action="index.html" method="post">
-                <h3 align="center">Nuevos Datos </h3>
-                <input type="text" class="form-control" id="txnombreCrit" name="txnombreCrit" value=""
-                  placeholder="Nombre"><br>
-                <input type="text" class="form-control" id="txdesCrit" name="txdesCrit" value="" placeholder="Descripción">
-                <br>
-                <select class="form-control" name="tipo" id="modifTipoCriterio">
-                  <option value="Individual">Individual</option>
-                  <option value="grupal">Grupal</option>
-                  <option value="individual/grupal">Individual/Grupal</option>
-                </select>
-                <br>
-                <input type="number" class="form-control" min="0" max="100" id="txpondCrit" name="txpondCritI" value="" placeholder="Ponderación Individual">
-                <input type="number" class="form-control" min="0" max="100" id="txpondCritG" name="txpondCritG" value="" placeholder="Ponderación Grupal">
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="confirmModCriterio()">Aceptar</button>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- Modal -->
-<!-- Modal Modificar Carrera-->
-<div class="modal fade" id="modificarCarrera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form id="formModCarrera">
-                <br>
-                <h3 align="center">Nuevos Datos </h3>
-                <br>
-                <label for="id_carrera">ID carrera</label>
-                <br>
-                <p id="id_carrera"></p>
-                <input type="text" class="form-control" id="txnombreCarrera" name="txnombreCarrera" placeholder="Nombre"><br>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="confirmUpdateCarrera()">Aceptar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--Fin modal Update Carrera-->
 
      <script>
 
@@ -610,30 +328,16 @@
         function(){
           var selectedOption = this.options[select.selectedIndex];
           getAtributo(selectedOption.value);
-          //llamar getMateria(selectedOp)
+          getMateria(selectedOption.value);
         });
 
 
 
-        var selectTipoM = document.getElementById('modifTipoCriterio');
-        selectTipoM.addEventListener('change', function(){
-          var tipo = this.options[selectTipoM.selectedIndex];
-          console.log(tipo.value);
-          if(tipo.value == 'individual/grupal'){
-            $("#txpondCrit").show();
-            $("#txpondCritG").show();
-          }
-          else
-          {
-            $("#txpondCrit").hide();
-            $("#txpondCritG").hide();
-          }
-        });
-        getAlldeptos();
+        
+        
         getAllatrib_mate();
         getAllAtributos();
-        getCarreras();
-        getCarrerasFiltro('All');
+        
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito

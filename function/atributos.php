@@ -1,15 +1,9 @@
 <?php
-function actualizar_atributo(){
 
 function actualizar_atributo(){
-
-
-
   require_once('bdconexion.php');
 
 //$admin = $_SESSION['usuario'];
-
-
 
   $nombre = $_POST['Atributo'];
 
@@ -43,17 +37,6 @@ function actualizar_atributo(){
 
   }
 
-  /*$nombre = $_POST['nombre'];
-
-  $id = $_POST['id'];
-
-  if($conn->query("UPDATE atributo SET nombre=$nombre WHERE idmateria=$id")){
-
-    $msg['msg'] = "Atributo insertado correctamente.";
-
-    echo json_encode($msg);
-
-  }*/
 
 }
 
@@ -73,11 +56,7 @@ function buscar_atributo(){
 
           $informacion=array(
 
-            'id'=>utf8_encode($dato['id_atributo_pk']),
-
-            'nombre'=>utf8_encode($dato['Nombre']),
-
-            'desc'=>utf8_encode($dato['Descripcion'])
+            'id'=>utf8_encode($dato['id_atributo_pk']),'nombre'=>utf8_encode($dato['Nombre']),'desc'=>utf8_encode($dato['Descripcion'])
 
           );
 
@@ -228,8 +207,25 @@ function insertar_criterio(){
         break;
       }
     }
-    
-    
+}
+
+
+function insertar_atribMate(){
+  require_once("bdconexion.php");
+
+    $materia = $_POST['materia'];
+    $atributo = $_POST['atributo'];
+    $carrera = $_POST['carrera'];
+
+
+    $sql ="INSERT INTO materia_atributos (Id_materia, Id_atributo, Id_carrera, Estado) VALUES ($materia, '$atributo',  '$carrera','1')"; 
+    $result = $conn->query($sql);
+    if($result){
+        echo "Registrado correctamente";
+    }
+    else{
+        echo "Error al registrar atributo en materia, puede existir ya esta coincidencia";
+    }
 }
 
 switch ($_POST['func']) {
@@ -262,12 +258,14 @@ switch ($_POST['func']) {
     insertar_atributo();
     break;
 
+  case 'insertarAtribMate':
+    insertar_atribMate();
+    break;
+    
   default:
-
     insertar_criterio();
-
     break;
 
 }
 
-?>
+ ?>
