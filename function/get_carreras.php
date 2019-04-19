@@ -6,7 +6,7 @@
             $sql = "SELECT c.id_carrera, c.nombre, d.nombre AS departamento FROM carrera c INNER JOIN departamento d ON c.id_depto = d.id_depto WHERE d.id_depto = " . $_POST['id_depto'] ." AND c.nombre LIKE '%".$_POST["carrera"]."%' AND c.Estado = true";
         }
         else
-        {
+        { 
             $sql = "SELECT c.id_carrera, c.nombre, d.nombre AS departamento FROM carrera c INNER JOIN departamento d ON c.id_depto = d.id_depto WHERE d.id_depto = " . $_POST['id_depto'] . " AND c.Estado = true";
         }
 

@@ -1,14 +1,11 @@
-
 <?php
 
   //reanuda la sesion
   session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
-
+    $session_value=$_SESSION['usuario'];
   }else{
-
-
   	header("Location: login.php");
   	exit();
   }
@@ -25,6 +22,8 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
      <link rel="stylesheet" href="../css/main.css">
      <script src="../js/admin/admin.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -203,7 +202,7 @@
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
                           <td>50%</td>
                           <td>Individual</td>
-                          <td>Modificar | Eliminar</td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCriterio(3,'Trabaja en equipo')">Eliminar</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -217,7 +216,7 @@
          </div>
 
          <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
-           <div class="row">
+             <div class="row">
 
                <div class="col-lg-12">
                    <form class="form-inline">
@@ -275,8 +274,74 @@
            <div class="container" style="margin-top:1em;">
                <div id="contenedor_proyectos" class="row">
 
-               </div>
-           </div>
+                                          <div class="container">
+                                            <div class="row">
+                                              <div class="col-sm">
+                                                <div id="rbusqueda"></div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-sm">
+                                                 Profesores candidatos
+                                                <table class="table">
+                                                   <thead>
+                                                     <tr>
+                                                       <th scope="col">id</th>
+                                                       <th scope="col">Nombre</th>
+                                                       <th scope="col">Correo</th>
+                                                       <th scope="col">Acciones</th>
+                                                     </tr>
+                                                   </thead>
+
+
+                                                   <tbody id="filas1">
+
+                                                   </tbody>
+                                                 </table>
+                                              </div>
+
+                                              <div class="col-sm">
+                                                Profesores autorizados
+                                                <table class="table">
+                                                   <thead>
+                                                     <tr>
+                                                       <th scope="col">id</th>
+                                                       <th scope="col">Nombre</th>
+                                                       <th scope="col">Correo</th>
+                                                       <th scope="col">Acciones</th>
+                                                     </tr>
+                                                   </thead>
+                                                   <tbody id="filas2">
+
+                                                   </tbody>
+                                                 </table>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+
+
+
+
+                      <div class="paginador">
+                        <ul id="paginas" style="list-style: none; ">
+
+                          <!--<li><a href="#">|<<</a></li>
+                          <li><a href="#"><<</a></li>
+                          <li class="pageSelected">1</li>
+
+                          <li><a href="#">>></a></li>
+                          <li><a href="#">>>|</a></li>-->
+                        </ul>
+                      </div>
+                 </div>
+             </div>
+             <div class="container" style="margin-top:1em;">
+                 <div id="contenedor_proyectos" class="row">
+
+                 </div>
+             </div>
          </div>
 
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
@@ -358,7 +423,59 @@
 
                           <th scope="col">Sistemas y computación</th>
                           <th scope="col">logo7.png</th>
-                          <th scope="col">Modificar|Eliminar</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(1,'Sistemas')">Eliminar</button></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
+
+         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
+           <div class="row">
+               <div class="col-lg-3">
+                 <form class="formulario" id="formDeptoInsert" >
+                   <p>Nombre del departamento: </p>
+                   <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
+                   <br><br>
+
+                 </form>
+                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
+               </div>
+               <div class="col-lg-9">
+                   <form class="form-inline" id="formDeptos">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="in_palabra_proyecto" type="text" name="deptoName" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getDeptoFiltro()">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAlldeptos()">Ver todos</button>
+                       </div>
+                   </form>
+                   <br>
+                   <table class="table" id="departamentos">
+                      <thead>
+                        <tr>
+
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Logo</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="filas">
+                        <tr>
+
+                          <th scope="col">Industrial</th>
+                          <th scope="col">logo6.png</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(2,'Industrial')">Eliminar</button></th>
                         </tr>
                       </tbody>
                     </table>
@@ -905,11 +1022,6 @@
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
          });
 
      </script>

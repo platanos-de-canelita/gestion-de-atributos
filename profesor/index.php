@@ -111,40 +111,6 @@
                      <option value="s11">11° Semestre</option>
                    </select><br><br>
                    <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
-                   <!--BOTON DE PRUEBA MODAL Y FUNCION UPDATE-->
-                   <button type="button" class="btn" name="EditarAlumno" data-toggle="modal" data-target="#updateAlumno">Editar</button>
-                   <!--FIN-->
-
-                   <!-- Modal ModificarAlumno-->
-                  <div class="modal fade" id="updateAlumno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form class="" action="index.html" method="post">
-                              <h3 align="center">Nuevos Datos </h3>
-                              <input type="text" class="form-control" id="txnombreAlumno" name="txnombreAlumno" value=""
-                                placeholder="Nombre"><br>
-                              <input type="text" class="form-control" id="txapellidoP" name="txapellidoP" value="" placeholder="Apellido Paterno">
-                              <br>
-                              <input type="text" class="form-control" id="txapellidoM" name="txapellidoM" value="" placeholder="Apellido Materno">
-                              <br>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" onclick="confirmMod()">Aceptar</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  <!--Terminar modal de ModificarAlumno-->
-
                    <div class="col-md-12 titulo">
                      <h2>Carga mediante Excel</h2>
                    </div><br><br>

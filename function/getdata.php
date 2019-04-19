@@ -62,17 +62,15 @@
     }
 */
     include_once "bdconexion.php";
-    $atributos = [];
     try{
         if($_POST["filtro"]=='All'){
             $query = "SELECT a.id_atributo_pk, a.nombre, a.descripcion, c.Nombre FROM atributo a INNER JOIN carrera c ON a.id_carrera = c.id_carrera WHERE a.id_carrera IN (SELECT id_carrera FROM carrera WHERE id_depto = " . $_POST['depto'] . ") AND a.Estado = true";
             $sql_query = $conn->query($query);
-        }   
+        }
         else{
             $query = "SELECT a.id_atributo_pk, a.nombre, a.descripcion, c.Nombre FROM atributo a INNER JOIN carrera c ON a.id_carrera = c.id_carrera WHERE a.id_carrera IN (SELECT id_carrera FROM carrera WHERE id_depto = " . $_POST['depto'] . ") AND (a.nombre LIKE '%" . $_POST['filtro'] . "%' OR a.descripcion LIKE '%" . $_POST['filtro'] ."%') AND a.Estado = true";
             $sql_query = $conn->query($query);
         }
-        
         if($sql_query->num_rows == 0)
             echo "Sin Atributos";
 

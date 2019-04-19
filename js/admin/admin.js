@@ -510,7 +510,8 @@ function getAtributos(){
     async: true,
     data: $("#Atributos").serialize() + "&depto="+datos_sesion,
     success:function(data){
-      if(data != null){
+      console.log(data);
+      if(data != ''){
         if(data == "Sin Atributos"){
           $("#tabla_atributos > thead").html("<tr><th class='center'>No se encontrarón atributos relacionados con la busqueda</th></tr>");
           $("#tabla_atributos tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
@@ -526,6 +527,10 @@ function getAtributos(){
         +"</tr>");
           $("#tabla_atributos tbody").append(data);
         }
+      }
+      else
+      {
+        console.log(data);
       }
     },
     error:function(jqXHR, textStatus, errorThrown){
@@ -545,7 +550,7 @@ function getAllAtributos(){
     async: true,
     data: {'filtro':"All", "depto" : datos_sesion},
     success:function(data){
-      if(data != null){
+      if(data != ''){
         if(data == "Sin Atributos"){
           $("#tabla_atributos > thead").html("<tr><th class='center'>No hay atributos registrados</th></tr>");
           $("#tabla_atributos tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.jpg"+"'>"+"</td></tr>");
@@ -599,7 +604,7 @@ function verAtributos(p){
   a=p;
   var fun = "consultar";
   $.ajax({
-    type: "GET",
+    type: "POST",
     async: true,
     url: "../function/atributos.php",
     timeout: 12000,
@@ -613,7 +618,7 @@ function verAtributos(p){
             "<tr>"+
               "<th scope='row'>"+ value.nombre +"</th>"+
               "<td>"+value.desc+"</td>"+
-              "<td>"+"1"+"</td>"+
+              "<td>"+value.estado+"</td>"+
               "<td>"+
               "<a href='#' onclick='modificarAtributo("+value.id+")'>Modificar</a>"+
               "|<a href='#' id='href"+value.id+"' onclick='eliminarAtributo("+value.id+")'>Eliminar</a>"+
@@ -626,14 +631,14 @@ function verAtributos(p){
 
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+     // console.log(errorThrown);
     }
   });
 }
 function getPaginas(){
   $("#paginas").empty();
   $.ajax({
-    type: "GET",
+    type: "POST",
     async: true,
     url: "../function/get_paginas.php",
     timeout: 12000,
@@ -662,7 +667,7 @@ function getPaginas(){
 
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      //console.log(errorThrown);
     }
   });
 }
@@ -683,11 +688,7 @@ function confirmMod(){
     async: true,
     url: "../function/atributos.php",
     timeout: 12000,
-    data: {func:"actualizar",
-          Atributo:mod,
-          Nombre:name, 
-          Descripcion:desc
-        },
+    data: {func:"actualizar",Atributo:mod,Nombre:name, Descripcion:desc},
     dataType:"json",
     success: function(response)
     {
@@ -703,12 +704,59 @@ function confirmMod(){
     }
   });
 }
+setInterval(cons1,2000);
+  function cons1 (){
+    $.ajax({
+        url:"../function/funciones_profesores/consulta_na.php",
+        method: "POST",
+        dataType:"text",
+        success: function (data) {
+         const contenido=document.getElementById('filas1');
+         contenido.innerHTML=data;
+        }
+    });
+  }
+//Recargar consulta de profesores en index
+  setInterval(cons2,2000);
+    function cons2 (){
+      $.ajax({
+          url:"../function/funciones_profesores/consulta_sa.php",
+          method: "POST",
+          dataType:"text",
+          success: function (data) {
+           const contenido=document.getElementById('filas2');
+           contenido.innerHTML=data;
+          }
+      });
+    }
+
+function acepar_profe(ide){
+     $.ajax({
+         url:"../function/funciones_profesores/profesor_aceptar.php?mi_id="+ide,
+         method: "GET",
+         dataType:"text",
+         success: function (data) {
+          const contenido=document.getElementById('filas2');
+          contenido.innerHTML=data;
+         }
+     });
+       $("#rbusqueda").html("");
 
 
-function eliminarAtributo(value){
-  $('#eliminar').modal('show');
-  $("#dato").append(value);
-  del = value;
+    }
+
+function rechazar_profe(ide){
+ $.ajax({
+     url:"../function/funciones_profesores/profesor_rechazar.php?mi_id="+ide,
+     method: "GET",
+     dataType:"text",
+     success: function (data) {
+      const contenido=document.getElementById('filas2');
+      contenido.innerHTML=data;
+     }
+ });
+ $("#rbusqueda").html("");
+
 }
 function confirmDelete(){
   var fun = "eliminar";
