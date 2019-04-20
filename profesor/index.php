@@ -1,7 +1,7 @@
 
 <?php
   //reanuda la sesion
-  /*session_start();
+  session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
@@ -9,8 +9,10 @@
 
   	header("Location: login.php");
   	exit();
-  }*/
+  }
  ?>
+
+
  <!DOCTYPE html>
  <html lang="en">
 
@@ -19,7 +21,17 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
      <link rel="stylesheet" href="../css/main.css">
+     
+     <script src="../js/admin/profesor.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
      <title>Profesor</title>
 
@@ -60,7 +72,8 @@
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
 
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
-         <!--Seccion de proyectos-->
+         
+      <!--Seccion de proyectos-->
 
          <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
            <div class="container">
@@ -80,7 +93,7 @@
                    <input type="text" class="form-control" name="txtnc" value=""
                      placeholder="Número de control"><br>
                    <select class="form-control" name="carrera">
-                     <option value="">Seleccionar carrera</option>
+                     <option disabled selected>Seleccionar carrera</option>
                      <option value="industrial">Industrial</option>
                    </select><br>
                    <select class="form-control" name="materia">
@@ -131,6 +144,11 @@
            </div>
          </div>
 
+
+
+
+
+<!--Seccion de grupos de estudio-->
          <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
            <div class="container">
              <div id="row">
@@ -146,23 +164,23 @@
                    <br><br>
                    <input type="text" class="form-control" placeholder="Nombre del grupo"></input>
                    <br>
-                   <select class="form-control" name="carrera">
-                     <option value="">Seleccionar carrera</option>
-                     <option value="industrial">Industrial</option>
+                   <select id="group_carreras" class="form-control" name="carrera">
+                     <option disabled selected>Seleccionar carrera</option>
+                     <!-- option value="industrial">Industrial</option-->
                    </select><br>
-                   <select class="form-control" name="materia">
-                     <option value="">Seleccionar materia</option>
-                     <option value="industrial">Ingenieria economica</option>
+                   <select id="group_materias" class="form-control" name="materia">
+                     <option disabled selected>Seleccionar materia</option>
+                     <!--option value="industrial">Ingenieria economica</option-->
                    </select><br>
-                   <select class="form-control" name="alumnos">
-                     <option value="">Alberto Robles</option>
-                     <option value="industrial">Alejandro Nuñez</option>
+                   <select id="group_alumnos" class="form-control" name="alumnos">
+                     <option disabled selected>Seleccionar alumno</option>
+                     <!--option value="industrial">Alejandro Nuñez</option-->
                    </select>
                    <br><br>
-                   <button class="btn" onclick="">Agregar alumno</button>
+                   <center> <button class="btn" onclick="">Agregar alumno</button>
                   <br><br>
                    <button type="submit" class="btn" name="altaregistro">Crear grupo</button><br><br>
-
+                   </center>
                  </form>
                </div>
                <br>
@@ -213,6 +231,12 @@
               </ul>
             </div>
          </div>
+
+
+
+
+
+
 
          <!--Seccion de materias-->
          <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
@@ -521,40 +545,7 @@
                              </ul>
                          </div>
                      </div>
-                     <!---
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_publicaciones" class="font-weight-bold">Publicaciones</label>
-                             <select id="select_publicaciones" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_publicaciones" class="font-weight-bold">Publicaciones relacionadas</label>
-                             <ul id="lista_publicaciones" class="list-group">
-                                 <li class="list-group-item item list-group-item-success"">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_congresos" class="font-weight-bold">Congresos</label>
-                             <select id="select_congresos" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_congresos" class="font-weight-bold">congresos relacionados</label>
-                             <ul id="lista_congresos" class="list-group">
-                                 <li class="list-group-item item list-group-item-success"">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                     -->
+                   
                  </div>
                  <!--Pie del modal-->
                  <div class="modal-footer">
@@ -582,8 +573,38 @@
             'success'
           )
          });
+          //-----------------------------------------------------------------------
+        var myvar='<?php echo $_SESSION["usuario"];?>';
+        myvar='<?php echo $_SESSION["usuario"];?>';
+        //llamamos al metodo get_datos para obtener todos los datos del administrador
+        get_datos_sesion();
 
+        
+         //ALTA-FORMULARIO En cuanto cambie la carrera debe cambiar materias y alumnos incritos a la misma
+        var select = document.getElementById('group_carreras');
+        select.addEventListener('change',
+        function(){
+          var selectedOption = this.options[select.selectedIndex];
+         /* getMateria(selectedOption.value);
+          getAtributo(selectedOption.value);
+          */
+          getMateria(selectedOption.value);
+        });
+
+        var select = document.getElementById('group_materias');
+        select.addEventListener('change',
+        function(){
+          var selectedOption = this.options[select.selectedIndex];
+          getAlumnos(selectedOption.value);
+        });
+
+        //getAllatrib_mate();//---debe ser 
+        getAllgroups_t();
+        
      </script>
+
+
+
  </body>
 
  </html>

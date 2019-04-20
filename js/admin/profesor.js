@@ -1,26 +1,18 @@
 var a=0;
-var del;
-var mod;
 var name;
 var datos_sesion;
 
 
-
-    
- 
-
 function updateAllPlatform(){
-  getAllatrib_mate();
-  getAllAtributos();
- 
+  getAllgroups_t();
 
 }
 
 
    function revisaAsigmat(){
     var carrera=$('#carreras_criterio').val();
-    var materia=$('#materias_criterio').val();
-    var atributo = $("#atributos_criterio").val();
+    var materia=$('#group_materias').val();
+    var atributo = $("#group_alumnos").val();
     
     if (carrera==null || materia==null || atributo==null) {
       alert("Todos los campos son obligatorios. Selecciones alguna opción")
@@ -48,7 +40,7 @@ function updateAllPlatform(){
         else
         {
           alert(response);
-          getAllatrib_mate();
+          getAllgroups_t();
         }
       },
       error: function(jqXHR, textStatus, errorThrown){
@@ -70,7 +62,7 @@ function updateAllPlatform(){
       success: function(response)
       {
         alert(response);
-        getAllatrib_mate();//-------------------get all
+        getAllgroups_t();//-------------------get all
       },
       error: function(jqXHR, textStatus, errorThrown){
     //   console.log(errorThrown);
@@ -93,8 +85,8 @@ function getCarreras(){
     success: function(data){
       if(data=="")
         alert("No existen carreras registradas para su departamento");
-      $("#carreras_criterio").append(data);
-      $("#carreras_atributoo").append(data);
+      $("#group_carreras").append(data);
+      
     },
     error: function (jqXHR, textStatus, errorThrown){
 
@@ -102,30 +94,29 @@ function getCarreras(){
   });
 }
 
-function getAtributo(carrera){//---------
-  $("#atributos_criterio").html("");
-  $("#atributos_criterio").append("<option disabled selected>Selecciona un atributo</option>");
-  console.log(carrera);
+function getAlumno(materia){//---------
+  $("#group_alumnos").html("");
+  $("#group_alumnos").append("<option disabled selected>Seleccionar alumno</option>");
+  console.log(materia);
   $.ajax({
     type: 'POST',
-    url: '../function/getDataAtribMat.php',
+    url: '../function/funciones_profesores/getDataGroups.php',
     timeout: 12000,
     async: true,
-    data : {carrera: carrera},
+    data : {materia: materia},
     success: function(data){
       if(data=="")
-        alert("No existen atributos registrados para esta carrera");
-      $("#atributos_criterio").append(data);
+        alert("No existen alumnos registrados para esta materia");
+      $("#group_alumnos").append(data);
     },
     error: function (jqXHR, textStatus, errorThrown){
-
     }
   });
 }
 
 function getMateria(carrera){//---------GET MATERIA(Carrera) otro método
-  $("#materias_criterio").html("");
-  $("#materias_criterio").append("<option disabled selected>Selecciona una materia</option>");
+  $("#group_materias").html("");
+  $("#group_materias").append("<option disabled selected>Seleccionar materia</option>");
   console.log(carrera);
   $.ajax({
     type: 'POST',
@@ -136,7 +127,7 @@ function getMateria(carrera){//---------GET MATERIA(Carrera) otro método
     success: function(data){
       if(data=="")
         alert("No existen materias registradas para esta carrera");
-      $("#materias_criterio").append(data);
+      $("#group_materias").append(data);
     },
     error: function (jqXHR, textStatus, errorThrown){
 
@@ -144,7 +135,8 @@ function getMateria(carrera){//---------GET MATERIA(Carrera) otro método
   });
 }
 //-----------------pppppppppppppppppppppppppppppppppppppppppp
-function getatrib_mate(){
+//getatrib_mate()
+function getGroups(){
   datos_sesion = localStorage.getItem('depto');
   
   $("#table_atrib_mate > tbody").html("");
@@ -176,24 +168,22 @@ function getatrib_mate(){
     }
   });
   $("#atrib_mate_form")[0].reset();//------todo en blanco
-  $("#carreras_atributoo").html("");
-  $("#carreras_atributoo").append("<option disabled selected>Selecciona una carrera</option>");
   $("#carreras_criterio").html("");
-  $("#carreras_criterio").append("<option disabled selected>Selecciona una carrera</option>");
+  $("#carreras_criterio").append("<option disabled selected>Seleccionar carrera</option>");
   getCarreras();
 //------------------
 }
 
 
-function getAllatrib_mate(){
+function getAllgroups_t(){
   datos_sesion = localStorage.getItem('depto');
   $("#atrib_mate_form")[0].reset();//------todo en blanco
   $("#carreras_criterio").html("");
-  $("#carreras_criterio").append("<option disabled selected>Selecciona una carrera</option>");
-  $("#materias_criterio").html("");
-  $("#materias_criterio").append("<option disabled selected>Selecciona una materia</option>");
-  $("#atributos_criterio").html("");
-  $("#atributos_criterio").append("<option disabled selected>Selecciona un atributo</option>");
+  $("#carreras_criterio").append("<option disabled selected>Seleccionar carrera</option>");
+  $("#group_materias").html("");
+  $("#group_materias").append("<option disabled selected>Seleccionar materia</option>");
+  $("#group_alumnos").html("");
+  $("#group_alumnos").append("<option disabled selected>Seleccionar alumno</option>");
   getCarreras();
 //-------------------------------------------------------------------------
 
@@ -266,101 +256,7 @@ function getAtributos(){
   });
 }
 
-function getAllAtributos(){
-  datos_sesion = localStorage.getItem('depto');//****el del admin */
-  $("#tabla_atributos > tbody").html("");
-  $.ajax({
-    type: 'POST',
-    url: '../function/getdata.php',
-    timeout: 12000,
-    async: true,
-    data: {'filtro':"All", "depto" : datos_sesion},
-    success:function(data){
-      if(data != ''){
-        if(data == "Sin Atributos"){
-          $("#tabla_atributos > thead").html("<tr><th class='center'>No hay atributos registrados</th></tr>");
-          $("#tabla_atributos tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.jpg"+"'>"+"</td></tr>");
-        }
-        else{      
-          $("#tabla_atributos > thead").html("");
-          $("#tabla_atributos thead").append("<tr>"+
-          "<th scope='col'>id</th>"+
-          "<th scope='col'>Nombre</th>"+
-          "<th scope='col'>Descripción</th>"+
-          '<th scope="col">Carrera</th>'+
-          "<th scope='col'>Acciones</th>"
-        +"</tr>");
-          $("#tabla_atributos tbody").append(data);
-        }
-      }
-    },
-    error:function(jqXHR, textStatus, errorThrown){
-      console.log(textStatus);
-      alert(jqXHR);
-    }
-  });
-}
-function insertarAtributo(){
-  let data = $('#form').serialize();
 
-  data = data + '&func=insertar';
-  console.log(data);
-  $.ajax({
-    type: "POST",
-    async: true,
-    url: "../function/atributos.php",
-    timeout: 12000,
-    data: data,
-    success: function(response)
-    {
-      console.log(response);
-      alert("Atributo cargada.");
-      getAllAtributos();
-    },
-    error: function(jqXHR, textStatus, errorThrown){
-   //   console.log(errorThrown);
-    }
-  });
-}
-
-function verAtributos(p){
-  $("#tabla_atributos").empty();
-  $("#paginas").empty();
-  if(p==null)p=1;
-  a=p;
-  var fun = "consultar";
-  $.ajax({
-    type: "POST",
-    async: true,
-    url: "../function/atributos.php",
-    timeout: 12000,
-    data:{pagina:p,func:fun,nombre:"x"},
-    dataType: "json",
-    success: function(response)
-    {
-      var i=0;
-      $.each(response, function(key, value) {
-          $("#tabla_atributos").append(
-            "<tr>"+
-              "<th scope='row'>"+ value.nombre +"</th>"+
-              "<td>"+value.desc+"</td>"+
-              "<td>"+value.estado+"</td>"+
-              "<td>"+
-              "<a href='#' onclick='modificarAtributo("+value.id+")'>Modificar</a>"+
-              "|<a href='#' id='href"+value.id+"' onclick='eliminarAtributo("+value.id+")'>Eliminar</a>"+
-              "</td>"+
-            "</tr>"
-          );
-          i++;
-      });
-      getPaginas();
-
-    },
-    error: function(jqXHR, textStatus, errorThrown){
-     // console.log(errorThrown);
-    }
-  });
-}
 function getPaginas(){
   $("#paginas").empty();
   $.ajax({
@@ -396,7 +292,7 @@ function getPaginas(){
       //console.log(errorThrown);
     }
   });
-}
+}/*
 function modificarAtributo(value, descr, id){
   $('#modificar').modal('show');
   $("#txdesc").val(descr);
@@ -430,7 +326,7 @@ function confirmMod(){
     }
   });
 }
-
+*/
 
 function setdata_sesion(data){
   localStorage.setItem('depto', data);
