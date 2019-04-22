@@ -111,14 +111,34 @@
                      <option value="s11">11° Semestre</option>
                    </select><br><br>
                    <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
+                    </form>
                    <div class="col-md-12 titulo">
                      <h2>Carga mediante Excel</h2>
                    </div><br><br>
                    <h3>Selecciona el documento de Excel que contiene los alumnos.</h3>
                    <br><br>
-                   <input type="file" name="excel"><br><br>
-                   <button type="submit" class="btn" name="alta">Cargar archivo</button>
-                 </form>
+                   <!--<input type="file" name="excel"><br><br>
+                   <button type="submit" class="btn" name="alta">Cargar archivo</button>-->
+
+                <div class="container">
+                <h2>Cargar e importar archivo excel a MySQL</h2>
+                <form name="importa" method="post" action="../function/funciones_profesores/excel.php" enctype="multipart/form-data" >
+                  <div class="col-xs-4">
+                    <div class="form-group">
+                      <input type="file" class="filestyle" data-buttonText="Seleccione archivo" name="excel">
+                    </div>
+                  </div>
+                  <div class="col-xs-2">
+                    <input class="btn btn-default btn-file" type='submit' name='enviar'  value="Importar"  />
+                  </div>
+                  <input type="hidden" value="upload" name="action" />
+                  <input type="hidden" value="usuarios" name="mod">
+                  <input type="hidden" value="masiva" name="acc">
+                </form>
+                </div>
+
+
+
                </div>
                <br>
                <br>
@@ -571,7 +591,7 @@
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-     <script src="../js/admin/admin.js"></script>
+     <!--<script src="../js/admin/admin.js"></script>-->
      <script>
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
