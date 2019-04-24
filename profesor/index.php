@@ -173,7 +173,6 @@
                      <option disabled selected>Seleccionar materia</option>
                      <!--option value="industrial">Ingenieria economica</option-->
                    </select>
-                   
                    <br>
                    <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
                  </form>
@@ -592,30 +591,30 @@
         //llamamos al metodo get_datos para obtener todos los datos del administrador
         get_datos_sesion();
         get_datos_sesionPK();
-        getCarreras();
+        
          //ALTA-FORMULARIO En cuanto cambie la carrera debe cambiar materias y alumnos incritos a la misma
-        var select = document.getElementById('group_carreras');
-        select.addEventListener('change',
+        var selectCar = document.getElementById('group_carreras');
+        selectCar.addEventListener('change',
         function(){
-          var selectedOption = this.options[select.selectedIndex];
-          getMateria(selectedOption.value);
+          var selectedCar = this.options[selectCar.selectedIndex];
+          getMateria(selectedCar.value);
           
         });
-        var select = document.getElementById('carreras_alu');
-        select.addEventListener('change',
+        var selectCarr = document.getElementById('carreras_alu');
+        selectCarr.addEventListener('change',
         function(){
-          var selectedOption = this.options[select.selectedIndex];
-          getMateria(selectedOption.value);
+          var selectedCarr = this.options[selectCarr.selectedIndex];
+          getMateria(selectedCarr.value);
         });
 
-        var select = document.getElementById('materias_alu');
-        select.addEventListener('change',
+        var selectMate = document.getElementById('materias_alu');
+        selectMate.addEventListener('change',
         function(){
-          var selectedOption = this.options[select.selectedIndex];
-          getGrupos(selectedOption.value);
-          getAlumnos(selectedOption.value);
+          var selectedMate = this.options[selectMate.selectedIndex];
+          getGrupos(selectedMate.value);
+          getAlumnos(selectedMate.value);
         });
-
+        getCarreras();
         //getAllatrib_mate();//---debe ser 
        // getAllgroups_t();//-------------------------------
        

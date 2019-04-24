@@ -5,7 +5,7 @@ function getCarreras(){//Obtiene las carreras del departamento del administrador
     $query = "SELECT id_carrera, nombre FROM carrera WHERE id_depto = " . $_POST['departamento']. " AND Estado = true";
     
     $sql_query = $conn->query($query);
-
+    if($sql_query)
     while($item = $sql_query->fetch_assoc()){
         echo '<option value="'. $item['id_carrera'] .'">' . $item['nombre'] . '</option>';
     }
@@ -16,7 +16,7 @@ function getAtributos(){//obtiene los atributos pertenecientes a la carrera sele
     $query = "SELECT id_atributo_pk, nombre FROM atributo WHERE id_carrera = " . $_POST['carrera']. " AND Estado = true";
 
     $sql_query = $conn->query($query);
-
+    if($sql_query)
     while ($item = $sql_query->fetch_assoc()){
         echo '<option value="' . $item['id_atributo_pk'] .'">' . $item['nombre'] . '</option>';
     }
@@ -27,7 +27,7 @@ function getMaterias(){//obtiene los atributos pertenecientes a la carrera selec
     $query = "SELECT id_materia, Nombre FROM materia WHERE id_carrera = " . $_POST['carre']. " AND estado = true";
 
     $sql_query = $conn->query($query);
-
+    if($sql_query)
     while ($item = $sql_query->fetch_assoc()){
         echo '<option value="' . $item['id_materia'] .'">' . $item['Nombre'] . '</option>';
     }

@@ -1,20 +1,10 @@
 <?php
-function getUsr_pk(){//obtiene los atributos pertenecientes a la carrera seleccionada
-    require_once("bdconexion.php");
-    $usuario = $_POST['usuario'];
-
-    //obtengo el departamento del administrador
-    
-    $res = $conn->query("SELECT id_admin_fk FROM administrador WHERE usuario='$usuario'");
-    $response = $res->fetch_row();
-    echo $response[0];
-}
 
 function getAlumnos(){//obtiene los atributos pertenecientes a la carrera seleccionada
     require_once("bdconexion.php");
     $query="SELECT m.Num_Control as NumC, a.Nombre as NombreA FROM materias_cursando m INNER JOIN alumno a ON m.Num_Control = c.id_carrera  WHERE m.id_materia = " . $_POST['materia'] . " AND a.Estado = true" ;
     $sql_query = $conn->query($query);
-
+    if($sql_query)
     while ($item = $sql_query->fetch_assoc()){
         echo '<option value="' . $item['NumC'] .'">' . $item['NombreA'] . '</option>';
     }
@@ -25,10 +15,46 @@ function getGrupos(){//obtiene los atributos pertenecientes a la carrera selecci
     $query = "SELECT Id_grupo, Nombre FROM grupo_trabajo WHERE Id_materia = " . $_POST['materiag']. " AND Estado = true";
 
     $sql_query = $conn->query($query);
+    if($sql_query)
     while ($item = $sql_query->fetch_assoc()){
         echo '<option value="' . $item['Id_grupo'] .'">' . $item['Nombre'] . '</option>';
     }
 }
+
+function insertaGrupo(){//obtiene los atributos pertenecientes a la carrera seleccionada
+    require_once("bdconexion.php");
+    //$sql = "INSERT INTO grupo_trabajo VALUES (null, '$_POST['grupo']', $_POST['carrera'], $_POST['materia'], $_POST['profesor'], true)";
+    $grupo=$_POST['grupo'];
+    $carr=$_POST['carrera'];
+    $mat=$_POST['materia'];
+    $prof=$_POST['profesor'];
+    $sql = "INSERT INTO grupo_trabajo VALUES (null, '$grupo', $carr, $mat, $prof, true)";
+    $sql_query = $conn->query($sql);
+    if($sql_query){
+        echo "Grupo de trabajo registrado correctamente";
+    }
+    else
+    {
+        echo "Error al registrar";
+    }
+}
+function insertaAlu(){//obtiene los atributos pertenecientes a la carrera seleccionada
+    require_once("bdconexion.php");
+        //$sql = "INSERT INTO grupo_alumno VALUES ($_POST['grupo'], $_POST['alumno'])";
+        $grup=$_POST['grupo'];
+        $alu=$_POST['alumno'];
+        $sql = "INSERT INTO grupo_alumno VALUES ($grup, $alu)";
+        $sql_query = $conn->query($sql);
+
+        if($sql_query){
+            echo "Alumno registrado correctamente";
+        }
+        else
+        {
+            echo "Error al registrar";
+        }
+}
+
 function accion(){
     if($_POST['func']=="insertarGrupo" ){
        insertaGrupo();
@@ -184,10 +210,6 @@ if(isset($_POST['func'])){
     accion();
 }
 else{
-    if(isset($_POST['usuario'])){
-        getUsr_pk();
-   }
-   else{
         if(isset($_POST['materia'])){
             getAlumnos();
         }
@@ -199,6 +221,6 @@ else{
                // filtroCriterios();
             }
         }
-   }
+   
 }
 ?>

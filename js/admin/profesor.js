@@ -1,7 +1,7 @@
 var a=0;
 var name;
 var datos_sesion;
-
+var pk_sesion;
 
 function updateAllPlatform(){
   getAllgroups_t();
@@ -10,11 +10,11 @@ function updateAllPlatform(){
 
 
    function revisaGrupo(){
-    var grupo = trim($("#group_nvo").val());
+    var grupo = $("#group_nvo").val();
     var carrera=$('#group_carreras').val();
     var materia=$('#group_materias').val();
     
-    if (carrera==null || materia==null || grupo=="") {
+    if (carrera==null || materia==null || grupo.trim()=="") {
       alert("Todos los datos son obligatorios.")
     }
     else{
@@ -22,7 +22,7 @@ function updateAllPlatform(){
     }
   }
   function insertarGrupo(grupo,carrera,materia){
-    profesor = localStorage.getItem('usr_pk');
+    profesor = pk_sesion;
     data ='func=insertarGrupo';
     data =data + '&grupo='+grupo +'&carrera='+carrera +'&materia='+materia+'&profesor='+profesor;
     console.log(data);
@@ -58,7 +58,6 @@ function revisaAlumno(){
   }
 }
 function insertarAlumno(grupo,alumno){
-  
   
   data ='func=insertarAlu';
   data =data + '&grupo='+grupo +'&alumno='+alumno;
@@ -100,6 +99,7 @@ function getCarreras(){
         alert("No existen carreras registradas para su departamento");
       $("#group_carreras").append(data);
       $("#carreras_alu").append(data);
+     
     },
     error: function (jqXHR, textStatus, errorThrown){
 
@@ -107,7 +107,6 @@ function getCarreras(){
   });
 }
 function getMateria(carrera){//---------GET MATERIA(Carrera) otro método
-  alert(carrera+"************");
   $("#group_materias").html("");
   $("#group_materias").append("<option disabled selected>Seleccionar materia</option>");
   $("#materias_alu").html("");
@@ -399,16 +398,14 @@ function get_datos_sesion(){
   });
 }
 
-function setdata_sesionPK(data){
-  localStorage.setItem('usr_pk', data);
-}
+
 function get_datos_sesionPK(){
   $.ajax({
-      url:"../function/funciones_profesores/getDataGroups.php",//-----------------------SESIÓN----------------
+      url:"../function/get_datos_sesionpk.php",//-----------------------SESIÓN----------------
       method: "POST",
-      data:{usuario:myvar},
+      data:{func:"getDatPk",usuario:myvar},
       success: function (data) {
-        setdata_sesionPK(data);
+        pk_sesion=data;
       }
 
   });
