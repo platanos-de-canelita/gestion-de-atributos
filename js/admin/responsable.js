@@ -79,6 +79,43 @@ function updateAllPlatform(){
 }
 
 
+//*********************************************** */
+function validaProf(){
+  var carrera=$('#carrera_materia').val();
+  var materia=$('#materia_prof').val();
+  var profesor = $("#profesor_materia").val();
+  
+  if (carrera==null || materia==null || profesor==null) {
+    alert("Todos los campos son obligatorios. Selecciones alguna opción")
+
+  }
+  else{
+    insertProfMate(carrera, materia,profesor);
+  }
+}
+
+function insertProfMate(carrera,materia,profesor){
+  data ='func=insertP';
+  data =data + '&carrera='+carrera +'&materia='+materia +'&profesor='+profesor;
+  console.log(data);
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/profesor.php",
+    timeout: 12000,
+    data: data,
+    success: function(response)
+    {
+      alert(response);
+      getAllatrib_profe();//-------------------get all
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+  //   console.log(errorThrown);
+    }
+  });
+}
+
+//*********************************************** */
 
 
 
@@ -95,6 +132,51 @@ function getCarreras(){
         alert("No existen carreras registradas para su departamento");
       $("#carreras_criterio").append(data);
       $("#carreras_atributoo").append(data);
+      //$("#carrera_materia").append(data);
+      //$("#prof_materia").append(data);
+    },
+    error: function (jqXHR, textStatus, errorThrown){
+
+    }
+  });
+}
+
+
+function getCarrerasProfe(){
+  datos_sesion = localStorage.getItem('depto');
+  $.ajax({
+    type: 'POST',
+    url: '../function/profesor.php',
+    timeout: 12000,
+    async: true,
+    data : {departamento: datos_sesion},
+    success: function(data){
+      if(data=="")
+        alert("No existen carreras registradas para su departamento");
+      //$("#carreras_criterio").append(data);
+      //$("#carreras_atributoo").append(data);
+      $("#carrera_materia").append(data);
+      $("#prof_materia").append(data);
+    },
+    error: function (jqXHR, textStatus, errorThrown){
+
+    }
+  });
+}
+//-----------------------------------------------------
+
+function getProfesor(){ //Funcion para mostrar los profesores
+  datos_sesion = localStorage.getItem('depto');
+  $.ajax({
+    type: 'POST',
+    url: '../function/getDataAtribMat.php',
+    timeout: 12000,
+    async: true,
+    data : {profe: datos_sesion},
+    success: function(data){
+      if(data=="")
+        alert("No existen profesores registrados");
+      $("#profesor_materia").append(data);
     },
     error: function (jqXHR, textStatus, errorThrown){
 
@@ -137,12 +219,36 @@ function getMateria(carrera){//---------GET MATERIA(Carrera) otro método
       if(data=="")
         alert("No existen materias registradas para esta carrera");
       $("#materias_criterio").append(data);
+      $("#materiaFiltroProf").append(data);
     },
     error: function (jqXHR, textStatus, errorThrown){
 
     }
   });
 }
+
+function getMateriaProfe(carrera){//---------GET MATERIA(Carrera) otro método
+  $("#carrera_materia").html("");
+  $("#carrera_materia").append("<option disabled selected>Selecciona una materia</option>");
+  console.log(carrera);
+  $.ajax({
+    type: 'POST',
+    url: '../function/profesor.php',
+    timeout: 12000,
+    async: true,
+    data : {carre: carrera},
+    success: function(data){
+      if(data=="")
+        alert("No existen materias registradas para esta carrera");
+      $("#carrera_materia").append(data);
+      $("#prof_materia").append(data);
+    },
+    error: function (jqXHR, textStatus, errorThrown){
+
+    }
+  });
+}
+
 //-----------------pppppppppppppppppppppppppppppppppppppppppp
 function getatrib_mate(){
   datos_sesion = localStorage.getItem('depto');
@@ -184,16 +290,56 @@ function getatrib_mate(){
 //------------------
 }
 
+function getprofe_mate(){
+  datos_sesion = localStorage.getItem('depto');
+  
+  $("#table_prof_materia > tbody").html("");
+  var datos = $("#prof_mate_form").serialize();
+  var datos = datos + '&Allprof_mat='+ datos_sesion;
+  $.ajax({
+    type: 'POST',
+    url: '../function/profesor.php',
+    timeout: 12000,
+    async: true,
+    data: datos,
+    success: function(data){
+      if(data == "Sin resultados"){
+        $("#table_prof_materia > thead").html("<tr><th class='center'>No se encontrarón datos relacionados con la busqueda</th></tr>");
+        $("#table_prof_materia tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
+      }
+      else
+      {
+        $("#table_prof_materia > thead").html("");
+        $("#table_prof_materia thead").append('<tr><th scope="col">Carrera</th>'+
+        '<th scope="col">Profesor</th>'+
+        '<th scope="col">Materia</th>'+
+        '<th scope="col">Acciones</th></tr>');
+        $("#table_prof_materia tbody").append(data);
+      }
+    },
+    error : function(jqXHR, textStatus, errorThrown){
+
+    }
+  });
+  $("#prof_mate_form")[0].reset();//------todo en blanco
+  $("#prof_materia").html("");
+  $("#prof_materia").append("<option disabled selected>Selecciona una carrera</option>");
+  $("#carrera_materia").html("");
+  $("#carrera_materia").append("<option disabled selected>Selecciona una carrera</option>");
+  getCarrerasProfe();
+//------------------
+}
+
 
 function getAllatrib_mate(){
   datos_sesion = localStorage.getItem('depto');
-  $("#atrib_mate_form")[0].reset();//------todo en blanco
-  $("#carreras_criterio").html("");
-  $("#carreras_criterio").append("<option disabled selected>Selecciona una carrera</option>");
-  $("#materias_criterio").html("");
-  $("#materias_criterio").append("<option disabled selected>Selecciona una materia</option>");
-  $("#atributos_criterio").html("");
-  $("#atributos_criterio").append("<option disabled selected>Selecciona un atributo</option>");
+  $("#prof_mate_form")[0].reset();//------todo en blanco
+  $("#carrera_materia").html("");
+  $("#carrera_materia").append("<option disabled selected>Selecciona una carrera</option>");
+  $("#materia_prof").html("");
+  $("#materia_prof").append("<option disabled selected>Selecciona un profesor</option>");
+  $("#prfoesor_materia").html("");
+  $("#prfoesor_materia").append("<option disabled selected>Selecciona una materia</option>");
   getCarreras();
 //-------------------------------------------------------------------------
 
@@ -218,6 +364,48 @@ function getAllatrib_mate(){
         '<th scope="col">Atributo</th>'+
         '<th scope="col">Acciones</th></tr>');
         $("#table_atrib_mate tbody").append(data);
+      }
+    },
+    error : function(jqXHR, textStatus, errorThrown){
+
+    }
+  });
+}
+
+
+/*****************????? */
+function getAllatrib_profe(){
+  datos_sesion = localStorage.getItem('depto');
+  $("#prof_mate_form")[0].reset();//------todo en blanco
+  $("#carrera_materia").html("");
+  $("#carrera_materia").append("<option disabled selected>Selecciona una carrera</option>");
+  $("#materia_prof").html("");
+  $("#materia_prof").append("<option disabled selected>Selecciona una materia</option>");
+  $("#profesor_materia").html("");
+  $("#profesor_materia").append("<option disabled selected>Selecciona un profesor</option>");
+  getCarrerasProfe();
+  
+  $("#table_prof_materia > tbody").html("");
+  $.ajax({
+    type: 'POST',
+    url: '../function/profesor.php',
+    timeout: 12000,
+    async: true,
+    data: {"Allprof_mat": datos_sesion},
+  
+    success: function(data){
+      if(data == "Sin Datos"){
+        $("#table_prof_materia > thead").html("<tr><th class='center'>No se encontrarón datos relacionados con la busqueda</th></tr>");
+        $("#table_prof_materia tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
+      }
+      else
+      {
+        $("#table_prof_materia > thead").html("");
+        $("#table_prof_materia thead").append('<tr><th scope="col">Carrera</th>'+
+        '<th scope="col">Prrofesor</th>'+
+        '<th scope="col">Materia</th>'+
+        '<th scope="col">Acciones</th></tr>');
+        $("#table_prof_materia tbody").append(data);
       }
     },
     error : function(jqXHR, textStatus, errorThrown){
@@ -501,5 +689,51 @@ function confirmDeleteC(){
 
 }
 
+function eliminarProfMat(idmat,idprof,idcarr){
+  $('#eliminarp').modal('show');
+  del1 = idcarr;
+  del2=idmat;
+  del3=idprof;
+}
+
+
+
+function confirmDeleteP(){
+  var fun = "eliminarP";
+  console.log(del);
+  $.ajax({
+
+    type: "POST",
+
+    async: true,
+
+    url: "../function/profesor.php",
+
+    timeout: 12000,
+
+    data:{func:fun,idC:del1,idM:del2,idP:del3},
+
+    success: function(response)
+
+    {
+
+      var obj = JSON.parse(response);
+      console.log(response);
+      alert(obj.msg);
+
+      updateAllPlatform();
+      $('#eliminarp').modal('hide');
+
+    },
+
+    error: function(jqXHR, textStatus, errorThrown){
+
+      //console.log(errorThrown);
+
+    }
+
+  });
+
+}
 
 

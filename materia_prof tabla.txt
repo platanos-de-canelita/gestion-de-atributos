@@ -1,0 +1,29 @@
+*TABLA*
+
+CREATE TABLE `profesor_materia` (
+  `Id_carrera` int(11) NOT NULL,
+  `Id_materia` int(11) NOT NULL,
+  `Id_profesor` int(11) NOT NULL,
+  `Estado` tinyint(1) NOT NULL
+);
+
+
+*Procedimiento necesario*
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DEL_PROFMAT` (IN `Carr_id` INT, IN `Mat_id` INT, IN `Prof_id` INT)
+BEGIN
+UPDATE profesor_materia SET Estado = 0 WHERE Id_carrera = Carr_id AND Id_materia = Mat_id AND Id_profesor = Prof_id;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
