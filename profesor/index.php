@@ -25,6 +25,7 @@
      <link rel="stylesheet" href="../css/main.css">
      
      <script src="../js/admin/profesor.js"></script>
+     <!--script src="../js/admin/admin.js"></script-->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -154,15 +155,15 @@
              <div id="row">
                <div class="row">
                  <div class="col-md-12 titulo">
-                   <h2>Crear grupo de estudio</h2>
+                   <h2>Grupo de estudio</h2>
                  </div>
                </div>
-
-               <div class="row" style="padding-left: 20em; padding-right: 20em">
-                 <br>
-                 <form class="col-md-12" action="" method="post">
-                   <br><br>
-                   <input type="text" class="form-control" placeholder="Nombre del grupo"></input>
+               <br>
+          <div class="row" style="padding-left: 10em; padding-right: 10em;">
+               <div class="col-lg-5">
+                 <form class="formulario" id="grupo_form">
+                 <h5>Crear grupo: </h5>
+                   <input id="group_nvo" type="text" class="form-control" placeholder="Nombre del grupo"></input>
                    <br>
                    <select id="group_carreras" class="form-control" name="carrera">
                      <option disabled selected>Seleccionar carrera</option>
@@ -171,18 +172,39 @@
                    <select id="group_materias" class="form-control" name="materia">
                      <option disabled selected>Seleccionar materia</option>
                      <!--option value="industrial">Ingenieria economica</option-->
-                   </select><br>
-                   <select id="group_alumnos" class="form-control" name="alumnos">
-                     <option disabled selected>Seleccionar alumno</option>
-                     <!--option value="industrial">Alejandro Nuñez</option-->
                    </select>
-                   <br><br>
-                   <center> <button class="btn" onclick="">Agregar alumno</button>
-                  <br><br>
-                   <button type="submit" class="btn" name="altaregistro">Crear grupo</button><br><br>
-                   </center>
+                   
+                   <br>
+                   <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
                  </form>
                </div>
+               <div class="col-lg-2">
+              </div>
+               <div class="col-lg-5">
+                   <form id="alu_grupo_form">
+                   <h5>Agregar alumno: </h5>
+                    <select id="carreras_alu" name="carreraFiltro" class="form-control">
+                      <option disabled selected>Selecciona una carrera</option>
+                    </select> 
+                    <br>                                              <!--name=filtro el de atributos-->
+                    <select id="materias_alu" class="form-control" name="materia">
+                      <option disabled selected>Seleccionar materia</option>
+                      <!--option value="industrial">Ingenieria economica</option-->
+                    </select><br>
+                    <select id="group_names" class="form-control" name="alumnos">
+                      <option disabled selected>Seleccionar grupo</option>
+                      <!--option value="industrial">Alejandro Nuñez</option-->
+                    </select>
+                      <br>
+                    <select id="group_alumnos" class="form-control" name="alumnos">
+                     <option disabled selected>Seleccionar alumno</option>
+                     <!--option value="industrial">Alejandro Nuñez</option-->
+                   </select><br>
+                   <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
+                 
+                   </form>
+                </div>
+          </div>
                <br>
                <br>
                <br>
@@ -562,45 +584,41 @@
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-     <script src="../js/admin/admin.js"></script>
+     
      <script>
-        //añado un click listener para el boton de agregar atributo.
-        document.getElementById("btn_atrib").addEventListener("click", function(){
-          //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
-         });
-          //-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
         var myvar='<?php echo $_SESSION["usuario"];?>';
         myvar='<?php echo $_SESSION["usuario"];?>';
         //llamamos al metodo get_datos para obtener todos los datos del administrador
         get_datos_sesion();
-
-        
+        get_datos_sesionPK();
+        getCarreras();
          //ALTA-FORMULARIO En cuanto cambie la carrera debe cambiar materias y alumnos incritos a la misma
         var select = document.getElementById('group_carreras');
         select.addEventListener('change',
         function(){
           var selectedOption = this.options[select.selectedIndex];
-         /* getMateria(selectedOption.value);
-          getAtributo(selectedOption.value);
-          */
           getMateria(selectedOption.value);
+          
         });
-
-        var select = document.getElementById('group_materias');
+        var select = document.getElementById('carreras_alu');
         select.addEventListener('change',
         function(){
           var selectedOption = this.options[select.selectedIndex];
+          getMateria(selectedOption.value);
+        });
+
+        var select = document.getElementById('materias_alu');
+        select.addEventListener('change',
+        function(){
+          var selectedOption = this.options[select.selectedIndex];
+          getGrupos(selectedOption.value);
           getAlumnos(selectedOption.value);
         });
 
         //getAllatrib_mate();//---debe ser 
-        getAllgroups_t();
-        
+       // getAllgroups_t();//-------------------------------
+       
      </script>
 
 

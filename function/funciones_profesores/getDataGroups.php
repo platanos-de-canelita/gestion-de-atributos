@@ -1,19 +1,44 @@
 <?php
+function getUsr_pk(){//obtiene los atributos pertenecientes a la carrera seleccionada
+    require_once("bdconexion.php");
+    $usuario = $_POST['usuario'];
 
+    //obtengo el departamento del administrador
+    
+    $res = $conn->query("SELECT id_admin_fk FROM administrador WHERE usuario='$usuario'");
+    $response = $res->fetch_row();
+    echo $response[0];
+}
 
 function getAlumnos(){//obtiene los atributos pertenecientes a la carrera seleccionada
     require_once("bdconexion.php");
-    $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera IN (SELECT id_carrera FROM carrera WHERE id_depto = " . $_POST['Allatr_mat'] . ") AND matatr.Estado = true" ;
-    
-    $query = "SELECT id_atributo_pk, nombre FROM atributo WHERE id_carrera = " . $_POST['carrera']. " AND Estado = true";
-
+    $query="SELECT m.Num_Control as NumC, a.Nombre as NombreA FROM materias_cursando m INNER JOIN alumno a ON m.Num_Control = c.id_carrera  WHERE m.id_materia = " . $_POST['materia'] . " AND a.Estado = true" ;
     $sql_query = $conn->query($query);
 
     while ($item = $sql_query->fetch_assoc()){
-        echo '<option value="' . $item['id_atributo_pk'] .'">' . $item['nombre'] . '</option>';
+        echo '<option value="' . $item['NumC'] .'">' . $item['NombreA'] . '</option>';
     }
 }
 
+function getGrupos(){//obtiene los atributos pertenecientes a la carrera seleccionada
+    require_once("bdconexion.php");
+    $query = "SELECT Id_grupo, Nombre FROM grupo_trabajo WHERE Id_materia = " . $_POST['materiag']. " AND Estado = true";
+
+    $sql_query = $conn->query($query);
+    while ($item = $sql_query->fetch_assoc()){
+        echo '<option value="' . $item['Id_grupo'] .'">' . $item['Nombre'] . '</option>';
+    }
+}
+function accion(){
+    if($_POST['func']=="insertarGrupo" ){
+       insertaGrupo();
+    }
+    else{
+        if($_POST['func']=="insertarAlu" ){
+            insertaAlu();
+        }
+    }
+}
 
 
 function filtroCriterios(){
@@ -38,7 +63,6 @@ function filtroCriterios(){
 }
 
 
-
 function getAllAtribMat(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
     require_once("bdconexion.php");
     $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera IN (SELECT id_carrera FROM carrera WHERE id_materia = " . $_POST['materia'] . ") AND matatr.Estado = true" ;
@@ -56,7 +80,6 @@ function getAllAtribMat(){ //Selecciona los atrib de las mate de las carreras qu
            $row['id_atributo_pk'] .",". $row['id_carrera'] .")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
     }
 }
-
 
 
 function getCarreraFiltro(){//Obtiene los criterios de las carreras asociadas
@@ -157,15 +180,25 @@ function getSemestreFiltro(){
 }
 
 
-if(isset($_POST['materia'])){
-    getAlumnos();
+if(isset($_POST['func'])){
+    accion();
 }
 else{
-    if(isset($_POST['carre'])){
-       //getMaterias();
+    if(isset($_POST['usuario'])){
+        getUsr_pk();
    }
    else{
-        filtroCriterios();
+        if(isset($_POST['materia'])){
+            getAlumnos();
+        }
+        else{
+            if(isset($_POST['materiag'])){
+                getGrupos();
+            }
+            else{
+               // filtroCriterios();
+            }
+        }
    }
 }
 ?>
