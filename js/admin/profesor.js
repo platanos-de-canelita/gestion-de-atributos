@@ -3,13 +3,9 @@ var name;
 var datos_sesion;
 var pk_sesion;
 
-function updateAllPlatform(){
-  getAllgroups_t();
-
-}
-
 
    function revisaGrupo(){
+    alert("RG");
     var grupo = $("#group_nvo").val();
     var carrera=$('#group_carreras').val();
     var materia=$('#group_materias').val();
@@ -18,11 +14,41 @@ function updateAllPlatform(){
       alert("Todos los datos son obligatorios.")
     }
     else{
-      insertarGrupo(grupo,carrera, materia);
+      profesor = pk_sesion;
+      data ='func=revisaGrupo';
+      data =data + '&grupo='+grupo +'&carrera='+carrera +'&materia='+materia+'&profesor='+profesor;
+      console.log(data);
+      $.ajax({
+        type: "POST",
+        async: true,
+        url: "../function/funciones_profesores/getDataGroups.php",
+        timeout: 12000,
+        data: data,
+        success: function(response)
+        {
+          alert(response);
+         if(response=="Sin resultados"){
+          insertarGrupo(grupo,carrera, materia,profesor);
+         }
+         else{
+          if(response=="Hecho"){
+            alert("Se ha dado de alta grupo");
+           }
+           else{
+            alert("Ya existe el grupo no se puede dar de alta");
+           }
+         }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+         alert("ERROR");
+        }
+      });
     }
   }
-  function insertarGrupo(grupo,carrera,materia){
-    profesor = pk_sesion;
+
+
+  function insertarGrupo(grupo,carrera,materia,profesor){
+    alert("IG");
     data ='func=insertarGrupo';
     data =data + '&grupo='+grupo +'&carrera='+carrera +'&materia='+materia+'&profesor='+profesor;
     console.log(data);
@@ -34,8 +60,13 @@ function updateAllPlatform(){
       data: data,
       success: function(response)
       {
-        alert(response);
-       // getAllgroups_t();//-------------------get all
+       $("#group_carreras").html("");
+      $("#group_carreras").append("<option disabled selected>Seleccionar carrera</option>");
+      $("#carreras_alu").html("");
+      $("#carreras_alu").append("<option disabled selected>Seleccionar carrera</option>");
+
+      alert(response);
+     getCarreras();
       },
       error: function(jqXHR, textStatus, errorThrown){
     //   console.log(errorThrown);
@@ -43,7 +74,9 @@ function updateAllPlatform(){
     });
 }
 
+
 function revisaAlumno(){
+  profesor = pk_sesion;
   var carrera=$('#carreras_alu').val();
   var materia=$('#materias_alu').val();
   var grupo=$('#group_names').val();
@@ -51,14 +84,37 @@ function revisaAlumno(){
   
   if (carrera==null || materia==null || grupo==null || alumno==null) {
     alert("Todos los campos son obligatorios. Selecciones alguna opción")
-
   }
   else{
-    insertarAlumno(grupo,alumno);
+    data ='func=revisaAlu';
+    data =data +'&carrera='+carrera +'&materia='+materia+'&profesor='+profesor+'&alumno='+alumno;
+  console.log(data);
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/funciones_profesores/getDataGroups.php",
+    timeout: 12000,
+    data: data,
+    success: function(response)
+    {
+      if(response=="Sin resultados"){
+        insertarAlumno(grupo,alumno);
+       }else{
+        alert("Ya se registro el alumno en otro grupo de trabajo");
+       }
+      
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+  //   console.log(errorThrown);
+    }
+  });
   }
 }
+
+
+
 function insertarAlumno(grupo,alumno){
-  
+  alert("IA");
   data ='func=insertarAlu';
   data =data + '&grupo='+grupo +'&alumno='+alumno;
   console.log(data);
@@ -70,14 +126,14 @@ function insertarAlumno(grupo,alumno){
     data: data,
     success: function(response)
     {
+      alert(response);
+
       $("#group_carreras").html("");
       $("#group_carreras").append("<option disabled selected>Seleccionar carrera</option>");
       $("#carreras_alu").html("");
       $("#carreras_alu").append("<option disabled selected>Seleccionar carrera</option>");
 
-      alert(response);
-     // getAllgroups_t();//-------------------get all
-     getCarreras();
+      getCarreras();
     },
     error: function(jqXHR, textStatus, errorThrown){
   //   console.log(errorThrown);
@@ -102,7 +158,6 @@ function getCarreras(){
      
     },
     error: function (jqXHR, textStatus, errorThrown){
-
     }
   });
 }
@@ -175,134 +230,6 @@ function getAlumnos(materia){//---------
 
 
 
-function getAllgroups_t(){
-  datos_sesion = localStorage.getItem('depto');
-  $("#atrib_mate_form")[0].reset();//------todo en blanco
-  $("#carreras_criterio").html("");
-  $("#carreras_criterio").append("<option disabled selected>Seleccionar carrera</option>");
-  $("#group_materias").html("");
-  $("#group_materias").append("<option disabled selected>Seleccionar materia</option>");
-  $("#group_alumnos").html("");
-  $("#group_alumnos").append("<option disabled selected>Seleccionar alumno</option>");
-  getCarreras();
-//-------------------------------------------------------------------------
-
-//Necesita id_criterio,nombre_criterio
-
-function eliminarAtribMat(idmat,idatr,idcarr){
-  $('#eliminarc').modal('show');
-  del1 = idmat;
-  del2=idatr;
-  del3=idcarr;
-
-}
-
-function confirmDeleteC(){
-  var fun = "eliminarC";
-  console.log(del);
-  $.ajax({
-
-    type: "POST",
-
-    async: true,
-
-    url: "../function/atribMat.php",
-
-    timeout: 12000,
-
-    data:{func:fun,idM:del1,idA:del2,idC:del3},
-
-    success: function(response)
-
-    {
-
-      var obj = JSON.parse(response);
-      console.log(response);
-      alert(obj.msg);
-
-      updateAllPlatform();
-      $('#eliminarc').modal('hide');
-
-    },
-
-    error: function(jqXHR, textStatus, errorThrown){
-
-      //console.log(errorThrown);
-
-    }
-
-  });
-
-}
-
-  $("#table_atrib_mate > tbody").html("");
-  $.ajax({
-    type: 'POST',
-    url: '../function/getDataAtribMat.php',
-    timeout: 12000,
-    async: true,
-    data: {"Allatr_mat": datos_sesion},
-  
-    success: function(data){
-      if(data == "Sin Atributos"){
-        $("#table_atrib_mate > thead").html("<tr><th class='center'>No se encontrarón atributos relacionados con la busqueda</th></tr>");
-        $("#table_atrib_mate tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
-      }
-      else
-      {
-        $("#table_atrib_mate > thead").html("");
-        $("#table_atrib_mate thead").append('<tr><th scope="col">Carrera</th>'+
-        '<th scope="col">Materia</th>'+
-        '<th scope="col">Atributo</th>'+
-        '<th scope="col">Acciones</th></tr>');
-        $("#table_atrib_mate tbody").append(data);
-      }
-    },
-    error : function(jqXHR, textStatus, errorThrown){
-
-    }
-  });
-}
-
-function getAtributos(){
-  datos_sesion = localStorage.getItem('depto');
-  $("#tabla_atributos > tbody").html("");
-  $.ajax({
-    type: 'POST',
-    url: '../function/getdata.php',
-    timeout: 12000,
-    async: true,
-    data: $("#Atributos").serialize() + "&depto="+datos_sesion,
-    success:function(data){
-      console.log(data);
-      if(data != ''){
-        if(data == "Sin Atributos"){
-          $("#tabla_atributos > thead").html("<tr><th class='center'>No se encontrarón atributos relacionados con la busqueda</th></tr>");
-          $("#tabla_atributos tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png"+"'>"+"</td></tr>");
-        }
-        else{
-          $("#tabla_atributos > thead").html("");
-          $("#tabla_atributos thead").append("<tr>"+
-          "<th scope='col'>id</th>"+
-          "<th scope='col'>Nombre</th>"+
-          "<th scope='col'>Descripción</th>"+
-          '<th scope="col">Carrera</th>'+
-          "<th scope='col'>Acciones</th>"
-        +"</tr>");
-          $("#tabla_atributos tbody").append(data);
-        }
-      }
-      else
-      {
-        console.log(data);
-      }
-    },
-    error:function(jqXHR, textStatus, errorThrown){
-      console.log(textStatus);
-      alert(jqXHR);
-    }
-  });
-}
 
 
 function getPaginas(){
@@ -340,42 +267,7 @@ function getPaginas(){
       //console.log(errorThrown);
     }
   });
-}/*
-function modificarAtributo(value, descr, id){
-  $('#modificar').modal('show');
-  $("#txdesc").val(descr);
-  $("#txnombre").val(value);
-  mod = id;
 }
-
-function confirmMod(){
-  var name = $("#txnombre").val();
-
-  var desc = $("#txdesc").val();
-
-  $.ajax({
-    type: "POST",
-    async: true,
-    url: "../function/atributos.php",
-    timeout: 12000,
-    data: {func:"actualizar",Atributo:mod,Nombre:name, Descripcion:desc},
-    dataType:"json",
-    success: function(response)
-    {
-      //var obje = JSON.parse(response);
-      JSON.stringify(response);
-      alert(response.msga);
-      $('#modificar').modal('hide');
-      getAllAtributos();
-    },
-    error: function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
-      //console.log(errorThrown);
-    }
-  });
-}
-*/
-
 
 
 

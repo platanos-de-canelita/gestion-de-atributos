@@ -1,8 +1,46 @@
 <?php
+if(isset($_POST['func'])){
+    accion();
+}
+else{
+        if(isset($_POST['materia'])){
+            getAlumnos();
+        }
+        else{
+            if(isset($_POST['materiag'])){
+                getGrupos();
+            }
+            else{
+               // filtroCriterios();
+            }
+        }
+   
+}
+
+function accion(){
+    if($_POST['func']=="insertarGrupo" ){
+       insertaGrupo();
+    }
+    else{
+        if($_POST['func']=="insertarAlu" ){
+            insertaAlu();
+        }
+        else{
+            if($_POST['func']=="revisaGrupo" ){
+                existeG();
+            } 
+            else{
+                if($_POST['func']=="revisaAlu" ){
+                    existeA();
+                } 
+            }
+        }
+    }
+}
 
 function getAlumnos(){//obtiene los atributos pertenecientes a la carrera seleccionada
     require_once("bdconexion.php");
-    $query="SELECT m.Num_Control as NumC, a.Nombre as NombreA FROM materias_cursando m INNER JOIN alumno a ON m.Num_Control = c.id_carrera  WHERE m.id_materia = " . $_POST['materia'] . " AND a.Estado = true" ;
+    $query="SELECT m.Num_Control as NumC, a.Nombre as NombreA FROM materias_cursando m INNER JOIN alumno a ON m.Num_Control = a.Num_Control  WHERE m.id_materia = " . $_POST['materia'] . " AND a.Estado = true" ;
     $sql_query = $conn->query($query);
     if($sql_query)
     while ($item = $sql_query->fetch_assoc()){
@@ -43,7 +81,7 @@ function insertaAlu(){//obtiene los atributos pertenecientes a la carrera selecc
         //$sql = "INSERT INTO grupo_alumno VALUES ($_POST['grupo'], $_POST['alumno'])";
         $grup=$_POST['grupo'];
         $alu=$_POST['alumno'];
-        $sql = "INSERT INTO grupo_alumno VALUES ($grup, $alu)";
+        $sql = "INSERT INTO grupo_alumno VALUES ($grup, $alu, true)";
         $sql_query = $conn->query($sql);
 
         if($sql_query){
@@ -55,172 +93,53 @@ function insertaAlu(){//obtiene los atributos pertenecientes a la carrera selecc
         }
 }
 
-function accion(){
-    if($_POST['func']=="insertarGrupo" ){
-       insertaGrupo();
-    }
-    else{
-        if($_POST['func']=="insertarAlu" ){
-            insertaAlu();
-        }
-    }
-}
 
 
-function filtroCriterios(){
-    if(isset($_POST['carreraFiltro']) && $_POST['carreraFiltro']!=null ){
-       getCarreraFiltro();
+
+
+function existeG(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
+    require_once("bdconexion.php");
+    $grupo=$_POST['grupo'];
+    $carr=$_POST['carrera'];
+    $mat=$_POST['materia'];
+    $prof=$_POST['profesor'];
+    
+    $query="SELECT Id_grupo as id, Nombre FROM grupo_trabajo WHERE Nombre = '".$grupo."' AND Id_carrera = ".$carr." AND Id_materia = ".$mat." AND Id_profesor = ".$prof.";";
+    $sql_query = $conn->query($query);
+    if($sql_query->num_rows == 0){
+        echo "Sin resultados";
     }
     else{
-        if(isset($_POST['nombre']) && $_POST['nombre']!="")
-        {
-            getNameFiltro();
-        }
-        else{
-            if(isset($_POST['semestre']) && $_POST['semestre']!=""){
-                getSemestreFiltro();
+        while ($item = $sql_query->fetch_assoc()){
+            $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$item['id']." AND Estado = false;";
+            if($conn->query($query2)){
+                echo "Hecho";
             }
             else{
-                getAllAtribMat();
-                
+                echo "No dado de alta de nuevo";
             }
         }
     }
+    
 }
 
-
-function getAllAtribMat(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
+function existeA(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
     require_once("bdconexion.php");
-    $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera IN (SELECT id_carrera FROM carrera WHERE id_materia = " . $_POST['materia'] . ") AND matatr.Estado = true" ;
-    
-    $sql_query = $conn->query($query);
-
-    if($sql_query->num_rows == 0){
-        echo "Sin resultados";
-    }
-
-    while($row = $sql_query->fetch_assoc()){
-        echo "<tr><td>" . $row["NombreCarr"] . "</td><td>" . $row["NombreMat"] .
-         "</td><td>" . $row["NombreAtr"] . "</td><td>
-          <button class='btn btn-default' onclick='eliminarAtribMat(". $row['Id_materia'] .",".
-           $row['id_atributo_pk'] .",". $row['id_carrera'] .")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
-    }
-}
-
-
-function getCarreraFiltro(){//Obtiene los criterios de las carreras asociadas
-    require_once("bdconexion.php");
-    if(isset($_POST['nombre']) && $_POST['nombre']!="")
-        {
-            
-            if(isset($_POST['semestre']) && $_POST['semestre']!=""){
-                $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltro'] . " AND (a.Nombre like '%" . $_POST['nombre'] . "%' OR mat.nombre like '%" . $_POST['nombre'] . "%') AND mat.semestre  = " . $_POST['semestre']." AND matatr.Estado = true" ;
-               
-            }
-            else{
-                $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltro'] . " AND (a.Nombre like '%" . $_POST['nombre'] . "%' OR mat.nombre like '%" . $_POST['nombre'] . "%') AND matatr.Estado = true" ;
-               }   
-        }
-    else{
-        if(isset($_POST['semestre']) && $_POST['semestre']!=""){
-            $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera  = " . $_POST['carreraFiltro'] ." AND mat.semestre  = " . $_POST['semestre'].  " AND matatr.Estado = true " ;  
-            
-        }
-        else{
-            $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera  = " . $_POST['carreraFiltro'] . " AND matatr.Estado = true" ;
-    
-        }
-    }
-    
-   
+    $carr=$_POST['carrera'];
+    $mat=$_POST['materia'];
+    $prof=$_POST['profesor'];
+    $alu=$_POST['alumno'];
+    $query="SELECT ga.Id_alumno FROM grupo_trabajo gt INNER JOIN grupo_alumno ga ON gt.Id_grupo = ga.Id_grupo WHERE  gt.Id_carrera = ".$carr." AND gt.Id_materia = ".$mat." AND gt.Id_profesor = ".$prof." AND ga.Id_alumno = ".$alu.";";
     $sql_query = $conn->query($query);
     if($sql_query->num_rows == 0){
         echo "Sin resultados";
-    }
-
-    while($row = $sql_query->fetch_assoc()){
-        echo "<tr><td>" . $row["NombreCarr"] . "</td><td>" . $row["NombreMat"] .
-         "</td><td>" . $row["NombreAtr"] . "</td><td>
-          <button class='btn btn-default' onclick='eliminarAtribMat(". $row['Id_materia'] .",".
-           $row['id_atributo_pk'] .",". $row['id_carrera'] .")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
-    }
-}
-
-function getNameFiltro(){//Filtra los atributos por nombre o descripcion
-    require_once("bdconexion.php");
-    if(isset($_POST['carrera']) && $_POST['carrera']!=null)
-    {
-        
-        if(isset($_POST['semestre']) && $_POST['semestre']!=""){
-            $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltro'] . " AND (a.Nombre like '%" . $_POST['nombre'] . "%' OR mat.nombre like '%" . $_POST['nombre'] . "%') AND mat.semestre  = " . $_POST['semestre']." AND matatr.Estado = true" ;
-           
-        }
-        else{
-            $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltro'] . " AND (a.Nombre like '%" . $_POST['nombre'] . "%' OR mat.nombre like '%" . $_POST['nombre'] . "%') AND matatr.Estado = true" ;
-        }   
-    }
-else{
-    if(isset($_POST['semestre']) && $_POST['semestre']!=""){
-        $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera  = (a.Nombre like '%" . $_POST['nombre'] . "%' OR mat.nombre like '%" . $_POST['nombre'] . "%') AND mat.semestre  = " . $_POST['semestre'].  " AND matatr.Estado = true " ;  
-        
     }
     else{
-        $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE c.id_carrera  = (a.Nombre like '%" . $_POST['nombre'] . "%' OR mat.nombre like '%" . $_POST['nombre'] . "%') AND matatr.Estado = true" ;
-
+        echo "Ya se ha registrado este alumno a otro equipo";
     }
-}
-   
-    $sql_query = $conn->query($query);
-
-    if($sql_query->num_rows == 0){
-        echo "Sin resultados";
-    }
-
-    while($row = $sql_query->fetch_assoc()){
-        echo "<tr><td>" . $row["NombreCarr"] . "</td><td>" . $row["NombreMat"] .
-         "</td><td>" . $row["NombreAtr"] . "</td><td>
-          <button class='btn btn-default' onclick='eliminarAtribMat(". $row['Id_materia'] .",".
-           $row['id_atributo_pk'] .",". $row['id_carrera'] .")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
-    }
-}
-
-function getSemestreFiltro(){
-    require_once("bdconexion.php");
     
-        $query="SELECT matatr.Id_materia, mat.Nombre as NombreMat, c.id_carrera,c.Nombre as NombreCarr, a.id_atributo_pk, a.Nombre as NombreAtr FROM materia_atributos matatr INNER JOIN carrera c ON matatr.Id_carrera = c.id_carrera INNER JOIN atributo a ON matatr.Id_atributo = a.id_atributo_pk INNER JOIN materia mat ON matatr.Id_materia = mat.id_materia WHERE mat.semestre  = " . $_POST['semestre'].  " AND matatr.Estado = true " ;  
-        
-    
-
-    $sql_query = $conn->query($query);
-
-    if($sql_query->num_rows == 0){
-        echo "Sin resultados";
-    }
-
-    while($row = $sql_query->fetch_assoc()){
-        echo "<tr><td>" . $row["NombreCarr"] . "</td><td>" . $row["NombreMat"] .
-         "</td><td>" . $row["NombreAtr"] . "</td><td>
-          <button class='btn btn-default' onclick='eliminarAtribMat(". $row['Id_materia'] .",".
-           $row['id_atributo_pk'] .",". $row['id_carrera'] .")'><span style='color:red;'><i class='fas fa-trash-alt'></i></span></button></td></tr>";
-    }
 }
 
 
-if(isset($_POST['func'])){
-    accion();
-}
-else{
-        if(isset($_POST['materia'])){
-            getAlumnos();
-        }
-        else{
-            if(isset($_POST['materiag'])){
-                getGrupos();
-            }
-            else{
-               // filtroCriterios();
-            }
-        }
-   
-}
+
 ?>
