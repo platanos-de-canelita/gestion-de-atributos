@@ -20,7 +20,7 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/main.css">
-
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
      <title>Profesor</title>
 
  </head>
@@ -199,7 +199,8 @@
                </div>
            </form>
            <br>
-           <table class="table">
+           <div ></div>
+           <table class="table" id="grupos_table">
               <thead>
                 <tr>
 
@@ -590,18 +591,18 @@
      <script src="../js/bootstrap.min.js"></script>
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
+     <script src="../js/grupos.js"></script>
      <!--<script src="../js/admin/admin.js"></script>-->
      <script>
         //añado un click listener para el boton de agregar atributo.
-        document.getElementById("btn_atrib").addEventListener("click", function(){
+        //document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
-         });
+          //Swal.fire(
+            //'Atributo agregado exitosamente!',
+          //  '',
+            //'success'
+          //)
+         //});
 
      </script>
  </body>
