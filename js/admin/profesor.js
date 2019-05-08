@@ -26,12 +26,12 @@ var pk_sesion;
         data: data,
         success: function(response)
         {
-          alert(response);
+          //alert(response);
          if(response=="Sin resultados"){
           insertarGrupo(grupo,carrera, materia,profesor);
          }
          else{
-          if(response=="Hecho"){
+          if(response == "Hecho"){
             alert("Se ha dado de alta grupo");
            }
            else{

@@ -105,6 +105,7 @@ function existeG(){ //Selecciona los atrib de las mate de las carreras que perte
     $prof=$_POST['profesor'];
     
     $query="SELECT Id_grupo as id, Nombre FROM grupo_trabajo WHERE Nombre = '".$grupo."' AND Id_carrera = ".$carr." AND Id_materia = ".$mat." AND Id_profesor = ".$prof.";";
+    /*
     $sql_query = $conn->query($query);
     if($sql_query->num_rows == 0){
         echo "Sin resultados";
@@ -120,7 +121,22 @@ function existeG(){ //Selecciona los atrib de las mate de las carreras que perte
             }
         }
     }
-    
+    */
+    $sql_query = $conn->query($query);
+    $msg=" ";
+        while ($item = $sql_query->fetch_assoc()){
+            $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$item['id']." AND Estado = 0;";
+            $sql_query2 = $conn->query($query2);
+            if($sql_query2->affected_rows > 0){
+                $msg= "Hecho";
+            }
+            else{
+                $msg= "No dado de alta de nuevo";
+            }
+        }
+        if($msg == " ")
+            $msg= "Sin resultados";
+        echo $msg;
 }
 
 function existeA(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
