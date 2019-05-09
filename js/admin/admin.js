@@ -1,4 +1,3 @@
-
 var a=0;
 var del;
 var mod;
@@ -25,6 +24,10 @@ var datos_sesion;
         }
       });
     });*/
+
+    function cerrar(){
+      localStorage.clear();
+    }
 
     function ResponsablesFiltro(type){
       var datos;
@@ -834,7 +837,6 @@ function getAllAtributos(){
   });
 }
 function insertarAtributo(){
-
   let data = $('#form').serialize();
   data = data + '&func=insertar';
   console.log(data);
@@ -964,11 +966,60 @@ function confirmMod(){
     }
   });
 }
+setInterval(cons1,2000);
+  function cons1 (){
+    $.ajax({
+        url:"../function/funciones_profesores/consulta_na.php",
+        method: "POST",
+        dataType:"text",
+        data: 'nombre='+$("#buscarPC").val(),
+        success: function (data) {
+         const contenido=document.getElementById('filas1');
+         contenido.innerHTML=data;
+        }
+    });
+  }
+//Recargar consulta de profesores en index
+  setInterval(cons2,2000);
+    function cons2 (){
+      $.ajax({
+          url:"../function/funciones_profesores/consulta_sa.php",
+          method: "POST",
+          dataType:"text",
+          data: 'nombre='+$("#buscarPA").val(),
+          success: function (data) {
+           const contenido=document.getElementById('filas2');
+           contenido.innerHTML=data;
+          }
+      });
+    }
+
+function acepar_profe(ide){
+     $.ajax({
+         url:"../function/funciones_profesores/profesor_aceptar.php?mi_id="+ide,
+         method: "GET",
+         dataType:"text",
+         success: function (data) {
+          const contenido=document.getElementById('filas2');
+          contenido.innerHTML=data;
+         }
+     });
+       $("#rbusqueda").html("");
 
 
-function modificarAtributo(value){
-  $('#modificar').modal('show');
-  mod = value;
+    }
+
+function rechazar_profe(ide){
+ $.ajax({
+     url:"../function/funciones_profesores/profesor_rechazar.php?mi_id="+ide,
+     method: "GET",
+     dataType:"text",
+     success: function (data) {
+      const contenido=document.getElementById('filas2');
+      contenido.innerHTML=data;
+     }
+ });
+ $("#rbusqueda").html("");
 
 }
 function confirmDelete(){
@@ -1014,7 +1065,7 @@ function get_datos_sesion(){
 
       method: "POST",
 
-      data:{usuario:myvar},
+      data:{usuario:myvar,tipo : localStorage.getItem('tipo_usuario')},
 
       success: function (data) {
         setdata_sesion(data);

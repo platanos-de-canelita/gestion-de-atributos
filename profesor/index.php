@@ -1,7 +1,7 @@
 
 <?php
   //reanuda la sesion
-  /*session_start();
+  session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
 
@@ -9,8 +9,10 @@
 
   	header("Location: login.php");
   	exit();
-  }*/
+  }
  ?>
+
+
  <!DOCTYPE html>
  <html lang="en">
 
@@ -19,7 +21,18 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
      <link rel="stylesheet" href="../css/main.css">
+     
+     <script src="../js/admin/profesor.js"></script>
+     <!--script src="../js/admin/admin.js"></script-->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
      <title>Profesor</title>
 
@@ -60,7 +73,8 @@
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
 
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
-         <!--Seccion de proyectos-->
+         
+      <!--Seccion de proyectos-->
 
          <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
            <div class="container">
@@ -80,7 +94,7 @@
                    <input type="text" class="form-control" name="txtnc" value=""
                      placeholder="Número de control"><br>
                    <select class="form-control" name="carrera">
-                     <option value="">Seleccionar carrera</option>
+                     <option disabled selected>Seleccionar carrera</option>
                      <option value="industrial">Industrial</option>
                    </select><br>
                    <select class="form-control" name="materia">
@@ -131,40 +145,65 @@
            </div>
          </div>
 
+
+
+
+
+<!--Seccion de grupos de estudio-->
          <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
            <div class="container">
              <div id="row">
                <div class="row">
                  <div class="col-md-12 titulo">
-                   <h2>Crear grupo de estudio</h2>
+                   <h2>Grupo de estudio</h2>
                  </div>
                </div>
-
-               <div class="row" style="padding-left: 20em; padding-right: 20em">
-                 <br>
-                 <form class="col-md-12" action="" method="post">
-                   <br><br>
-                   <input type="text" class="form-control" placeholder="Nombre del grupo"></input>
+               <br>
+          <div class="row" style="padding-left: 10em; padding-right: 10em;">
+               <div class="col-lg-5">
+                 <form class="formulario" id="grupo_form">
+                 <h5>Crear grupo: </h5>
+                   <input id="group_nvo" type="text" class="form-control" placeholder="Nombre del grupo"></input>
                    <br>
-                   <select class="form-control" name="carrera">
-                     <option value="">Seleccionar carrera</option>
-                     <option value="industrial">Industrial</option>
+                   <select id="group_carreras" class="form-control" name="carrera">
+                     <option disabled selected>Seleccionar carrera</option>
+                     <!-- option value="industrial">Industrial</option-->
                    </select><br>
-                   <select class="form-control" name="materia">
-                     <option value="">Seleccionar materia</option>
-                     <option value="industrial">Ingenieria economica</option>
-                   </select><br>
-                   <select class="form-control" name="alumnos">
-                     <option value="">Alberto Robles</option>
-                     <option value="industrial">Alejandro Nuñez</option>
+                   <select id="group_materias" class="form-control" name="materia">
+                     <option disabled selected>Seleccionar materia</option>
+                     <!--option value="industrial">Ingenieria economica</option-->
                    </select>
-                   <br><br>
-                   <button class="btn" onclick="">Agregar alumno</button>
-                  <br><br>
-                   <button type="submit" class="btn" name="altaregistro">Crear grupo</button><br><br>
-
+                   <br>
+                   <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
                  </form>
                </div>
+               <div class="col-lg-2">
+              </div>
+               <div class="col-lg-5">
+                   <form id="alu_grupo_form">
+                   <h5>Agregar alumno: </h5>
+                    <select id="carreras_alu" name="carreraFiltro" class="form-control">
+                      <option disabled selected>Selecciona una carrera</option>
+                    </select> 
+                    <br>                                              <!--name=filtro el de atributos-->
+                    <select id="materias_alu" class="form-control" name="materia">
+                      <option disabled selected>Seleccionar materia</option>
+                      <!--option value="industrial">Ingenieria economica</option-->
+                    </select><br>
+                    <select id="group_names" class="form-control" name="alumnos">
+                      <option disabled selected>Seleccionar grupo</option>
+                      <!--option value="industrial">Alejandro Nuñez</option-->
+                    </select>
+                      <br>
+                    <select id="group_alumnos" class="form-control" name="alumnos">
+                     <option disabled selected>Seleccionar alumno</option>
+                     <!--option value="industrial">Alejandro Nuñez</option-->
+                   </select><br>
+                   <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
+                 
+                   </form>
+                </div>
+          </div>
                <br>
                <br>
                <br>
@@ -213,6 +252,12 @@
               </ul>
             </div>
          </div>
+
+
+
+
+
+
 
          <!--Seccion de materias-->
          <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
@@ -521,40 +566,7 @@
                              </ul>
                          </div>
                      </div>
-                     <!---
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_publicaciones" class="font-weight-bold">Publicaciones</label>
-                             <select id="select_publicaciones" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_publicaciones" class="font-weight-bold">Publicaciones relacionadas</label>
-                             <ul id="lista_publicaciones" class="list-group">
-                                 <li class="list-group-item item list-group-item-success"">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="select_congresos" class="font-weight-bold">Congresos</label>
-                             <select id="select_congresos" class="custom-select">
-                                 <option value="" selected>Linea</option>
-                                 <option value="1">One</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-lg-6 col-md-12">
-                             <label for="lista_congresos" class="font-weight-bold">congresos relacionados</label>
-                             <ul id="lista_congresos" class="list-group">
-                                 <li class="list-group-item item list-group-item-success"">Dapibus ac facilisis in<button id="" tyle="
-                                     button" class="close" aria-hidden="true">&times;</button></li>
-                             </ul>
-                         </div>
-                     </div>
-                     -->
+                   
                  </div>
                  <!--Pie del modal-->
                  <div class="modal-footer">
@@ -571,19 +583,45 @@
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-     <script src="../js/admin/admin.js"></script>
+     
      <script>
-        //añado un click listener para el boton de agregar atributo.
-        document.getElementById("btn_atrib").addEventListener("click", function(){
-          //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
-         });
+        //-----------------------------------------------------------------------
+        var myvar='<?php echo $_SESSION["usuario"];?>';
+        myvar='<?php echo $_SESSION["usuario"];?>';
+        //llamamos al metodo get_datos para obtener todos los datos del administrador
+        get_datos_sesion();
+        get_datos_sesionPK();
+        
+         //ALTA-FORMULARIO En cuanto cambie la carrera debe cambiar materias y alumnos incritos a la misma
+        var selectCar = document.getElementById('group_carreras');
+        selectCar.addEventListener('change',
+        function(){
+          var selectedCar = this.options[selectCar.selectedIndex];
+          getMateria(selectedCar.value);
+          
+        });
+        var selectCarr = document.getElementById('carreras_alu');
+        selectCarr.addEventListener('change',
+        function(){
+          var selectedCarr = this.options[selectCarr.selectedIndex];
+          getMateria(selectedCarr.value);
+        });
 
+        var selectMate = document.getElementById('materias_alu');
+        selectMate.addEventListener('change',
+        function(){
+          var selectedMate = this.options[selectMate.selectedIndex];
+          getGrupos(selectedMate.value);
+          getAlumnos(selectedMate.value);
+        });
+        getCarreras();
+        //getAllatrib_mate();//---debe ser 
+       // getAllgroups_t();//-------------------------------
+       
      </script>
+
+
+
  </body>
 
  </html>

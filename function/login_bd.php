@@ -39,7 +39,7 @@
         if($password == $pass[0]){
             session_start();
             $_SESSION['usuario'] = $usuario;
-            echo '../admin/index.php';
+            echo '../responsable/index.php';
         }else{
             echo "0";
         }
@@ -60,7 +60,7 @@
         if($password == $pass[0]){
             session_start();
             $_SESSION['usuario'] = $usuario;
-            echo '../admin/index.php';
+            echo '../profesor/index.php';
         }else{
             echo "0";
         }

@@ -1,17 +1,14 @@
-
 <?php
 
   //reanuda la sesion
-  /*session_start();
+  session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
-
+    $session_value=$_SESSION['usuario'];
   }else{
-
-
   	header("Location: login.php");
   	exit();
-  }*/
+  }
 
 
 
@@ -84,7 +81,7 @@
              <a class="nav-link list-group-item-action" id="informes-tab" data-toggle="tab" href="#informes"
                  role="tab" aria-controls="profile" aria-selected="false">Estadísticas</a>
          </li>
-         <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
+         <li class="nav-item"><a class="nav-link list-group-item-action" onclick="cerrar()" href='../function/cerrar.php'>Salir</a></li>
      </ul>
 
      <!--seccion de gestion-->
@@ -98,7 +95,6 @@
              <div class="row">
                  <div class="col-lg-3">
                    <form class="formulario" id="form" >
-
                     <p>Agregar atributo: </p>
                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
                     <input type="text" class="form-control" name="descripcion" value="" placeholder="Descripción"><br><br>
@@ -215,7 +211,7 @@
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
                           <td>50%</td>
                           <td>Individual</td>
-                          <td>Modificar | Eliminar</td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCriterio(3,'Trabaja en equipo')">Eliminar</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -229,7 +225,7 @@
          </div>
 
          <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
-           <div class="row">
+             <div class="row">
 
                <div class="col-lg-12">
                    <form class="form-inline">
@@ -287,8 +283,24 @@
            <div class="container" style="margin-top:1em;">
                <div id="contenedor_proyectos" class="row">
 
-               </div>
-           </div>
+                      <div class="paginador">
+                        <ul id="paginas" style="list-style: none; ">
+
+                          <!--<li><a href="#">|<<</a></li>
+                          <li><a href="#"><<</a></li>
+                          <li class="pageSelected">1</li>
+
+                          <li><a href="#">>></a></li>
+                          <li><a href="#">>>|</a></li>-->
+                        </ul>
+                      </div>
+                 </div>
+             </div>
+             <div class="container" style="margin-top:1em;">
+                 <div id="contenedor_proyectos" class="row">
+
+                 </div>
+             </div>
          </div>
 
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
@@ -370,7 +382,13 @@
 
                           <th scope="col">Sistemas y computación</th>
                           <th scope="col">logo7.png</th>
-                          <th scope="col">Modificar|Eliminar</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(1,'Sistemas')">Eliminar</button></th>
+                        </tr>
+                        <tr>
+
+                          <th scope="col">Industrial</th>
+                          <th scope="col">logo6.png</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(2,'Industrial')">Eliminar</button></th>
                         </tr>
                       </tbody>
                     </table>
@@ -1039,6 +1057,7 @@
         </div>
       </div>
       <!--Fin modal Update Carrera-->
+
      <script>
 
         var myvar='<?php echo $_SESSION["usuario"];?>';
@@ -1099,7 +1118,7 @@
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-        
+
          });
 
      </script>
