@@ -292,13 +292,12 @@
            <div class="row">
 
                <div class="col-lg-12">
-                   <form class="form-inline">
+                   <form class="form-inline" action="../function/funciones_profesores/formato.php">
                        <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <button class="form-control btn-primary mx-sm-3" type="submit">Descargar formato para evaluación</button>
                        </div>
-                       </form>
+                   </form>
+
                 </div>
             </div>
             <div class="row">
