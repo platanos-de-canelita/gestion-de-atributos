@@ -7,7 +7,7 @@
         echo $error->$conn->connect_error;
 
     }
-
+	$rowcount=-1;
 
 
     function bd_consulta($query)
@@ -42,12 +42,20 @@
 
     	mysqli_select_db ($connection, $bd);
 
-    	$result = mysqli_query($connection, $query);
+		$result = mysqli_query($connection, $query);
+		if ($result)
+		{
+		// Return the number of rows in result set
+		$rowcount = mysqli_num_rows($result);
+		
+		}
 
     	mysqli_close($connection);
 
     	return $result;
 
-    }
+	}
+	
+
 
 ?>

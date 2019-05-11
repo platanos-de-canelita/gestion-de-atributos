@@ -33,6 +33,11 @@ function accion(){
                 if($_POST['func']=="revisaAlu" ){
                     existeA();
                 } 
+                else{
+                    if($_POST['func']=="revisaGrupo2" ){
+                        existeG2();
+                    } 
+                }
             }
         }
     }
@@ -60,14 +65,15 @@ function getGrupos(){//obtiene los atributos pertenecientes a la carrera selecci
 }
 
 function insertaGrupo(){//obtiene los atributos pertenecientes a la carrera seleccionada
-    require_once("bdconexion.php");
+    require_once("./bdconexion.php");
     //$sql = "INSERT INTO grupo_trabajo VALUES (null, '$_POST['grupo']', $_POST['carrera'], $_POST['materia'], $_POST['profesor'], true)";
     $grupo=$_POST['grupo'];
     $carr=$_POST['carrera'];
     $mat=$_POST['materia'];
     $prof=$_POST['profesor'];
-    $sql = "INSERT INTO grupo_trabajo VALUES (null, '$grupo', $carr, $mat, $prof, true)";
-    $sql_query = $conn->query($sql);
+    //$sql = "INSERT INTO grupo_trabajo (Nombre, Id_carrera, Id_materia, Id_profesor, Estado) VALUES ('$grupo', $carr, $mat, $prof, true)"; 
+    $sql = "INSERT INTO grupo_trabajo VALUES (null, '$grupo', $carr, $mat, $prof, true)"; 
+    $sql_query = $conn->query($sql);//------------hace pero no manda mensajes
     if($sql_query){
         echo "Grupo de trabajo registrado correctamente";
     }
@@ -82,7 +88,7 @@ function insertaAlu(){//obtiene los atributos pertenecientes a la carrera selecc
         $grup=$_POST['grupo'];
         $alu=$_POST['alumno'];
         $sql = "INSERT INTO grupo_alumno VALUES ($grup, $alu, true)";
-        $sql_query = $conn->query($sql);
+        $sql_query = $conn->query($sql);//------------hace pero no manda mensajes
 
         if($sql_query){
             echo "Alumno registrado correctamente";
@@ -105,40 +111,30 @@ function existeG(){ //Selecciona los atrib de las mate de las carreras que perte
     $prof=$_POST['profesor'];
     
     $query="SELECT Id_grupo as id, Nombre FROM grupo_trabajo WHERE Nombre = '".$grupo."' AND Id_carrera = ".$carr." AND Id_materia = ".$mat." AND Id_profesor = ".$prof.";";
-    /*
+    
     $sql_query = $conn->query($query);
     if($sql_query->num_rows == 0){
         echo "Sin resultados";
     }
     else{
-        while ($item = $sql_query->fetch_assoc()){
-            $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$item['id']." AND Estado = false;";
-            if($conn->query($query2)){
-                echo "Hecho";
-            }
-            else{
-                echo "No dado de alta de nuevo";
-            }
-        }
+            $item = $sql_query->fetch_assoc();
+            echo $item['id'];
     }
-    */
-    $sql_query = $conn->query($query);
-    $msg=" ";
-        while ($item = $sql_query->fetch_assoc()){
-            $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$item['id']." AND Estado = 0;";
-            $sql_query2 = $conn->query($query2);
-            if($sql_query2->affected_rows > 0){
-                $msg= "Hecho";
-            }
-            else{
-                $msg= "No dado de alta de nuevo";
-            }
-        }
-        if($msg == " ")
-            $msg= "Sin resultados";
-        echo $msg;
 }
-
+function existeG2(){ 
+    require_once("bdconexion.php");
+    $id=$_POST['idg'];
+    
+    $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$id." AND Estado = false;";
+    echo $query2;
+    $sql_query2 = $conn->query($query2);//------------cuando si es false truena, no manda mensajes
+    if($sql_query2 && $rowcount > 0){
+        echo "Hecho";
+    }
+    else{
+        echo "No dado de alta de nuevo";
+    }
+}
 function existeA(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
     require_once("bdconexion.php");
     $carr=$_POST['carrera'];

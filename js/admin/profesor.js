@@ -5,7 +5,6 @@ var pk_sesion;
 
 
    function revisaGrupo(){
-    alert("RG");
     var grupo = $("#group_nvo").val();
     var carrera=$('#group_carreras').val();
     var materia=$('#group_materias').val();
@@ -26,17 +25,12 @@ var pk_sesion;
         data: data,
         success: function(response)
         {
-          //alert(response);
+          console.log(response);
          if(response=="Sin resultados"){
           insertarGrupo(grupo,carrera, materia,profesor);
          }
          else{
-          if(response == "Hecho"){
-            alert("Se ha dado de alta grupo");
-           }
-           else{
-            alert("Ya existe el grupo no se puede dar de alta");
-           }
+          revisaGrupo2(response);
          }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -44,6 +38,34 @@ var pk_sesion;
         }
       });
     }
+  }
+  function revisaGrupo2(resp){
+    alert("RG2");
+      data ='func=revisaGrupo2';
+      data =data + '&idg='+resp;
+      console.log(data);
+      $.ajax({
+        type: "POST",
+        async: true,
+        url: "../function/funciones_profesores/getDataGroups.php",
+        timeout: 12000,
+        data: data,
+        success: function(response)
+        {
+          alert(response);
+          console.log(response);
+          if(response == "Hecho"){
+            alert("Se ha dado de alta grupo");
+           }
+           else{
+            alert("Ya existe el grupo no se puede dar de alta");
+           }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+         alert("ERROR");
+        }
+      });
+    
   }
 
 
@@ -64,7 +86,7 @@ var pk_sesion;
       $("#group_carreras").append("<option disabled selected>Seleccionar carrera</option>");
       $("#carreras_alu").html("");
       $("#carreras_alu").append("<option disabled selected>Seleccionar carrera</option>");
-
+      console.log(response);
       alert(response);
      getCarreras();
       },
