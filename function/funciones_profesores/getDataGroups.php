@@ -65,7 +65,7 @@ function getGrupos(){//obtiene los atributos pertenecientes a la carrera selecci
 }
 
 function insertaGrupo(){//obtiene los atributos pertenecientes a la carrera seleccionada
-    require_once("./bdconexion.php");
+    require_once("bdconexion.php");
     //$sql = "INSERT INTO grupo_trabajo VALUES (null, '$_POST['grupo']', $_POST['carrera'], $_POST['materia'], $_POST['profesor'], true)";
     $grupo=$_POST['grupo'];
     $carr=$_POST['carrera'];
@@ -73,8 +73,8 @@ function insertaGrupo(){//obtiene los atributos pertenecientes a la carrera sele
     $prof=$_POST['profesor'];
     //$sql = "INSERT INTO grupo_trabajo (Nombre, Id_carrera, Id_materia, Id_profesor, Estado) VALUES ('$grupo', $carr, $mat, $prof, true)"; 
     $sql = "INSERT INTO grupo_trabajo VALUES (null, '$grupo', $carr, $mat, $prof, true)"; 
-    $sql_query = $conn->query($sql);//------------hace pero no manda mensajes
-    if($sql_query){
+    //------------hace pero no manda mensajes
+    if($conn->query($sql)){
         echo "Grupo de trabajo registrado correctamente";
     }
     else
@@ -103,7 +103,7 @@ function insertaAlu(){//obtiene los atributos pertenecientes a la carrera selecc
 
 
 
-function existeG(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
+function existeG(){ //Funciona
     require_once("bdconexion.php");
     $grupo=$_POST['grupo'];
     $carr=$_POST['carrera'];
@@ -126,7 +126,6 @@ function existeG2(){
     $id=$_POST['idg'];
     
     $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$id." AND Estado = false;";
-    echo $query2;
     $sql_query2 = $conn->query($query2);//------------cuando si es false truena, no manda mensajes
     if($sql_query2 && $rowcount > 0){
         echo "Hecho";
@@ -135,7 +134,7 @@ function existeG2(){
         echo "No dado de alta de nuevo";
     }
 }
-function existeA(){ //Selecciona los atrib de las mate de las carreras que pertenecen al departamento del administador
+function existeA(){ //Funciona
     require_once("bdconexion.php");
     $carr=$_POST['carrera'];
     $mat=$_POST['materia'];

@@ -85,7 +85,7 @@
 
               <div class="row" style="padding-left: 20em; padding-right: 20em">
                 <br>
-                <form class="col-md-12" action="" method="post">
+                <form class="col-md-12">
                   <br><br>
                   <input type="text" class="form-control" name="txtnombre" value=""
                      placeholder="Nombre"><br>
@@ -122,14 +122,14 @@
                      <option value="s10">10° Semestre</option>
                      <option value="s11">11° Semestre</option>
                   </select><br><br>
-                  <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
+                  <button class="btn" name="altaregistro">Registrar</button><br><br>
                   <div class="col-md-12 titulo">
                      <h2>Carga mediante Excel</h2>
                   </div><br><br>
                   <h3>Selecciona el documento de Excel que contiene los alumnos.</h3>
                   <br><br>
                   <input type="file" name="excel"><br><br>
-                  <button type="submit" class="btn" name="alta">Cargar archivo</button>
+                  <button class="btn" name="alta">Cargar archivo</button>
                 </form>
               </div>
                <br>
@@ -167,8 +167,8 @@
                       <option disabled selected>Seleccionar materia</option>
                     </select>
                     <br>
-                    <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
                   </form>
+                  <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
                 </div>
                 <div class="col-lg-2">
                 </div>
@@ -250,7 +250,7 @@
         <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
           <div class="row">
             <div class="col-lg-3">
-              <form class="formulario" action="" method="post">
+              <form class="formulario">
                 <p>Agregar materias: </p>
                 <br>
                 <p>Nombre de la materia:</p>
@@ -262,8 +262,9 @@
                      <option value="sistemas">Sistemas y computación</option>
                 </select>
                 <br><br>
-                <button type="submit" class="btn" name="login">Agregar</button>
+                
               </form>
+              <button class="btn" name="login">Agregar</button>
             </div>
             <div class="col-lg-9">
               <form class="form-inline">
@@ -416,7 +417,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form class="" action="index.html" method="post">
+              <form class="">
                 <input type="text" name="" value="">
                 <input type="text" name="" value="">
 
