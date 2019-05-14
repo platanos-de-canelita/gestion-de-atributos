@@ -40,7 +40,6 @@ var pk_sesion;
     }
   }
   function revisaGrupo2(resp){
-    alert("RG2");
       data ='func=revisaGrupo2';
       data =data + '&idg='+resp;
       console.log(data);
@@ -52,13 +51,14 @@ var pk_sesion;
         data: data,
         success: function(response)
         {
-          alert(response);
           console.log(response);
           if(response == "Hecho"){
             alert("Se ha dado de alta grupo");
+            limpia();
            }
            else{
             alert("Ya existe el grupo no se puede dar de alta");
+            limpia();
            }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -70,7 +70,6 @@ var pk_sesion;
 
 
   function insertarGrupo(grupo,carrera,materia,profesor){
-    alert("IG");
     data ='func=insertarGrupo';
     data =data + '&grupo='+grupo +'&carrera='+carrera +'&materia='+materia+'&profesor='+profesor;
     console.log(data);
@@ -88,7 +87,7 @@ var pk_sesion;
       $("#carreras_alu").append("<option disabled selected>Seleccionar carrera</option>");
       console.log(response);
       alert(response);
-     getCarreras();
+      limpia();
       },
       error: function(jqXHR, textStatus, errorThrown){
     //   console.log(errorThrown);
@@ -123,6 +122,7 @@ function revisaAlumno(){
         insertarAlumno(grupo,alumno);
        }else{
         alert("Ya se registro el alumno en otro grupo de trabajo");
+        limpia();
        }
       
     },
@@ -136,7 +136,6 @@ function revisaAlumno(){
 
 
 function insertarAlumno(grupo,alumno){
-  alert("IA");
   data ='func=insertarAlu';
   data =data + '&grupo='+grupo +'&alumno='+alumno;
   console.log(data);
@@ -149,13 +148,7 @@ function insertarAlumno(grupo,alumno){
     success: function(response)
     {
       alert(response);
-
-      $("#group_carreras").html("");
-      $("#group_carreras").append("<option disabled selected>Seleccionar carrera</option>");
-      $("#carreras_alu").html("");
-      $("#carreras_alu").append("<option disabled selected>Seleccionar carrera</option>");
-
-      getCarreras();
+      limpia();
     },
     error: function(jqXHR, textStatus, errorThrown){
   //   console.log(errorThrown);
@@ -246,7 +239,22 @@ function getAlumnos(materia){//---------
 }
 
 
-
+function limpia(){
+  $("#group_materias").html("");
+  $("#group_materias").append("<option disabled selected>Seleccionar materia</option>");
+  $("#materias_alu").html("");
+  $("#materias_alu").append("<option disabled selected>Seleccionar materia</option>");
+  $("#group_carreras").html("");
+  $("#group_carreras").append("<option disabled selected>Seleccionar carrera</option>");
+  $("#carreras_alu").html("");
+  $("#carreras_alu").append("<option disabled selected>Seleccionar carrera</option>");
+  $("#group_nvo").val("");
+  $('#group_names').html("");
+  $('#group_names').append("<option disabled selected>Seleccionar grupo</option>");
+  $("#group_alumnos").html("");
+  $("#group_alumnos").append("<option disabled selected>Seleccionar alumno</option>");
+  getCarreras();
+}
 
 //-----------------pppppppppppppppppppppppppppppppppppppppppp
 

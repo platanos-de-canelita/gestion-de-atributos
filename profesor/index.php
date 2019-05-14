@@ -192,9 +192,9 @@
                      <option disabled selected>Seleccionar alumno</option>
                      <!--option value="industrial">Alejandro Nuñez</option-->
                     </select><br>
-                   <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
-                 
                   </form>
+                  <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
+                 
                 </div>
               </div>
                <br>
