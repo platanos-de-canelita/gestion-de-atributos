@@ -127,7 +127,10 @@ function existeG2(){
     
     $query2="UPDATE grupo_trabajo SET Estado = true WHERE Id_grupo = ".$id." AND Estado = false;";
     $sql_query2 = $conn->query($query2);//------------cuando si es false truena, no manda mensajes
-    if($sql_query2 && $rowcount > 0){
+    if($sql_query2)
+     $rowcount = $conn->affected_rows;
+    //echo $rowcount;
+    if( $rowcount > 0){
         echo "Hecho";
     }
     else{
