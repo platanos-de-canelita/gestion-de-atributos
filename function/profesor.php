@@ -58,7 +58,7 @@ function insertar_profMate(){
     if(isset($_POST['carreraFiltroProf']) && $_POST['carreraFiltroProf']!=null ){
         getCarreraFiltro();
     }else{
-        if(isset($_POST['nombreMat']) && $_POST['nombreMat'] != null){
+        if(isset($_POST['nombreMateria']) && $_POST['nombreMateria'] != null){
             getMateriaFiltro();
         }else{
             getAllProfeMat();
@@ -69,10 +69,10 @@ function insertar_profMate(){
 
   function getCarreraFiltro(){
     require_once("bdconexion.php");
-    if(isset($_POST['nombreMat']) && $_POST['nombreMat']!="")
+    if(isset($_POST['nombreMateria']) && $_POST['nombreMateria']!="")
         {
 
-            $query = "SELECT profmat.Id_materia, mat.Nombre as NombreMat, c.id_carrera, c.Nombre as NombreCarr, p.idprofesor, p.nombre as Nombreprof FROM profesor_materia profmat INNER JOIN carrera c ON profmat.Id_carrera = c.id_carrera INNER JOIN profesores p ON profmat.Id_profesor = p.idprofesor INNER JOIN materia mat ON profmat.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltroProf'] . " AND (mat.Nombre like '%" . $_POST['nombreMat'] . "%' OR p.nombre like '%" . $_POST['nombreMat'] . "%') AND profmat.Estado = true" ;
+            $query = "SELECT profmat.Id_materia, mat.Nombre as NombreMat, c.id_carrera, c.Nombre as NombreCarr, p.idprofesor, p.nombre as Nombreprof FROM profesor_materia profmat INNER JOIN carrera c ON profmat.Id_carrera = c.id_carrera INNER JOIN profesores p ON profmat.Id_profesor = p.idprofesor INNER JOIN materia mat ON profmat.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltroProf'] . " AND (mat.Nombre like '%" . $_POST['nombreMateria'] . "%' OR p.nombre like '%" . $_POST['nombreMateria'] . "%') AND profmat.Estado = true" ;
 
 
         }
@@ -100,11 +100,11 @@ function insertar_profMate(){
     if(isset($_POST['carrera']) && $_POST['carrera']!=null)
     {
 
-        $query="SELECT profmat.Id_materia, mat.Nombre as NombreMat, c.id_carrera, c.Nombre as NombreCarr, p.idprofesor, p.nombre as NombreProfe FROM profesor_materia profmat INNER JOIN carrera c ON profmat.Id_carrera = c.id_carrera INNER JOIN profesores p ON profmat.Id_profesor = p.idprofesor INNER JOIN materia mat ON profmat.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltroProf'] . " AND (p.nombre like '%" . $_POST['nombreMat'] . "%' OR mat.Nombre like '%" . $_POST[nombreMat] . "%') AND profmat.Estado = true" ;
+        $query="SELECT profmat.Id_materia, mat.Nombre as NombreMat, c.id_carrera, c.Nombre as NombreCarr, p.idprofesor, p.nombre as NombreProfe FROM profesor_materia profmat INNER JOIN carrera c ON profmat.Id_carrera = c.id_carrera INNER JOIN profesores p ON profmat.Id_profesor = p.idprofesor INNER JOIN materia mat ON profmat.Id_materia = mat.id_materia WHERE c.id_carrera = " . $_POST['carreraFiltroProf'] . " AND (p.nombre like '%" . $_POST['nombreMateria'] . "%' OR mat.Nombre like '%" . $_POST[nombreMateria] . "%') AND profmat.Estado = true" ;
     }
 else{
 
-        $query="SELECT profmat.Id_materia, mat.Nombre as NombreMat, c.id_carrera, c.Nombre as NombreCarr, p.idprofesor, p.nombre as NombreProfe FROM profesor_materia profmat INNER JOIN carrera c ON profmat.Id_carrera = c.id_carrera INNER JOIN profesores p ON profmat.Id_profesor = p.idprofesor INNER JOIN materia mat ON profmat.Id_materia = mat.id_materia WHERE c.id_carrera = (p.nombre like '%" . $_POST['nombreMat'] . "%' OR mat.Nombre like '%" . $_POST['nombreMat'] . "%') AND profmat.Estado = true" ;
+        $query="SELECT profmat.Id_materia, mat.Nombre as NombreMat, c.id_carrera, c.Nombre as NombreCarr, p.idprofesor, p.nombre as NombreProfe FROM profesor_materia profmat INNER JOIN carrera c ON profmat.Id_carrera = c.id_carrera INNER JOIN profesores p ON profmat.Id_profesor = p.idprofesor INNER JOIN materia mat ON profmat.Id_materia = mat.id_materia WHERE c.id_carrera = (p.nombre like '%" . $_POST['nombreMateria'] . "%' OR mat.Nombre like '%" . $_POST['nombreMateria'] . "%') AND profmat.Estado = true" ;
        
     }
    

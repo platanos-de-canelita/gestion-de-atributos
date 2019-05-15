@@ -231,7 +231,7 @@
                     <select id="prof_materia" name="carreraFiltroProf" class="form-control mx-sm-3">
                       <option disable selected>Seleccione una carrera</option>
                     </select>
-                    <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombreMat" class="form-control mx-sm-3">
+                    <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombreMateria" class="form-control mx-sm-3">
 
                       <!--%%%%%%%%%%%%%%%%-->
                     <button id="btn_refrescar_filtros" onclick="getprofe_mate()" type="button" class="form-control mx-sm-3">Buscar</button>

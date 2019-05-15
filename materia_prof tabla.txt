@@ -1,9 +1,9 @@
 *TABLA*
 
 CREATE TABLE `profesor_materia` (
-  `Id_carrera` int(11) NOT NULL,
+  `Id_carrera` int(11) PRIMARY KEY NOT NULL,
   `Id_materia` int(11) NOT NULL,
-  `Id_profesor` int(11) NOT NULL,
+  `Id_profesor` int(11)  NOT NULL,
   `Estado` tinyint(1) NOT NULL
 );
 
@@ -19,7 +19,7 @@ END$$
 DELIMITER ;
 
 
-
+INSERT INTO profesor_materia (Id_carrera, Id_materia, Id_profesor, Estado) VALUES (3,2,4,true);
 
 
 
