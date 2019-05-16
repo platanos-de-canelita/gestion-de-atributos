@@ -197,7 +197,7 @@
                   <th scope="col">Industrial</th>
                   <th scope="col">Ingenieria economica</th>
                   <th scope="col">Detalles</th>
-                  <th scope="col">Modificar|Eliminar</th>
+                  <th scope="col"> <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modificarGrupo">Modificar</button>|Eliminar</th>
                 </tr>
               </tbody>
             </table>
@@ -564,6 +564,53 @@
          </div>
      </div>
      <!--/Modal de nuevo proyecto-->
+
+
+
+    <!-- Modal ModificarCriterio-->
+    <div class="modal fade" id="modificarGrupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modificar Grupo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="" action="index.html" method="post" id="formModGrupo">
+                      <h3 align="center">Nuevos Datos </h3>
+                      <br>
+                      <label for="id_grupo">ID grupo</label>
+                      <br>
+                      <p id="id_grupo"></p>
+                      <br>
+                      <input type="text" class="form-control" id="txnombreGrupo" name="txnombreGrupo" value=""
+                        placeholder="Nombre"><br>
+                      <select class="form-control" name="Mcarrera" id="modifCarrera">
+                        <option value="">Seleccionar carrera</option>
+                        <option value="industrial">Industrial</option>
+                      </select><br>
+                      <select class="form-control" name="Mmateria" id="modifMateria">
+                        <option value="">Seleccionar materia</option>
+                        <option value="mate">Mate</option>
+                        <option value="mate2">Mate II</option>
+                        <option value="fisica">Fisica</option>
+                      </select><br>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <!--???????????????????????????????????????????????????????-->
+                    <button type="button" class="btn btn-primary" onclick="confirmUpdateGrupo()">Aceptar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal -->
+
+
+
 
 
      <script src="../js/jquery-3.3.1.min.js"></script>
