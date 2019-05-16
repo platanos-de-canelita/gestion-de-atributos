@@ -11,14 +11,14 @@ function update_carrera(){
     $idC = "";
     $idM = "";
 
-    // Query para obtener id de la carrera
+    // Obtengo id de la carrera
     $query = "SELECT id_carrera WHERE Nombre = '$carrera'";
     $sql_query = $conn->query($query);
     while($row = $sql_query->fetch_assoc()){
         $idC = $row['id_carrera'];
     }
     
-    // Query para obtener id de la materia
+    // Obtengo el id de la materia
     $query2 = "SELECT id_materia WHERE Nombre = '$materia'";
     $sql_query = $conn->query($query2);
     while($row = $sql_query->fetch_assoc()){

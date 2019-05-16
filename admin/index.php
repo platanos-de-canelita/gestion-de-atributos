@@ -1,14 +1,11 @@
-
 <?php
 
   //reanuda la sesion
   session_start();
   //valida si la sesion esta activa
   if (session_status() === PHP_SESSION_ACTIVE && $_SESSION['usuario']!="") {
-
+    $session_value=$_SESSION['usuario'];
   }else{
-
-
   	header("Location: login.php");
   	exit();
   }
@@ -16,6 +13,7 @@
 
 
  ?>
+
  <!DOCTYPE html>
  <html lang="en">
 
@@ -24,6 +22,8 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
      <link rel="stylesheet" href="../css/main.css">
      <script src="../js/admin/admin.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -66,16 +66,6 @@
          <li class="nav-item">
              <a class="nav-link list-group-item-action" id="carreras-tab" data-toggle="tab" href="#carreras"
                  role="tab" aria-controls="profile" aria-selected="false">Carreras</a>
-         </li>
-         <li>
-          <a class="nav-link list-group-item-action" id="materias-tab" data-toggle="tab" href="#materias"
-          role="tab" arial-controls="profile" arial-selected="false">
-            Materias
-          </a>
-         </li>
-         <li>
-          <a class="nav-link list-group-item-action" id="responsable-tab" data-toggle="tab" href="#responsable"
-           role="tab" arial-controls="profile" arial-selected="false">Responsable</a>
          </li>
          <li class="nav-item">
              <a class="nav-link list-group-item-action" id="informes-tab" data-toggle="tab" href="#informes"
@@ -212,7 +202,7 @@
                           <td>Nos ayuda a evaluar el desempeño de un estudiante al trabajar con sus compañeros de equipo</td>
                           <td>50%</td>
                           <td>Individual</td>
-                          <td>Modificar | Eliminar</td>
+                          <td><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarCriterio(3,'Trabaja en equipo')">Eliminar</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -226,7 +216,7 @@
          </div>
 
          <div class="tab-pane fade" id="profesores" role="tabpanel" aria-labelledby="profesores-tab">
-           <div class="row">
+             <div class="row">
 
                <div class="col-lg-12">
                    <form class="form-inline">
@@ -284,8 +274,74 @@
            <div class="container" style="margin-top:1em;">
                <div id="contenedor_proyectos" class="row">
 
-               </div>
-           </div>
+                                          <div class="container">
+                                            <div class="row">
+                                              <div class="col-sm">
+                                                <div id="rbusqueda"></div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-sm">
+                                                 Profesores candidatos
+                                                <table class="table">
+                                                   <thead>
+                                                     <tr>
+                                                       <th scope="col">id</th>
+                                                       <th scope="col">Nombre</th>
+                                                       <th scope="col">Correo</th>
+                                                       <th scope="col">Acciones</th>
+                                                     </tr>
+                                                   </thead>
+
+
+                                                   <tbody id="filas1">
+
+                                                   </tbody>
+                                                 </table>
+                                              </div>
+
+                                              <div class="col-sm">
+                                                Profesores autorizados
+                                                <table class="table">
+                                                   <thead>
+                                                     <tr>
+                                                       <th scope="col">id</th>
+                                                       <th scope="col">Nombre</th>
+                                                       <th scope="col">Correo</th>
+                                                       <th scope="col">Acciones</th>
+                                                     </tr>
+                                                   </thead>
+                                                   <tbody id="filas2">
+
+                                                   </tbody>
+                                                 </table>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+
+
+
+
+                      <div class="paginador">
+                        <ul id="paginas" style="list-style: none; ">
+
+                          <!--<li><a href="#">|<<</a></li>
+                          <li><a href="#"><<</a></li>
+                          <li class="pageSelected">1</li>
+
+                          <li><a href="#">>></a></li>
+                          <li><a href="#">>>|</a></li>-->
+                        </ul>
+                      </div>
+                 </div>
+             </div>
+             <div class="container" style="margin-top:1em;">
+                 <div id="contenedor_proyectos" class="row">
+
+                 </div>
+             </div>
          </div>
 
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
@@ -367,7 +423,59 @@
 
                           <th scope="col">Sistemas y computación</th>
                           <th scope="col">logo7.png</th>
-                          <th scope="col">Modificar|Eliminar</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(1,'Sistemas')">Eliminar</button></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
+
+         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
+           <div class="row">
+               <div class="col-lg-3">
+                 <form class="formulario" id="formDeptoInsert" >
+                   <p>Nombre del departamento: </p>
+                   <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
+                   <br><br>
+
+                 </form>
+                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
+               </div>
+               <div class="col-lg-9">
+                   <form class="form-inline" id="formDeptos">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="in_palabra_proyecto" type="text" name="deptoName" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getDeptoFiltro()">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAlldeptos()">Ver todos</button>
+                       </div>
+                   </form>
+                   <br>
+                   <table class="table" id="departamentos">
+                      <thead>
+                        <tr>
+
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Logo</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="filas">
+                        <tr>
+
+                          <th scope="col">Industrial</th>
+                          <th scope="col">logo6.png</th>
+                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(2,'Industrial')">Eliminar</button></th>
                         </tr>
                       </tbody>
                     </table>
@@ -390,115 +498,6 @@
                </div>
            </div>
          </div>
-
-         <div id="materias" class="tab-pane fade" role="tabpanel" arial-labelledby="materias-tab">
-          <div class="row">
-            <div class="col-lg-3">
-              <form class="formulario" id="formMateriaInsert" >
-                <p>Nombre de Materia:  </p>
-                <input type="text" id="nombre_materia" class="form-control" name="nombreM" value="" placeholder="Nombre de materia"><br><br>
-                <select name="carrera" id="materais_carrera" class="form-control mx-sm-3" style="margin-left: 0px !important">
-                  <option value="" disabled selected>Seleccione una Carrera</option>
-                </select>
-                <br><br>
-                <select name="semestre" id="semestre" class="form-control mx-sm-m" style="margin-left: 0px !important">
-                  <option disabled selected value="">Seleccione un Semestre</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </select>
-
-              </form>
-              <button id="btn_atrib" class="btn" onclick="insertar_materia()">Agregar</button>
-            </div>
-            <div class="col-lg-9">
-                   <form class="form-inline" id="formMaterias">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" name="nombre" placeholder="buscar" class="form-control mx-sm-3">
-                           <select name="carrera" id="materias_carrera" class="form-control mx-sm-3" style="margin-left: 0px !important">
-                              <option value="" disabled selected>Seleccione una materia</option>
-                            </select>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getMaterias('')">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getMaterias('All')">Ver todos</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table" id="materias">
-                      <thead>
-                        <tr>
-
-                          <th scope="col">id</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Carrera</th>
-                        </tr>
-                      </thead>
-                      <tbody id="filas">
-                        <tr>
-
-                          <th scope="col">Sistemas y computación</th>
-                          <th scope="col">logo7.png</th>
-                          <th scope="col">Modificar|Eliminar</th>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="paginador">
-                      <ul id="paginas" style="list-style: none; ">
-                      </ul>
-                    </div>
-               </div>
-           </div>
-          </div>
-
-          <div id="responsable" class="tab-pane fade" role="tabpanel" arial-labelledby="responsable-tab">
-          <div class="row">
-            <div class="col-lg-3">
-              <form class="formulario" id="formResponsableInsert" >
-                <h6>Nuevo Responsable</h6>
-                <input type="text" id="usuario_responsable" class="form-control" name="usuario" value="" placeholder="Usuario"><br>
-                <input type="password" id="pass_responsable" class="form-control" name="contraseña" value="" placeholder="Contraseña"><br>
-                <select name="profesor" id="profesores_select" class="form-control mx-sm-3" style="margin-left: 0px !important">
-                  <option value="" disabled selected>Seleccione un profesor</option>
-                </select>
-                <br><br>
-              </form>
-              <button id="btn_atrib" class="btn" onclick="insertar_responsable()">Agregar</button>
-            </div>
-            <div class="col-lg-9">
-                   <form class="form-inline" id="formResponsable">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="responsable_f" type="text" name="nombre" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="ResponsablesFiltro('')">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="ResponsablesFiltro('All')">Ver todos</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table" id="responsables">
-                      <thead>
-                        <tr>
-                          <th scope="col">id</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Usuario</th>
-                          <th scope="col">Contraseña</th>
-                        </tr>
-                      </thead>
-                      <tbody id="filas">
-                      </tbody>
-                    </table>
-                    <div class="paginador">
-                      <ul id="paginas" style="list-style: none; ">
-                      </ul>
-                    </div>
-               </div>
-           </div>
-          </div>
 
          <div class="tab-pane fade" id="informes" role="tabpanel" aria-labelledby="informes-tab">
            <div class="row">
@@ -821,143 +820,44 @@
 <!-- Modal eliminar Departamento-->
 
 <div class="modal fade" id="eliminarDto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Está seguro que desea borrar: <span id="datodto"></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="confirmDeleteDto()">Aceptar</button>
-      </div>
+
+<div class="modal-dialog" role="document">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
     </div>
+
+    <div class="modal-body">
+
+      Está seguro que desea borrar: <span id="datodto"></span>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+      <button type="button" class="btn btn-primary" onclick="confirmDeleteDto()">Aceptar</button>
+
+    </div>
+
   </div>
+
+</div>
+
 </div>
 
 <!-- Modal eliminar Departamento-->
-
-<!-- Modal eliminar Responsable-->
-
-<div class="modal fade" id="eliminarResp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Está seguro que desea borrar el responsable: <span id="datodtoR"></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="confirmDelResponsable()">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal eliminar Responsable-->
-
-<!-- Modal modificar Responsable-->
-
-<div class="modal fade" id="modificarResponsable" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modificar Responsable</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h1 align="center">Nuevos Valores</h1>
-        <br>
-        <label id="id_responsable"></label>
-        <br>
-        <input class="form-control" type="text" placeholder="Usuario" name="nombre" id="nombre_usuario_r">
-        <br>
-        <input class="form-control" type="password" placeholder="Contraseña" name="pass" id="pass_r">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="confirmarModifResponsable()">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal modificar Responsable-->
-
-<!-- Modal modificar Materia-->
-
-<div class="modal fade" id="modificarMateria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modificar Materia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h1 align="center">Nuevos Valores</h1>
-        <input type="text" placeholder="Nombre de Materia" name="nombre" id="nombre_carrera"><br><br>
-        <select name="semestre" id="semModifMat" class="form-control mx-sm-m" style="margin-left: 0px !important">
-          <option disabled selected value="">Seleccione un Semestre</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-        </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="confirmarModMateria()">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal modificar Materia-->
-
-<!-- Modal eliminar Materia-->
-
-<div class="modal fade" id="eliminarMateria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Está seguro que desea borrar: 
-        <p id="id_materia"></p>
-        <p id="nombre_materia"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="confirmarEliminarMateria()">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal eliminar Materia-->
 
 <div class="modal fade" id="eliminarCarrera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
@@ -1113,20 +1013,15 @@
             $("#txpondCritG").hide();
           }
         });
-        /*getAlldeptos();
+        getAlldeptos();
         getAllCriterios();
         getAllAtributos();
         getCarreras();
         get_atributos_criterio();
-        getCarrerasFiltro('All');*/
+        getCarrerasFiltro('All');
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-          Swal.fire(
-            'Atributo agregado exitosamente!',
-            '',
-            'success'
-          )
          });
 
      </script>

@@ -1,14 +1,13 @@
 <?php
   require_once("bdconexion.php");
-  $admin = $_SESSION['usuario'];
-  
-  $nombre = $_GET['nombreA'];
+
+  $nombre = $_GET['nombre'];
   if(empty($nombre)){
     echo "No existe el atributo";
   }
   else{
-    var $idAd, $idCar;
-    $sql = "CALL Info_admin ($admin,$pass, @idd_admin_pk,@idd_carrera);"
+    //var $idAd, $idCar;
+    $sql = "CALL DEL_ATRIBUTO ($id,$nombre);"
     $result = $conn->query($sql);
     $info = $result->fetch_row();
 

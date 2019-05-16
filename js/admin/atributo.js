@@ -14,7 +14,7 @@ function insertarAtributo(){
   $.ajax({
     type: "POST",
     async: true,
-    url: "../function/registrar_Atributo.php",
+    url: "../function/atributos.php",
     timeout: 12000,
     data: $("#form").serialize(),
     success: function()

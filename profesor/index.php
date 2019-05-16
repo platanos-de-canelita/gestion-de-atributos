@@ -565,10 +565,8 @@
      </div>
      <!--/Modal de nuevo proyecto-->
 
-
-
-    <!-- Modal ModificarCriterio-->
-    <div class="modal fade" id="modificarGrupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- Modal ModificarCriterio-->
+      <div class="modal fade" id="modificarGrupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -609,10 +607,7 @@
             </div>
             <!-- Modal -->
 
-
-
-
-
+        
      <script src="../js/jquery-3.3.1.min.js"></script>
      <script src="../js/bootstrap.min.js"></script>
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
