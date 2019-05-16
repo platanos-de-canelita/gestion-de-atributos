@@ -161,14 +161,15 @@ var datos_sesion;
       });
     }
 
-    function modificarMateria(id, nombre){
+    function modificarMateria(id, nombre, semestre){
       $("#modificarMateria").modal("show");
       localStorage.setItem('id_materia', id);
       $("#nombre_carrera").val(nombre);
+      $("#semModifMat").val(semestre);
     }
 
     function confirmarModMateria(){
-      var datos = "funcion=update&id_materia="+localStorage.getItem('id_materia')+"&nombre="+$("#nombre_carrera").val();
+      var datos = "funcion=update&id_materia="+localStorage.getItem('id_materia')+"&nombre="+$("#nombre_carrera").val()+"&semestre="+$("#semModifMat").val();
       console.log(datos);
       $.ajax({
         type : 'POST',
@@ -246,6 +247,7 @@ var datos_sesion;
               "<th>ID carrera</th>"+
               "<th>Nombre materia</th>"+
               "<th>Carrera</th>"+
+              "<th>Semestre</th>"+
               "<th>Acciones</th>"+
               "</tr>"
             );

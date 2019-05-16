@@ -398,9 +398,21 @@
                 <p>Nombre de Materia:  </p>
                 <input type="text" id="nombre_materia" class="form-control" name="nombreM" value="" placeholder="Nombre de materia"><br><br>
                 <select name="carrera" id="materais_carrera" class="form-control mx-sm-3" style="margin-left: 0px !important">
-                  <option value="" disabled selected>Seleccione una materia</option>
+                  <option value="" disabled selected>Seleccione una Carrera</option>
                 </select>
                 <br><br>
+                <select name="semestre" id="semestre" class="form-control mx-sm-m" style="margin-left: 0px !important">
+                  <option disabled selected value="">Seleccione un Semestre</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
 
               </form>
               <button id="btn_atrib" class="btn" onclick="insertar_materia()">Agregar</button>
@@ -897,7 +909,19 @@
       </div>
       <div class="modal-body">
         <h1 align="center">Nuevos Valores</h1>
-        <input type="text" placeholder="Nombre de Materia" name="nombre" id="nombre_carrera">
+        <input type="text" placeholder="Nombre de Materia" name="nombre" id="nombre_carrera"><br><br>
+        <select name="semestre" id="semModifMat" class="form-control mx-sm-m" style="margin-left: 0px !important">
+          <option disabled selected value="">Seleccione un Semestre</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+        </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
