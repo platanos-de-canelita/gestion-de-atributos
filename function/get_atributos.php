@@ -1,11 +1,19 @@
 <?php
-    require_once('bdconexion.php');
+ require_once("bdconexion.php");
+ try{
+     $id = $_POST['id'];
+     $query = "SELECT id_atributo_pk, nombre FROM atributo WHERE Estado=1 AND id_carrera='$id'";
+     $sql_query = $conn->query($query);
 
-    $sql = "SELECT id_atributo_pk, Nombre FROM atributo WHERE Estado = true";
+     if($sql_query->num_rows == 0)
+         echo "Sin Atributos";
 
-    $sql_query = $conn->query($sql);
+     while($row = $sql_query->fetch_assoc()){
+         echo "<option value='".$row["id_atributo_pk"]."'>" . utf8_encode($row["nombre"]) . "</option>";
+     }
+ }
+ catch(PDOException $e){
+     echo "Error: " . $e -> getMessage();
+ }
 
-    while($row = $sql_query->fetch_assoc()){
-        echo "<option value='".$row["id_atributo_pk"]."'>".$row["Nombre"]."</option>";
-    }
-?>
+ ?>

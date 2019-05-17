@@ -14,13 +14,13 @@ var datos_sesion;
         if(tipo.value == 'Individual/Grupal'){
           $("#PonderaciónGrupal").show();
           $("#PonderaciónIndividual").show();
-          
+
         }
         else
         {
             $("#PonderaciónGrupal").hide();
           $("#PonderaciónIndividual").hide();
-          
+
         }
       });
     });*/
@@ -98,7 +98,7 @@ var datos_sesion;
           $("#modificarResponsable").modal("hide");
         },
         error : function(jqXHR, textStatus, errorThrown) {
-          
+
         }
       });
     }
@@ -196,7 +196,7 @@ var datos_sesion;
       $("#eliminarMateria").modal("show");
       localStorage.setItem('id_materia', id);
       $("#id_materia").text(nombre);
-      
+
     }
 
     function confirmarEliminarMateria(){
@@ -442,7 +442,7 @@ function updateAllPlatform(){
     }
 
    function revisacrit(){
- 
+
     var podindiv=$('#PonderaciónIndividual').val();
     var pongrup=$('#PonderaciónGrupal').val();
     var tipo = $("#opc").val();
@@ -453,7 +453,7 @@ function updateAllPlatform(){
     }else
     {
       if(tipo == 'Individual'){
-         podindiv=100; 
+         podindiv=100;
          pongrup=0;
          insertarCricterio(podindiv, pongrup);
 
@@ -461,7 +461,7 @@ function updateAllPlatform(){
       {
         if(tipo == 'Grupal'){
           podindiv=0
-          pongrup=100;   
+          pongrup=100;
           insertarCricterio(podindiv, pongrup);
         }
         else{
@@ -472,7 +472,7 @@ function updateAllPlatform(){
   }
 
 function insertarCricterio(podindiv, pongrup){
-  
+
   var data = $('#formcrit').serialize();
   data = data + '&func=insertardef';
   var id = $("#atrib").val();
@@ -722,7 +722,7 @@ function getCriterios(){
 
     }
   });
-  
+
 }
 
 
@@ -817,7 +817,7 @@ function getAllAtributos(){
           $("#tabla_atributos > thead").html("<tr><th class='center'>No hay atributos registrados</th></tr>");
           $("#tabla_atributos tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.jpg"+"'>"+"</td></tr>");
         }
-        else{      
+        else{
           $("#tabla_atributos > thead").html("");
           $("#tabla_atributos thead").append("<tr>"+
           "<th scope='col'>id</th>"+
@@ -1068,21 +1068,31 @@ function get_datos_sesion(){
       data:{usuario:myvar,tipo : localStorage.getItem('tipo_usuario')},
 
       success: function (data) {
-        setdata_sesion(data);
+        return data;
+
       }
 
   });
 
 }
+function get_atributos_criterio(){
+  var admin = get_datos_sesion();
 
+  $.ajax({
+      url:"../function/get_atributos.php",
+      method: "POST",
+      data:{id:admin},
+      dataType:"text",
+      success: function (data) {
+       const contenido=document.getElementById('atrib');
+       contenido.innerHTML=data;
+      }
+  });
+}
 //Necesita id_criterio,nombre_criterio
-
 function eliminarCriterio(idC,nomC){
-
-  $('#eliminarc').modal('show');
-
-  $("#datoc").html(nomC);
-
+  $('#eliminar').modal('show');
+  $("#dato").append(nomC);
   del = idC;
 
 }
@@ -1090,7 +1100,7 @@ function eliminarCriterio(idC,nomC){
 function confirmDeleteC(){
 
   var fun = "eliminarC";
-  console.log(del);
+
   $.ajax({
 
     type: "POST",
@@ -1264,79 +1274,31 @@ function confirmDeleteCarrera(){
     }
 
   });
-
 }
+function insertar_departamento(){
+  var fun = "insertar";
+  var fd = new FormData();
+  var files = $('#file')[0].files[0];
+  fd.append('file',files);
+  var nombre=$("#nombre_depto").val();
 
-/* FUNCIONES PARA MODIFICAR CRITERIOS */
+  console.log(nombre);
+  fd.append('nombre',nombre);
+  //fd.append('func',fun);
+  $.ajax({
+    type: "POST",
+    async: true,
+    url: "../function/departamento.php",
+    contentType: false,
+    processData: false,
+    timeout: 12000,
+    data: fd,
+    success: function(response)
+    {
 
-function modificarCriterio(value, nombre, descripcion, tipo, pondI, pondG){
-
-  $('#modificarCrit').modal('show');
-
-  $("#txnombreCrit").val(nombre);
-
-  $("#txdesCrit").val(descripcion);
-
-  $("#modifTipoCriterio").val(tipo);
-
-  $("#txpondCrit").val(pondI);
-  
-  $("#txpondCritG").val(pondG);
-
-  mod = value;
-
-}
-
-
-
-function confirmModCriterio(){
-  var name = $("#txnombreCrit").val();
-
-  var desc = $("#txdesCrit").val();
-
-  var tipo = $("#modifTipoCriterio").val();
-  var pondI = 0;
-  var pondG = 0;
-  if(tipo == "individual/grupal"){
-    pondI = $("#txpondCrit").val();
-    pondG = $("#txpondCritG").val();
-  }
-  else{
-    if(tipo == "Individual"){
-      pondI = 100;
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      //console.log(errorThrown);
     }
-    else{
-      pondG = 100;
-    }
-  }
-  
-  if((parseInt(pondI, 10) + parseInt(pondG, 10)) == 100){
-    $.ajax({
-        type: "POST",
-        async: true,
-        url: "../function/criterios.php",
-        timeout: 12000,
-        data: {
-            "func": "actualizar",
-            "Criterio": mod,
-            "Nombre": name,
-            "Descripcion": desc,
-            "PonderacionI": pondI,
-            "PonderacionG": pondG,
-            "tipo" : tipo
-        },
-        success: function(response)
-        {
-          alert(response);
-          $('#modificarCrit').modal('hide');
-          getAllCriterios();
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            console.log(errorThrown);
-        }
-    });
-  }
-  else{
-    alert("Ponderaciones invalidas");
-  }
+  });
 }

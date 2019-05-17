@@ -1,4 +1,8 @@
 <?php
+function actualizar_criterio(){
+
+
+}
 
 function eliminar_criterio(){
 

@@ -33,7 +33,7 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
      <link rel="stylesheet" href="../css/main.css">
-   
+
      <title>Administración</title>
 
  </head>
@@ -104,7 +104,7 @@
                     <br>
                     <button id="btn_atrib" class="btn" onclick="insertarAtributo()">Agregar</button>
                    </form>
-                   
+
                  </div>
                  <div class="col-lg-9">
                      <form class="form-inline" id="Atributos">
@@ -166,7 +166,7 @@
                      <option value="individual/grupal">Individual/Grupal</option>
                      <option value="Individual">Individual</option>
                      <option value="Grupal">Grupal</option>
-                    
+
                    </select>
                    <br><br>
                    <input type="number" min="0" max="100" class="form-control" id="PonderaciónIndividual" name="ponderacionI" placeholder="Ponderación Individual " >
@@ -334,7 +334,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
+
                       </tbody>
                     </table>
                </div>
@@ -349,10 +349,14 @@
          <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
            <div class="row">
                <div class="col-lg-3">
-                 <form class="formulario" id="formDeptoInsert" >
+                 <!--<form class="formulario" id="formDeptoInsert" >
                    <p>Nombre del departamento: </p>
                    <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
+                   <input type="file" class="form-control" name="logo" id="insertFileDepto">-->
+                   <form class="formulario" method="post" action="" enctype="multipart/form-data" id="myform">
+                     <p>Nombre del departamento: </p>
+                     <input id="nombre_depto" type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                     <input id="file" type="file" class="form-control" name="file">
                    <br><br>
 
                  </form>
@@ -749,7 +753,7 @@
      </div>
      <!--/Modal de nuevo proyecto-->
 
-     <!-- Modal actualización de departamento -->                            
+     <!-- Modal actualización de departamento -->
      <div class="modal fade" id="actualizarDepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <form id="modifDepto">
@@ -941,7 +945,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Está seguro que desea borrar: 
+        Está seguro que desea borrar:
         <p id="id_materia"></p>
         <p id="nombre_materia"></p>
       </div>
@@ -1077,13 +1081,13 @@
         if(tipo.value == 'individual/grupal'){
           $("#PonderaciónGrupal").show();
           $("#PonderaciónIndividual").show();
-          
+
         }
         else
         {
             $("#PonderaciónGrupal").hide();
           $("#PonderaciónIndividual").hide();
-          
+
         }
       });
     });

@@ -23,6 +23,7 @@
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
      <link rel="stylesheet" href="../css/main.css">
+<<<<<<< HEAD
      
      <script src="../js/admin/profesor.js"></script>
      <!--script src="../js/admin/admin.js"></script-->
@@ -34,6 +35,9 @@
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+=======
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+>>>>>>> 4715929b4cce7df0e10407e7be8503468a58b0f7
      <title>Profesor</title>
 
  </head>
@@ -125,14 +129,34 @@
                      <option value="s11">11° Semestre</option>
                    </select><br><br>
                    <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
+                    </form>
                    <div class="col-md-12 titulo">
                      <h2>Carga mediante Excel</h2>
                    </div><br><br>
                    <h3>Selecciona el documento de Excel que contiene los alumnos.</h3>
                    <br><br>
-                   <input type="file" name="excel"><br><br>
-                   <button type="submit" class="btn" name="alta">Cargar archivo</button>
-                 </form>
+                   <!--<input type="file" name="excel"><br><br>
+                   <button type="submit" class="btn" name="alta">Cargar archivo</button>-->
+
+                <div class="container">
+                <h2>Cargar e importar archivo excel a MySQL</h2>
+                <form name="importa" method="post" action="../function/funciones_profesores/excel.php" enctype="multipart/form-data" >
+                  <div class="col-xs-4">
+                    <div class="form-group">
+                      <input type="file" class="filestyle" data-buttonText="Seleccione archivo" name="excel">
+                    </div>
+                  </div>
+                  <div class="col-xs-2">
+                    <input class="btn btn-default btn-file" type='submit' name='enviar'  value="Importar"  />
+                  </div>
+                  <input type="hidden" value="upload" name="action" />
+                  <input type="hidden" value="usuarios" name="mod">
+                  <input type="hidden" value="masiva" name="acc">
+                </form>
+                </div>
+
+
+
                </div>
                <br>
                <br>
@@ -218,7 +242,8 @@
                </div>
            </form>
            <br>
-           <table class="table">
+           <div ></div>
+           <table class="table" id="grupos_table">
               <thead>
                 <tr>
 
@@ -316,13 +341,12 @@
            <div class="row">
 
                <div class="col-lg-12">
-                   <form class="form-inline">
+                   <form class="form-inline" action="../function/funciones_profesores/formato.php">
                        <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <button class="form-control btn-primary mx-sm-3" type="submit">Descargar formato para evaluación</button>
                        </div>
-                       </form>
+                   </form>
+
                 </div>
             </div>
             <div class="row">
@@ -582,6 +606,7 @@
      <script src="../js/bootstrap.min.js"></script>
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<<<<<<< HEAD
 
      
      <script>
@@ -618,6 +643,21 @@
         //getAllatrib_mate();//---debe ser 
        // getAllgroups_t();//-------------------------------
        
+=======
+     <script src="../js/grupos.js"></script>
+     <!--<script src="../js/admin/admin.js"></script>-->
+     <script>
+        //añado un click listener para el boton de agregar atributo.
+        //document.getElementById("btn_atrib").addEventListener("click", function(){
+          //invoco al modal de sweet alert para mostrar el mensaje de exito
+          //Swal.fire(
+            //'Atributo agregado exitosamente!',
+          //  '',
+            //'success'
+          //)
+         //});
+
+>>>>>>> 4715929b4cce7df0e10407e7be8503468a58b0f7
      </script>
 
 
