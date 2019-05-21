@@ -23,8 +23,8 @@
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
      <link rel="stylesheet" href="../css/main.css">
-<<<<<<< HEAD
-     
+
+
      <script src="../js/admin/profesor.js"></script>
      <!--script src="../js/admin/admin.js"></script-->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -35,9 +35,6 @@
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-=======
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
->>>>>>> 4715929b4cce7df0e10407e7be8503468a58b0f7
      <title>Profesor</title>
 
  </head>
@@ -77,7 +74,7 @@
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
 
      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
-         
+
       <!--Seccion de proyectos-->
 
          <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
@@ -208,7 +205,7 @@
                    <h5>Agregar alumno: </h5>
                     <select id="carreras_alu" name="carreraFiltro" class="form-control">
                       <option disabled selected>Selecciona una carrera</option>
-                    </select> 
+                    </select>
                     <br>                                              <!--name=filtro el de atributos-->
                     <select id="materias_alu" class="form-control" name="materia">
                       <option disabled selected>Seleccionar materia</option>
@@ -224,7 +221,7 @@
                      <!--option value="industrial">Alejandro Nuñez</option-->
                    </select><br>
                    <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
-                 
+
                    </form>
                 </div>
           </div>
@@ -590,7 +587,7 @@
                              </ul>
                          </div>
                      </div>
-                   
+
                  </div>
                  <!--Pie del modal-->
                  <div class="modal-footer">
@@ -606,9 +603,8 @@
      <script src="../js/bootstrap.min.js"></script>
      <!--Importo la libreria sweetalert2 para generar mensajes y entradas procedurales-->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<<<<<<< HEAD
 
-     
+     <!--<script src="../js/grupos.js"></script>-->
      <script>
         //-----------------------------------------------------------------------
         var myvar='<?php echo $_SESSION["usuario"];?>';
@@ -616,14 +612,14 @@
         //llamamos al metodo get_datos para obtener todos los datos del administrador
         get_datos_sesion();
         get_datos_sesionPK();
-        
+
          //ALTA-FORMULARIO En cuanto cambie la carrera debe cambiar materias y alumnos incritos a la misma
         var selectCar = document.getElementById('group_carreras');
         selectCar.addEventListener('change',
         function(){
           var selectedCar = this.options[selectCar.selectedIndex];
           getMateria(selectedCar.value);
-          
+
         });
         var selectCarr = document.getElementById('carreras_alu');
         selectCarr.addEventListener('change',
@@ -640,24 +636,10 @@
           getAlumnos(selectedMate.value);
         });
         getCarreras();
-        //getAllatrib_mate();//---debe ser 
+        //getAllatrib_mate();//---debe ser
        // getAllgroups_t();//-------------------------------
-       
-=======
-     <script src="../js/grupos.js"></script>
-     <!--<script src="../js/admin/admin.js"></script>-->
-     <script>
-        //añado un click listener para el boton de agregar atributo.
-        //document.getElementById("btn_atrib").addEventListener("click", function(){
-          //invoco al modal de sweet alert para mostrar el mensaje de exito
-          //Swal.fire(
-            //'Atributo agregado exitosamente!',
-          //  '',
-            //'success'
-          //)
-         //});
 
->>>>>>> 4715929b4cce7df0e10407e7be8503468a58b0f7
+
      </script>
 
 
