@@ -966,62 +966,7 @@ function confirmMod(){
     }
   });
 }
-setInterval(cons1,2000);
-  function cons1 (){
-    $.ajax({
-        url:"../function/funciones_profesores/consulta_na.php",
-        method: "POST",
-        dataType:"text",
-        data: 'nombre='+$("#buscarPC").val(),
-        success: function (data) {
-         const contenido=document.getElementById('filas1');
-         contenido.innerHTML=data;
-        }
-    });
-  }
-//Recargar consulta de profesores en index
-  setInterval(cons2,2000);
-    function cons2 (){
-      $.ajax({
-          url:"../function/funciones_profesores/consulta_sa.php",
-          method: "POST",
-          dataType:"text",
-          data: 'nombre='+$("#buscarPA").val(),
-          success: function (data) {
-           const contenido=document.getElementById('filas2');
-           contenido.innerHTML=data;
-          }
-      });
-    }
 
-function acepar_profe(ide){
-     $.ajax({
-         url:"../function/funciones_profesores/profesor_aceptar.php?mi_id="+ide,
-         method: "GET",
-         dataType:"text",
-         success: function (data) {
-          const contenido=document.getElementById('filas2');
-          contenido.innerHTML=data;
-         }
-     });
-       $("#rbusqueda").html("");
-
-
-    }
-
-function rechazar_profe(ide){
- $.ajax({
-     url:"../function/funciones_profesores/profesor_rechazar.php?mi_id="+ide,
-     method: "GET",
-     dataType:"text",
-     success: function (data) {
-      const contenido=document.getElementById('filas2');
-      contenido.innerHTML=data;
-     }
- });
- $("#rbusqueda").html("");
-
-}
 function confirmDelete(){
   var fun = "eliminar";
 
@@ -1074,6 +1019,9 @@ function get_datos_sesion(){
   });
 
 }
+function get_atributos_criterio(){
+  //var admin = get_datos_sesion();
+}
 
 //Necesita id_criterio,nombre_criterio
 
@@ -1090,7 +1038,6 @@ function eliminarCriterio(idC,nomC){
 function confirmDeleteC(){
 
   var fun = "eliminarC";
-  console.log(del);
   $.ajax({
 
     type: "POST",

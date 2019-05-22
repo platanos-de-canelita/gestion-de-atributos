@@ -59,6 +59,11 @@
              <a class="nav-link list-group-item-action" id="prof-tab" data-toggle="tab" href="#profes"
                  role="tab" aria-controls="profile" aria-selected="false">Profesores de Materias</a>
          </li>
+         <li class="nav-item">
+          <a class="nav-link list-group-item-action" id="ev-tab" data-toggle="tab" href="#eval">
+            Evaluaciones
+          </a>
+         </li>
          <li class="nav-item"><a class="nav-link list-group-item-action" href='../function/cerrar.php'>Salir</a></li>
      </ul>
 
@@ -122,6 +127,63 @@
              </div>
          </div>
 
+         <div class="tab-pane fade show active" id="eval" role="tabpanel" aria-labelledby="ev-tab">
+             <div class="row">
+                 <div class="col-lg-3">
+                   <form class="formulario" id="formEv" >
+                    <p>Asignación de Evaluaciones:</p>
+                    <select id="tipo_ev" name="tipo" class="form-control">
+                      <option disabled selected>Selecciona un tipo de Evaluación</option>
+                      <option value="Individual">Individual</option>
+                      <option value="Grupal">Grupal</option>
+                    </select>
+                   </form>
+                   <button class="btn btn-primary" onclick="SetEval()" style="margin-top: 5%;">Registrar</button>
+                 </div>
+                 <div class="col-lg-9">
+                     <form class="form-inline" id="formFiltEv">
+                         <div class="form-group" style="margin:1%;width:100%;">
+                             <label for="in_palabra_proyecto">Filtros:</label>
+                             <select id="carrera_ev_fil" name="carrera" style="margin-right:5%;margin-left:5%;" class="form-control" onchange="getMateriasFil()">
+                              <option disabled selected>Selecciona una carrera</option>
+                             </select>
+                             <select id="materia_ev_fil" name="materia" style="margin-right:5%;" class="form-control">
+                              <option disabled selected>Selecciona una materia</option>
+                             </select>
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getEvaluaciones('')">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getEvaluaciones('All')">Ver todos</button>
+                         </div>
+                     </form>
+                     <br>
+                     <table class="table" id="tabla_Evaluaciones">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Carrera</th>
+                            <th scope="col">Materia</th>
+                            <th scope="col">Profesor</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                        </tbody>
+                      </table>
+                      <div class="paginador">
+                        <ul id="paginas" style="list-style: none; ">
+
+                         
+                        </ul>
+                      </div>
+                 </div>
+             </div>
+             <div class="container" style="margin-top:1em;">
+                 <div id="contenedor_proyectos" class="row">
+
+                 </div>
+             </div>
+         </div>
         
          <div class="tab-pane fade" id="atrib_mate" role="tabpanel" aria-labelledby="atrib_mate-tab">
            <div class="row">
@@ -152,9 +214,10 @@
                    <form id="atrib_mate_form" class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <select id="carreras_atributoo" name="carreraFiltro" class="form-control mx-sm-3">
-                            <option disabled selected>Selecciona una carrera</option>
-                           </select>                                               <!--name=filtro el de atributos-->
+                           
+                           <select id="materia_ev_fil" name="materia" style="margin-top:5%;" class="form-control" onchange="getProfesores()">
+                            <option disabled selected>Selecciona una materia</option>
+                           </select>                                              <!--name=filtro el de atributos-->
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
                            <input id="in_palabra_proyecto" type="text" placeholder="semestre" name="semestre" class="form-control mx-sm-3">
                           
@@ -266,7 +329,26 @@
          </div>
      </div>
      <!--/Moda de confirmacion-->
-
+    
+    <!--Modal confirmacion de eliminación de evaluación-->
+      <div class="modal fade" id="Evaluaciones">
+         <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h3 id="text_titulo_confirmacion" class="modal-title">Confirmacion</h3>
+                     <button id="btn_cerrar" tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 </div>
+                 <div class="modal-body">
+                     <h4 id="text_confirmacion"> ¿Seguro que desea continuar con la eliminación? </h4>
+                 </div>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btn_si" class="btn btn-primary" onclick="eliminarEval()">aceptar</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+    <!--Fin de modal de confirmación de eliminacion de evaluacion-->
     
       <!-- Modal eliminar Criterio -->
 
@@ -321,7 +403,64 @@
 
         get_datos_sesion();
 
-        
+        var select_eval = document.getElementById('tipo_ev');
+        select_eval.addEventListener('change', 
+          function(){
+            var selectOption = this.options[select_eval.selectedIndex];
+
+            if(selectOption.value == 'Individual'){
+              console.log(selectOption.value);
+              $("#profesor_ev").remove();
+              $("#materia_ev").remove();
+              $("#carrera_ev").remove();
+              $("#formEv").append('<select id="carrera_ev" name="carrera" style="margin-top:5%;" class="form-control" onchange="getMaterias()"><option disabled selected>Selecciona una carrera</option></select>');
+              $("#formEv").append('<select id="materia_ev" name="materia" style="margin-top:5%;" class="form-control" onchange="getProfesores()"><option disabled selected>Selecciona una materia</option></select>');
+              $("#formEv").append('<select id="profesor_ev" name="profesor" style="margin-top:5%;" class="form-control"><option disabled selected>Selecciona un(a) Profesor(a)</option></select>');
+            }
+            else{
+              console.log(selectOption.value);
+              $("#profesor_ev").remove();
+              $("#materia_ev").remove();
+              $("#carrera_ev").remove();
+              $("#formEv").append('<select id="carrera_ev" name="carrera" style="margin-top:5%;" class="form-control" onchange="getMaterias()"><option disabled selected>Selecciona una carrera</option></select>');
+              $("#formEv").append('<select id="materia_ev" name="materia" style="margin-top:5%;" class="form-control"><option disabled selected>Selecciona una materia</option></select>');
+            }       
+            load_carreras();
+          }
+        );
+
+        function getMaterias(){
+          $("#materia_ev").html('');
+          $("#materia_ev").append("<option disabled selected>Selecciona una materia</option>");      
+          $.ajax({
+            type : 'POST',
+            async : true,
+            url : '../function/responsable/load_data_evaluaciones.php',
+            timeout : 12000,
+            data : 'accion=Cmateria&depto='+localStorage.getItem('depto')+'&id_carrera='+$("#carrera_ev").val(),
+            success : function(response){
+              $("#materia_ev").append(response);
+            } 
+          });
+        }
+
+        function getProfesores(){
+          $("#profesor_ev").html('');
+          $("#profesor_ev").append("<option disabled selected>Selecciona un(a) profesor(a)</option>");     
+          console.log($("#materia_ev").val());
+          console.log($("#carrera_ev").val());       
+          $.ajax({
+            type : 'POST',
+            async : true,
+            url : '../function/responsable/load_data_evaluaciones.php',
+            timeout : 12000,
+            data : 'accion=Cprofesor&depto='+localStorage.getItem('depto')+'&id_materia='+$("#materia_ev").val()+'&id_carrera='+$("#carrera_ev").val(),
+            success : function(response){
+              $("#profesor_ev").append(response);
+            } 
+          });
+        }
+
 
         var select = document.getElementById('carreras_criterio');
         select.addEventListener('change',
@@ -332,11 +471,7 @@
         });
 
 
-
         
-        
-        getAllatrib_mate();
-        getAllAtributos();
         
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){

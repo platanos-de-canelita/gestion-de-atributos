@@ -4,9 +4,111 @@ var mod;
 var name;
 var datos_sesion;
 
+function eliminarEval(){
+  $.ajax({
+    type : 'POST',
+    async : true,
+    timeout : 12000,
+    url : '../function/responsable/load_data_evaluaciones.php',
+    data : 'id='+localStorage.getItem('id_eval')+'&accion=delete',
+    success : function(response){
+      alert(response);
+      $("#Evaluaciones").modal("hide");
+      getEvaluaciones('All');
+    }
+  });
+}
 
+function deleteEval(id){
+  localStorage.setItem('id_eval', id);
+  $("#Evaluaciones").modal("show");
+}
+function getEvaluaciones(accion){
+  var datos = "accion=select&depto="+localStorage.getItem('depto');
+  if(accion == ""){
+    datos = datos + "&" + $("#formFiltEv").serialize();
+  }
+  else{
+    $("#formFiltEv").trigger("reset");
+  }
+  $("#tabla_Evaluaciones > tbody").html("");
 
-    
+  $.ajax({
+    type : 'POST',
+    async : true,
+    timeout : 12000,
+    url : '../function/responsable/load_data_evaluaciones.php',
+    data : datos,
+    success : function(response){
+      if(response == "Sin Resultados"){
+        $("#tabla_Evaluaciones > thead").html("<tr><th class='center'>No hay evaluaciones registradas</th></tr>");
+        $("#tabla_Evaluaciones tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png'>"+"</td></tr>");
+      }
+      else{      
+        $("#tabla_Evaluaciones > thead").html("");
+        $("#tabla_Evaluaciones thead").append("<tr>"+
+        "<th scope='col'>ID</th>"+
+        "<th scope='col'>Carrera</th>"+
+        "<th scope='col'>Materia</th>"+
+        "<th scope='col'>Profesor</th>"+
+        "<th scope='col'>Tipo</th>"+
+        "<th scope='col'>Acciones</th>"
+      +"</tr>");
+        $("#tabla_Evaluaciones tbody").append(response); 
+      }
+    }
+  });
+}
+
+function load_carreras(){
+  $("#carrera_ev").html("");
+  $("#carrera_ev").append('<option disabled selected>Selecciona una carrera</option>');
+  $.ajax({
+    type: 'POST',
+    async : true,
+    url: "../function/responsable/load_data_evaluaciones.php",
+    timeout: 12000,
+    data: 'accion=Ccarrera&depto='+localStorage.getItem('depto'),
+    success : function(response){
+      console.log(response);
+      $("#carrera_ev").append(response);
+      $("#carrera_ev_fil").append(response);
+    }
+  });
+}
+
+function getMateriasFil(){
+  $("#materia_ev_fil").html('');
+  $("#materia_ev_fil").append("<option disabled selected>Selecciona una materia</option>");      
+  $.ajax({
+    type : 'POST',
+    async : true,
+    url : '../function/responsable/load_data_evaluaciones.php',
+    timeout : 12000,
+    data : 'accion=Cmateria&depto='+localStorage.getItem('depto')+'&id_carrera='+$("#carrera_ev_fil").val(),
+    success : function(response){
+      $("#materia_ev_fil").append(response);
+    } 
+  });
+}
+
+function SetEval(){
+  var data = $("#formEv").serialize()+"&accion=insert&depto="+localStorage.getItem('depto');
+  $.ajax({
+    type : 'POST',
+    async : true,
+    timeout : 12000,
+    data : data,
+    url : '../function/responsable/load_data_evaluaciones.php',
+    success : function(response){
+      alert(response);
+      if(response == "Evaluación registrada con éxito"){
+        $("#formEv").trigger('reset');
+        getEvaluaciones("All");
+      }
+    }
+  });
+}
  
 
 function updateAllPlatform(){
@@ -435,6 +537,12 @@ function confirmMod(){
 function setdata_sesion(data){
   console.log(data);
   localStorage.setItem('depto', data.split('\n')[1]);
+  getEvaluaciones();
+  load_carreras();
+        
+        
+  getAllatrib_mate();
+  getAllAtributos();
 }
 function get_datos_sesion(){
   console.log(myvar);

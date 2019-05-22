@@ -18,6 +18,7 @@ if($contador==0){
   $location = "..\\image\\departamentos\\".$filename;
   $uploadOk = 1;
   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+
   /* Valid Extensions */
   $valid_extensions = array("jpg","jpeg","png");
   /* Check file extension */

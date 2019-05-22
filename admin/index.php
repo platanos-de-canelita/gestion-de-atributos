@@ -33,6 +33,11 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
      <link rel="stylesheet" href="../css/main.css">
+
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    
+  </script>
    
      <title>Administración</title>
 
@@ -511,25 +516,35 @@
 
          <div class="tab-pane fade" id="informes" role="tabpanel" aria-labelledby="informes-tab">
            <div class="row">
-
-               <div class="col-lg-12">
-                   <!--<form class="form-inline">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtrar por alumno:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
-                       <div class="form-group" style="margin:1%;">
-                          <label for="in_palabra_proyecto">Por generacion</label>
-                          <select class="form-control mx-sm-3">
-                            <option value="">Periodo Ene-Jun 2018</option>
-                            <option value="">Periodo Ago-Dic 2018</option>
-                          </select>
-                       </div>
-                   </form>-->
-                   <br>
-                   <img src="../image/GRAFICA 7.png"/>
-               </div>
+            <?php
+              $cont = date('Y');
+              $val = date('y');
+            ?>                
+              <div class="col-lg-3">
+                <form id="Generacion">
+                  <label>Selecciona una generación</label>
+                  <select name="generacion" class="form-control" id="gen">
+                    <?php while ($cont >= 1990) { ?>
+                    <option value="<?php echo($val); ?>"><?php echo($cont); ?></option>
+                    <?php $cont = ($cont-1);
+                      
+                      if(($val - 1) == -1){
+                        $val = 99;
+                      }
+                      else{
+                        $val = ($val - 1); 
+                      }
+                    } ?>
+                  </select>
+                </form>
+                <button class="btn btn-primary" id="searchGeneration" style="margin-top:5%;">Buscar</button>
+                  <br>
+                  
+              </div>
+              <div id="imgen"></div>
+              <div class="col-lg-9" id="grafica" style="position: absolute;width: 800px; height: 500px;margin-left: 35%;">
+                
+              </div>
            </div>
            <div class="container" style="margin-top:1em;">
                <div id="contenedor_proyectos" class="row">
@@ -1084,6 +1099,156 @@
             $("#PonderaciónGrupal").hide();
           $("#PonderaciónIndividual").hide();
           
+        }
+      });
+    });
+
+    /*
+    google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
+          ['2004/05',  165,      938,         522,             998,           450,      614.6],
+          ['2005/06',  135,      1120,        599,             1268,          288,      682],
+          ['2006/07',  157,      1167,        587,             807,           397,      623],
+          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
+          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
+        ]);
+
+        var options = {
+          title : 'Monthly Coffee Production by Country',
+          vAxis: {title: 'Cups'},
+          hAxis: {title: 'Month'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}}
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('imgen'));
+        chart.draw(data, options);
+      }
+    */
+
+    function aleatorio(inferior,superior){ 
+      numPosibilidades = superior - inferior 
+      aleat = Math.random() * numPosibilidades 
+      aleat = Math.floor(aleat) 
+      return parseInt(inferior) + aleat 
+    }
+
+    google.charts.load("current", {'packages':['bar']});
+    var button = document.getElementById("searchGeneration");
+    button.addEventListener('click', function(){
+      var data = $("#Generacion").serialize()+'&depto='+localStorage.getItem('depto');
+      console.log(data);
+      $("#grafica").html("");
+      $.ajax({
+        type : 'POST',
+        url : '../function/grafica.php',
+        timeout : 12000,
+        data : data,
+        async : true,
+        success : function(response){
+          console.log(response.length );
+          if(response.length > 2){
+            
+            var columnas = [];
+            response = JSON.parse(response);
+            var atributos = [];
+            response.atributos.forEach(data => {
+              console.log(atributos.indexOf(data.nombre));
+              if(atributos.indexOf(data.nombre) == -1){
+                atributos.push(data.nombre);
+              }
+            });
+            var fila = ["Semestre"];
+            var aux = [];
+            var aux2 = [];
+            var indx = 1;
+            atributos.forEach(atr => {
+              fila[indx] = atr;
+              indx++;
+            });
+            for(var i = 0; i < indx; i++){
+              aux2[i] = 0;
+            }
+            aux = aux2;
+            response.atributos.sort(function(a, b){
+              return parseInt(a.semestre) - parseInt(b.semestre); 
+            });
+            var indx2 = 0;
+            var indice = 1;
+            response.atributos.forEach(function(semestre, i, arr) {
+              var posicion = fila.indexOf(semestre.nombre);
+              aux[posicion] = parseInt(semestre.promedio);
+              aux[0] = semestre.semestre;
+              console.log(indx);
+              console.log(indx2);
+              if((indx2+1 < indx-1) && arr[indx2+1].semestre != semestre.semestre){
+                
+                columnas[indice] = aux;
+                indice++;
+                aux = [];
+              }
+              indx2++;
+            });
+            columnas[indice] = aux;
+            columnas[0] = fila;
+            //console.log(fila);
+            console.log(columnas);
+            var data = google.visualization.arrayToDataTable(columnas);
+            
+            var options = {
+              chart: {
+                title: 'Evaluación Historica de atributos',
+                subtitle: 'Evaluación promedio',
+              }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('grafica'));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+            
+            /*var hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
+            response.atributos.forEach(cols => {
+              var color_aleatorio = "#"; 
+              for (i=0;i<6;i++){ 
+                  var posarray = aleatorio(0,hexadecimal.length) 
+                  color_aleatorio += hexadecimal[posarray] 
+              } 
+              columnas[index] = [cols.nombre, parseFloat(cols.promedio), color_aleatorio];
+              index++;
+            });
+            console.log(columnas);
+            
+            var data = google.visualization.arrayToDataTable(columnas);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                            { calc: "stringify",
+                              sourceColumn: 1,
+                              type: "string",
+                              role: "annotation" },
+                            2]);
+
+            var options = {
+              title: "Evaluación promedio de atributos",
+              width: 600,
+              height: 400,
+              bar: {groupWidth: "95%"},
+              legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("grafica"));
+            chart.draw(view, options);*/
+          }
+          else{
+            $("#grafica").append("<label style='width:100%;'><strong>No se encontrarón registros de la generación seleccionada</strong></label>")
+            $("#grafica").append("<img style='width:100%;' src='../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.png'>");
+          }
+        },
+        error(m, m2, m3){
+
         }
       });
     });

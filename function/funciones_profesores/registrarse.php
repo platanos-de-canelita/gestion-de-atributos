@@ -15,7 +15,7 @@
     if($pass==$cpass){
       echo "entra";
       if($conn->query("INSERT INTO profesores (`user`,`pass`,`nombre`,`e_mail`) VALUES ('$user','$pass','$nombre','$email')")){
-        header("Location: ../../profesor/login.php");
+        header("Location: ../../admin/login.php");
       }
     }
   }
