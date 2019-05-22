@@ -63,6 +63,8 @@ function getEvaluaciones(accion){
 function load_carreras(){
   $("#carrera_ev").html("");
   $("#carrera_ev").append('<option disabled selected>Selecciona una carrera</option>');
+  $("#carrera_ev_fil").html("");
+  $("#carrera_ev_fil").append('<option disabled selected>Selecciona una carrera</option>');
   $.ajax({
     type: 'POST',
     async : true,
@@ -77,9 +79,25 @@ function load_carreras(){
   });
 }
 
+function getAllMaterias(){
+  $("#materia_ev_fil2").html('');
+  $("#materia_ev_fil2").append("<option disabled selected>Selecciona una materia</option>");  
+  $.ajax({
+    type : 'POST',
+    async : true,
+    url : '../function/responsable/load_data_evaluaciones.php',
+    timeout : 12000,
+    data : 'accion=Cmateria&depto='+localStorage.getItem('depto'),
+    success : function(response){
+      $("#materia_ev_fil2").append(response);
+    } 
+  });
+}
+
 function getMateriasFil(){
   $("#materia_ev_fil").html('');
-  $("#materia_ev_fil").append("<option disabled selected>Selecciona una materia</option>");      
+  $("#materia_ev_fil").append("<option disabled selected>Selecciona una materia</option>");  
+      
   $.ajax({
     type : 'POST',
     async : true,
@@ -539,8 +557,8 @@ function setdata_sesion(data){
   localStorage.setItem('depto', data.split('\n')[1]);
   getEvaluaciones();
   load_carreras();
-        
-        
+  getAllMaterias();
+  getMateriasFil();
   getAllatrib_mate();
   getAllAtributos();
 }

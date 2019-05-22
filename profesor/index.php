@@ -71,61 +71,21 @@
      <!--seccion de gestion-->
 
      <div class="tab-content" id="myTabContent" style="margin-top:1em;">
-
-     <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
+      <div class="tab-content" id="myTabContent" style="margin-top:1em; margin-left: 2em; margin-right: 2em;">
          
-      <!--Seccion de proyectos-->
-
-         <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
-           <div class="container">
-             <div id="row">
-               <div class="row">
-                 <div class="col-md-12 titulo">
+       <!--Seccion de proyectos-->
+        <div class="tab-pane fade show active" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
+          <div class="container">
+            <div id="row">
+              <div class="row">
+                <div class="col-md-12 titulo">
                    <h2>Registrar alumno</h2>
-                 </div>
-               </div>
+                </div>
+              </div>
 
-               <div class="row" style="padding-left: 20em; padding-right: 20em">
-                 <br>
-                 <form class="col-md-12" action="" method="post">
-                   <br><br>
-                   <input type="text" class="form-control" name="txtnombre" value=""
-                     placeholder="Nombre"><br>
-                   <input type="text" class="form-control" name="txtnc" value=""
-                     placeholder="Número de control"><br>
-                   <select class="form-control" name="carrera">
-                     <option disabled selected>Seleccionar carrera</option>
-                     <option value="industrial">Industrial</option>
-                   </select><br>
-                   <select class="form-control" name="materia">
-                     <option value="">Seleccione carrera</option>
-                     <option value="m1">Materia 1</option>
-                     <option value="m2">Materia 2</option>
-                     <option value="m3">Materia 3</option>
-                     <option value="m4">Materia 4</option>
-                   </select><br>
-                   <select class="form-control" name="profesor">
-                     <option value="">Seleccione profesor</option>
-                     <option value="p1">José Perez</option>
-                     <option value="p2">Oscar Torres</option>
-                     <option value="p3">Javier Calderon</option>
-                   </select><br>
-                   <select class="form-control" name="especialidad">
-                     <option value="">Seleccione especialidad</option>
-                     <option value="esp1">Especialidad 1</option>
-                     <option value="esp2">Especialidad 2</option>
-                     <option value="esp3">Especialidad 3</option>
-                   </select><br>
-                   <select class="form-control" name="semestre">
-                     <option value="">Seleccione semestre</option>
-                     <option value="s7">7° Semestre</option>
-                     <option value="s8">8° Semestre</option>
-                     <option value="s9">9° Semestre</option>
-                     <option value="s10">10° Semestre</option>
-                     <option value="s11">11° Semestre</option>
-                   </select><br><br>
-                   <button type="submit" class="btn" name="altaregistro">Registrar</button><br><br>
-                    </form>
+              <div class="row" style="padding-left: 20em; padding-right: 20em">
+                <br>
+                
                    <div class="col-md-12 titulo">
                      <h2>Carga mediante Excel</h2>
                    </div><br><br>
@@ -161,47 +121,42 @@
                <br>
                <br>
                <br>
-             </div>
-           </div>
-         </div>
+            </div>
+          </div>
+        </div>
 
 
-
-
-
-<!--Seccion de grupos de estudio-->
-         <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
-           <div class="container">
-             <div id="row">
-               <div class="row">
-                 <div class="col-md-12 titulo">
+        <!--Seccion de grupos de estudio-->
+        <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
+          <div class="container">
+            <div id="row">
+              <div class="row">
+                <div class="col-md-12 titulo">
                    <h2>Grupo de estudio</h2>
-                 </div>
-               </div>
-               <br>
-          <div class="row" style="padding-left: 10em; padding-right: 10em;">
-               <div class="col-lg-5">
-                 <form class="formulario" id="grupo_form">
-                 <h5>Crear grupo: </h5>
-                   <input id="group_nvo" type="text" class="form-control" placeholder="Nombre del grupo"></input>
-                   <br>
-                   <select id="group_carreras" class="form-control" name="carrera">
-                     <option disabled selected>Seleccionar carrera</option>
-                     <!-- option value="industrial">Industrial</option-->
-                   </select><br>
-                   <select id="group_materias" class="form-control" name="materia">
-                     <option disabled selected>Seleccionar materia</option>
-                     <!--option value="industrial">Ingenieria economica</option-->
-                   </select>
-                   <br>
-                   <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
-                 </form>
-               </div>
-               <div class="col-lg-2">
+                </div>
               </div>
-               <div class="col-lg-5">
-                   <form id="alu_grupo_form">
-                   <h5>Agregar alumno: </h5>
+              <br>
+              <div class="row" style="padding-left: 10em; padding-right: 10em;">
+                <div class="col-lg-5">
+                  <form class="formulario" id="grupo_form">
+                    <h5>Crear grupo: </h5>
+                    <input id="group_nvo" type="text" class="form-control" placeholder="Nombre del grupo"></input>
+                    <br>
+                    <select id="group_carreras" class="form-control" name="carrera">
+                      <option disabled selected>Seleccionar carrera</option>
+                    </select><br>
+                    <select id="group_materias" class="form-control" name="materia">
+                      <option disabled selected>Seleccionar materia</option>
+                    </select>
+                    <br>
+                  </form>
+                  <center><button class="btn" name="altagrupo" onclick="revisaGrupo()">Crear grupo</button><br><br></center>
+                </div>
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-5">
+                  <form id="alu_grupo_form">
+                    <h5>Agregar alumno: </h5>
                     <select id="carreras_alu" name="carreraFiltro" class="form-control">
                       <option disabled selected>Selecciona una carrera</option>
                     </select> 
@@ -218,12 +173,12 @@
                     <select id="group_alumnos" class="form-control" name="alumnos">
                      <option disabled selected>Seleccionar alumno</option>
                      <!--option value="industrial">Alejandro Nuñez</option-->
-                   </select><br>
-                   <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
+                    </select><br>
+                  </form>
+                  <center> <button class="btn" onclick="revisaAlumno()">Agregar alumno</button> </center>
                  
-                   </form>
                 </div>
-          </div>
+              </div>
                <br>
                <br>
                <br>
@@ -249,8 +204,8 @@
                   <th scope="col">Ver integrantes</th>
                   <th scope="col">Acciones</th>
                 </tr>
-              </thead>
-              <tbody id="filas">
+            </thead>
+            <tbody id="filas">
                 <tr>
 
                   <th scope="col">Platanitos</th>
@@ -259,20 +214,15 @@
                   <th scope="col">Detalles</th>
                   <th scope="col">Modificar|Eliminar</th>
                 </tr>
-              </tbody>
-            </table>
-            <div class="paginador">
+            </tbody>
+          </table>
+          <div class="paginador">
               <ul id="paginas" style="list-style: none; ">
 
-                <!--<li><a href="#">|<<</a></li>
-                <li><a href="#"><<</a></li>
-                <li class="pageSelected">1</li>
-
-                <li><a href="#">>></a></li>
-                <li><a href="#">>>|</a></li>-->
+               
               </ul>
-            </div>
-         </div>
+          </div>
+        </div>
 
 
 
@@ -281,34 +231,35 @@
 
 
          <!--Seccion de materias-->
-         <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
-           <div class="row">
-               <div class="col-lg-3">
-                 <form class="formulario" action="" method="post">
-                   <p>Agregar materias: </p>
-                   <br>
-                   <p>Nombre de la materia:</p>
-                   <input type="text" class="form-control"></input>
-                   <br><br>
-                  <p>Selecciona un carrera:</p>
-                   <select class="form-control" name="tipo">
+        <div class="tab-pane fade" id="materias" role="tabpanel" aria-labelledby="materias-tab">
+          <div class="row">
+            <div class="col-lg-3">
+              <form class="formulario">
+                <p>Agregar materias: </p>
+                <br>
+                <p>Nombre de la materia:</p>
+                <input type="text" class="form-control"></input>
+                <br><br>
+                <p>Selecciona un carrera:</p>
+                <select class="form-control" name="tipo">
                     <option value="industrial">Industrial</option>
                      <option value="sistemas">Sistemas y computación</option>
-                   </select>
-                   <br><br>
-                   <button type="submit" class="btn" name="login">Agregar</button>
-                 </form>
-               </div>
-               <div class="col-lg-9">
-                   <form class="form-inline">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table">
+                </select>
+                <br><br>
+                
+              </form>
+              <button class="btn" name="login">Agregar</button>
+            </div>
+            <div class="col-lg-9">
+              <form class="form-inline">
+                <div class="form-group" style="margin:1%;">
+                    <label for="in_palabra_proyecto">Filtros:</label>
+                    <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                    <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                </div>
+              </form>
+              <br>
+              <table class="table">
                       <thead class="">
                         <tr>
                           <th scope="col">Materia</th>
@@ -323,31 +274,30 @@
                           <td>Modificar | Eliminar</td>
                         </tr>
                       </tbody>
-                    </table>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
+              </table>
+            </div>
+          </div>
+          <div class="container" style="margin-top:1em;">
+              <div id="contenedor_proyectos" class="row">
 
-               </div>
-           </div>
-         </div>
+              </div>
+          </div>
+        </div>
 
-         <div class="tab-pane fade" id="evaluaciones" role="tabpanel" aria-labelledby="evaluaciones-tab">
-           <div class="row">
-
-               <div class="col-lg-12">
-                   <form class="form-inline">
+        <div class="tab-pane fade" id="evaluaciones" role="tabpanel" aria-labelledby="evaluaciones-tab">
+          <div class="row">
+            <div class="col-lg-12">
+                    <form class="form-inline">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
                            <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
                        </div>
-                       </form>
-                </div>
+                    </form>
             </div>
-            <div class="row">
-              <br>
+          </div>
+          <div class="row">
+            <br>
               <br>
               <div class="col-lg-4">
                 <select class="form-control" name="carrera">
@@ -375,9 +325,9 @@
                   <option value="industrial">Pollo choncho</option>
                   <option value="industrial">Abarrotera Enrique Silva</option>
                 </select><br>
-              </div><br>
-              <div class="col-lg-8">
-                <table class="table">
+          </div><br>
+          <div class="col-lg-8">
+            <table class="table">
                    <thead class="">
                      <tr>
                        <th scope="col">Atributo</th>
@@ -406,21 +356,17 @@
 
                      </tr>
                    </tbody>
-                 </table>
-              </div>
+            </table>
+          </div>
 
+          <div class="container" style="margin-top:1em;">
+            <div id="contenedor_proyectos" class="row">
 
-
-
-              <div class="container" style="margin-top:1em;">
-              <div id="contenedor_proyectos" class="row">
-
-              </div>
-              </div>
             </div>
-
-         </div>
-     </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
@@ -455,7 +401,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form class="" action="index.html" method="post">
+              <form class="">
                 <input type="text" name="" value="">
                 <input type="text" name="" value="">
 
@@ -469,8 +415,8 @@
         </div>
       </div>
      <!--Moda de confirmacion-->
-     <div class="modal fade" id="confirmacion">
-         <div class="modal-dialog modal-dialog-centered">
+      <div class="modal fade" id="confirmacion">
+        <div class="modal-dialog modal-dialog-centered">
              <div class="modal-content">
                  <div class="modal-header">
                      <h3 id="text_titulo_confirmacion" class="modal-title">Confirmacion</h3>
@@ -483,8 +429,8 @@
                      <button id="btn_si" class="btn btn-lg btn-outline-danger">Si</button>
                  </div>
              </div>
-         </div>
-     </div>
+        </div>
+      </div>
      <!--/Moda de confirmacion-->
 
      <!--Modal de nuevo proyecto-->
@@ -492,7 +438,7 @@
          <div class="modal-dialog modal-lg">
              <div class="modal-content">
                  <!--Cabecera del modal-->
-                 <div class="modal-header">
+                <div class="modal-header">
                      <h3 id="titulo_modal_proyecto" class="modal-title">Titulo P</h3>
                      <button id="btn_cerrar_registrar_proyectos" tyle="button" class="close" data-dismiss="modal"
                          aria-hidden="true">&times;</button>
@@ -588,7 +534,7 @@
                          </div>
                      </div>
                    
-                 </div>
+                </div>
                  <!--Pie del modal-->
                  <div class="modal-footer">
                      <button id="btn_guardar_proyecto" class="btn btn-md btn-outline-success">Guardar</button>
@@ -635,14 +581,11 @@
           getGrupos(selectedMate.value);
           getAlumnos(selectedMate.value);
         });
-        getCarreras();
+        //getCarreras();
         //getAllatrib_mate();//---debe ser 
        // getAllgroups_t();//-------------------------------
        
      </script>
 
-
-
- </body>
-
+   </body>
  </html>

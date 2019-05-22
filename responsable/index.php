@@ -147,7 +147,7 @@
                              <select id="carrera_ev_fil" name="carrera" style="margin-right:5%;margin-left:5%;" class="form-control" onchange="getMateriasFil()">
                               <option disabled selected>Selecciona una carrera</option>
                              </select>
-                             <select id="materia_ev_fil" name="materia" style="margin-right:5%;" class="form-control">
+                             <select id="materia_ev_fil" name="materia" class="form-control">
                               <option disabled selected>Selecciona una materia</option>
                              </select>
                              <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getEvaluaciones('')">Buscar</button>
@@ -215,7 +215,7 @@
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
                            
-                           <select id="materia_ev_fil" name="materia" style="margin-top:5%;" class="form-control" onchange="getProfesores()">
+                           <select id="materia_ev_fil2" name="materia" class="form-control" onchange="getProfesores()">
                             <option disabled selected>Selecciona una materia</option>
                            </select>                                              <!--name=filtro el de atributos-->
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">

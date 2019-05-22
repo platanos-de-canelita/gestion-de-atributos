@@ -22,9 +22,13 @@ function getCarreras(){
 function getMaterias(){
     require_once('../bdconexion.php');
     $id = $_POST['depto'];
-    $id_carrera = $_POST['id_carrera'];
-
-    $sql = "SELECT id_materia, nombre FROM materia WHERE id_carrera = $id_carrera";
+    if(isset($_POST['id_carrera'])){
+        $id_carrera = $_POST['id_carrera'];
+        $sql = "SELECT id_materia, nombre FROM materia WHERE id_carrera = $id_carrera";
+    }
+    else{
+        $sql = "SELECT id_materia, nombre FROM materia";
+    }
 
     $sql_query = $conn->query($sql);
 
