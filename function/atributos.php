@@ -45,27 +45,43 @@ function buscar_atributo(){
 
   require_once("bdconexion.php");
 
-  $nombre = $_POST['nombre'];
+  
 
-  $sql = "SELECT * FROM atributo WHERE nombre LIKE '%$nombre%'";
+  if(isset($_POST['function_select'])){
+    $sql = "SELECT nombre, id_atributo_pk from atributo";
 
-  if ($datos = $conn->query($sql)) {
+    $sql_query = $conn->query($sql);
+    if($sql_query->num_rows == 0){
+      echo "<option disabled>No hay atributos</option>";
+    }
+    else{
+      while($row = $sql_query->fetch_assoc()){
+        echo "<option value='". $row['id_atributo_pk'] ."'>". $row['nombre'] ."</option>";
+      }
+    }
+  }
+  else{
+    $nombre = $_POST['nombre'];
+    $sql = "SELECT * FROM atributo WHERE nombre LIKE '%$nombre%'";
+
+    if ($datos = $conn->query($sql)) {
 
       while ($dato=$datos->fetch_assoc()) {
 
-          $informacion=array(
+            $informacion=array(
 
-            'id'=>utf8_encode($dato['id_atributo_pk']),'nombre'=>utf8_encode($dato['Nombre']),'desc'=>utf8_encode($dato['Descripcion'])
+              'id'=>utf8_encode($dato['id_atributo_pk']),'nombre'=>utf8_encode($dato['Nombre']),'desc'=>utf8_encode($dato['Descripcion'])
 
-          );
+            );
 
-          $info[]=$informacion;
+            $info[]=$informacion;
 
-      }
+        }
 
-      echo json_encode($info);
+        echo json_encode($info);
 
-  }
+    }
+}
 
 }
 
@@ -231,7 +247,7 @@ switch ($_POST['func']) {
 
   case 'buscar':
 
-    buscar_atributo($nombre);
+    buscar_atributo();
 
     break;
 

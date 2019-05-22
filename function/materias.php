@@ -5,8 +5,9 @@
     
         $nombre = $_POST['nombreM'];
         $carrera = $_POST['carrera'];
+        $sem = $_POST['semestre'];
         
-        $sql = "INSERT INTO materia VALUES (null, '$nombre', $carrera, true)";
+        $sql = "INSERT INTO materia VALUES (null, '$nombre', $carrera, true, $sem)";
 
         if($conn->query($sql)){
             echo "Materia Registrada con éxito";

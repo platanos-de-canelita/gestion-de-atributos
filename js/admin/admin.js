@@ -25,6 +25,23 @@ var datos_sesion;
       });
     });*/
 
+    function getAtributos1(){
+      $("#atrib").html("");
+
+      $("#atrib").append('<option disabled selected>Seleccione un atributo</option>');
+
+      $.ajax({
+        type: 'POST',
+        timeout: 12000,
+        async: true,
+        url: '../function/atributos.php',
+        data:'func=buscar&function_select=select',
+        success: function(response){
+          $("#atrib").append(response);
+        }
+      });
+    }
+
     function cerrar(){
       localStorage.clear();
     }
@@ -274,7 +291,7 @@ var datos_sesion;
           alert(response);
           if(response == "Materia Registrada con éxito"){
             $("#formMateriaInsert").trigger("reset");
-            getMaterias('All');
+            updateAllPlatform();
           }
         },
         error : function(jqXHR, textStatus, errorThrown){
@@ -299,8 +316,8 @@ var datos_sesion;
           data: datos,
           success: function(response){
             alert(response);
-            getCarrerasFiltro('All');
-            $("#formCarreraI").reset();
+            updateAllPlatform();
+            $("#formCarreraI").trigger("reset");
           },
           error: function(jqXHR, textStatus, errorThrown){
 
@@ -398,6 +415,7 @@ function updateAllPlatform(){
   getCarrerasFiltro('All');
   getProfesoresR();
   ResponsablesFiltro('All');
+  getAtributos1();
 }
 
     function getCarrerasFiltro(tipo){
@@ -502,8 +520,7 @@ function get_atributos_criterio(){
       method: "POST",
       dataType:"text",
       success: function (data) {
-       const contenido=document.getElementById('atrib');
-       contenido.innerHTML=data;
+       
       }
   });
 }
@@ -652,6 +669,14 @@ function updateDepto(){
 }
 function getCarreras(){
   datos_sesion = localStorage.getItem('depto');
+  $("#carreras_criterio").html('');
+  $("#carreras_atributo").html('');
+  $("#materais_carrera").html('');
+  $("#materias_carrera").html('');
+  $("#carreras_criterio").append("<option disabled selected>Seleccione una carrera</option>");
+  $("#carreras_atributo").append("<option disabled selected>Seleccione una carrera</option>");
+  $("#materais_carrera").append('<option disabled selected>Seleccione una carrera</option>');
+  $("#materias_carrera").append('<option disabled selected>Seleccione una carrera</option>');
   $.ajax({
     type: 'POST',
     url: '../function/getDataCriterio.php',
@@ -659,6 +684,7 @@ function getCarreras(){
     async: true,
     data : {departamento: datos_sesion},
     success: function(data){
+      console.log(data);
       $("#carreras_criterio").append(data);
       $("#carreras_atributo").append(data);
       $("#materais_carrera").append(data);
@@ -858,7 +884,6 @@ function insertarAtributo(){
   });
 }
 
-
 function verAtributos(p){
   $("#tabla_atributos").empty();
   $("#paginas").empty();
@@ -980,7 +1005,7 @@ function confirmDelete(){
     {
       var obj = JSON.parse(response);
       alert(obj.msg);
-      getAllAtributos();
+      //getAllAtributos();
       $('#eliminar').modal('hide');
       updateAllPlatform();
     },
@@ -1001,6 +1026,7 @@ function setdata_sesion(data){
   getMaterias('All');
   getProfesoresR();
   ResponsablesFiltro('All');
+  getAtributos1();
 }
 function get_datos_sesion(){
 
@@ -1019,10 +1045,6 @@ function get_datos_sesion(){
   });
 
 }
-function get_atributos_criterio(){
-  //var admin = get_datos_sesion();
-}
-
 //Necesita id_criterio,nombre_criterio
 
 function eliminarCriterio(idC,nomC){
@@ -1058,7 +1080,7 @@ function confirmDeleteC(){
       console.log(response);
       alert(obj.msg);
 
-      getAllCriterios();
+     // getAllCriterios();
       updateAllPlatform();
       $('#eliminarc').modal('hide');
 
@@ -1142,7 +1164,7 @@ function confirmDeleteDto(){
 
       alert(obj.msg);
 
-      getAlldeptos();
+      //getAlldeptos();
       updateAllPlatform();
 
       $('#eliminarDto').modal('hide');
@@ -1287,3 +1309,4 @@ function confirmModCriterio(){
     alert("Ponderaciones invalidas");
   }
 }
+

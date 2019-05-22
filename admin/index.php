@@ -33,13 +33,9 @@
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-     <link rel="stylesheet" href="../css/main.css">
-
-     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    
-  </script>
-   
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>   
+     <script>
+     google.charts.load("current", {'packages':['bar']});</script>
      <title>Administración</title>
 
  </head>
@@ -163,8 +159,7 @@
                    <input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre">
                    <br><br>
                    <select id="atrib" class="form-control" name="atributo">
-                     <option value="">Atributo</option>
-
+                     <option disabled selected>Seleccione un atributo</option>
                    </select>
                    <br><br>
 
@@ -471,10 +466,21 @@
                 <p>Nombre de Materia:  </p>
                 <input type="text" id="nombre_materia" class="form-control" name="nombreM" value="" placeholder="Nombre de materia"><br><br>
                 <select name="carrera" id="materais_carrera" class="form-control mx-sm-3" style="margin-left: 0px !important">
-                  <option value="" disabled selected>Seleccione una materia</option>
+                  <option value="" disabled selected>Seleccione una carrera</option>
                 </select>
                 <br><br>
-
+                <select name="semestre" class="form-control mx-sm-3" style="margin-left: 0px !important">
+                  <option disabled selected>Selecciona un semestre</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
               </form>
               <button id="btn_atrib" class="btn" onclick="insertar_materia()">Agregar</button>
             </div>
@@ -1126,10 +1132,10 @@
         myvar='<?php echo $_SESSION["usuario"];?>';
 
         //llamamos al metodo get_datos para obtener todos los datos del administrador
-
         get_datos_sesion();
+        
 
-        $( document ).ready(function() {
+        
   //getAllAtributos();
     //get_atributos_criterio();
    var opc = document.getElementById('opc');
@@ -1148,36 +1154,8 @@
           
         }
       });
-    });
-
-    /*
-    google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
-
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-        ]);
-
-        var options = {
-          title : 'Monthly Coffee Production by Country',
-          vAxis: {title: 'Cups'},
-          hAxis: {title: 'Month'},
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}
-        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('imgen'));
-        chart.draw(data, options);
-      }
-    */
-
+    
+    
     function aleatorio(inferior,superior){ 
       numPosibilidades = superior - inferior 
       aleat = Math.random() * numPosibilidades 
@@ -1185,7 +1163,7 @@
       return parseInt(inferior) + aleat 
     }
 
-    google.charts.load("current", {'packages':['bar']});
+    
     var button = document.getElementById("searchGeneration");
     button.addEventListener('click', function(){
       var data = $("#Generacion").serialize()+'&depto='+localStorage.getItem('depto');
@@ -1257,37 +1235,6 @@
             var chart = new google.charts.Bar(document.getElementById('grafica'));
             chart.draw(data, google.charts.Bar.convertOptions(options));
             
-            /*var hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
-            response.atributos.forEach(cols => {
-              var color_aleatorio = "#"; 
-              for (i=0;i<6;i++){ 
-                  var posarray = aleatorio(0,hexadecimal.length) 
-                  color_aleatorio += hexadecimal[posarray] 
-              } 
-              columnas[index] = [cols.nombre, parseFloat(cols.promedio), color_aleatorio];
-              index++;
-            });
-            console.log(columnas);
-            
-            var data = google.visualization.arrayToDataTable(columnas);
-
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1,
-                            { calc: "stringify",
-                              sourceColumn: 1,
-                              type: "string",
-                              role: "annotation" },
-                            2]);
-
-            var options = {
-              title: "Evaluación promedio de atributos",
-              width: 600,
-              height: 400,
-              bar: {groupWidth: "95%"},
-              legend: { position: "none" },
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById("grafica"));
-            chart.draw(view, options);*/
           }
           else{
             $("#grafica").append("<label style='width:100%;'><strong>No se encontrarón registros de la generación seleccionada</strong></label>")
@@ -1321,6 +1268,9 @@
             $("#txpondCritG").hide();
           }
         });
+
+        
+        
         /*getAlldeptos();
         getAllCriterios();
         getAllAtributos();

@@ -26,6 +26,7 @@ function Login(){
         url : '../function/login_bd.php',
         data : data,
         success : function(response){
+            console.log(response);
             if(response == '0'){
                 $("#message").html('<div class="alert alert-danger alert-dismissible fade show" style="margin-top:5%;" role="alert">'+
                 '<strong>Error al iniciar Sesión</strong>'+
@@ -35,6 +36,7 @@ function Login(){
                 '</div>')
             }
             else{
+                
                 location.href = response;
             }
         },
