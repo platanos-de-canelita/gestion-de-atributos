@@ -34,6 +34,23 @@ function getMaterias(){//obtiene los atributos pertenecientes a la carrera selec
     }
 }
 
+
+//-_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_-
+
+function getProfesor(){ //Obtiene las materias de la carrera seleccionada
+    require_once("bdconexion.php");
+    $query = "SELECT idprofesor, nombre FROM profesores WHERE status = true";
+
+    $sql_query = $conn->query($query);
+
+    while ($item = $sql_query->fetch_assoc()){
+        echo '<option value ="'. $item['idprofesor'] . '">' . $item['nombre'] . '</option>';
+    }
+
+}
+
+//-_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_-
+
 function filtroCriterios(){
     if(isset($_POST['carreraFiltro']) && $_POST['carreraFiltro']!=null ){
        getCarreraFiltro();
@@ -187,7 +204,12 @@ else
             getMaterias();
         }
         else{
-            filtroCriterios();
+            if(isset($_POST['profe'])){
+                getProfesor();
+            }
+            else{
+                filtroCriterios();
+            }
         }
     }
 }

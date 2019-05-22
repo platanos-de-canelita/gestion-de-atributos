@@ -22,7 +22,6 @@ function getAtributos(){//obtiene los atributos pertenecientes a la carrera sele
     }
 }
 
-
 function filtroCriterios(){
     if(isset($_POST['atributoFiltro'])){
         getAtributoFiltro();

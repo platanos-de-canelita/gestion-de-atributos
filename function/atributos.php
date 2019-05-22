@@ -225,6 +225,8 @@ function insertar_atribMate(){
     }
 }
 
+
+
 switch ($_POST['func']) {
 
   case 'buscar':

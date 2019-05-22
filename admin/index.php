@@ -13,6 +13,7 @@
 
 
  ?>
+
  <!DOCTYPE html>
  <html lang="en">
 
@@ -389,6 +390,52 @@
                           <th scope="col">logo7.png</th>
                           <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(1,'Sistemas')">Eliminar</button></th>
                         </tr>
+                      </thead>
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+           <div class="container" style="margin-top:1em;">
+               <div id="contenedor_proyectos" class="row">
+
+               </div>
+           </div>
+         </div>
+
+         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
+           <div class="row">
+               <div class="col-lg-3">
+                 <form class="formulario" id="formDeptoInsert" >
+                   <p>Nombre del departamento: </p>
+                   <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
+                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
+                   <br><br>
+
+                 </form>
+                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
+               </div>
+               <div class="col-lg-9">
+                   <form class="form-inline" id="formDeptos">
+                       <div class="form-group" style="margin:1%;">
+                           <label for="in_palabra_proyecto">Filtros:</label>
+                           <input id="in_palabra_proyecto" type="text" name="deptoName" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getDeptoFiltro()">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAlldeptos()">Ver todos</button>
+                       </div>
+                   </form>
+                   <br>
+                   <table class="table" id="departamentos">
+                      <thead>
+                        <tr>
+
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Logo</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="filas">
                         <tr>
 
                           <th scope="col">Industrial</th>
@@ -1283,7 +1330,6 @@
         //añado un click listener para el boton de agregar atributo.
         document.getElementById("btn_atrib").addEventListener("click", function(){
           //invoco al modal de sweet alert para mostrar el mensaje de exito
-
          });
 
      </script>

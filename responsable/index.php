@@ -262,6 +262,73 @@
            </div>
          </div>
 
+        <!-- SECCION PROF - MATERIAS-->
+
+         <div class="tab-pane fade" id="profes" role="tabpanel" aria-labelledby="prof-tab">
+            <div class="row">
+              <div class="col-lg-3">
+                <form class="formulario" id="formcrit">
+                  <p>Asignar profesor a materia</p>
+                  <select id="carrera_materia"  name="carreraFiltroProf" class="form-control">
+                    <option disabled selected>Seleccione una carrera</option>
+                  </select>
+                  
+                  <br><br>
+                  <select id="materia_prof" name="materiaFiltroProf" class="form-control">
+                    <option disabled selected>Seleccione una materia</option>
+                  </select>
+
+                  <br><br>
+                  <select id="profesor_materia" name="profesorFiltroProf" class="form-control">
+                    <option disabled selected>Seleccione un profesor</option>
+                  </select>
+                  <br><br>
+                </form>
+                <!--AGREGAR FUNCION DE AGREGAR-->
+                <button class="btn" name="mat-prof" onclick="validaProf()">Agregar</button>
+              </div>
+              <div class="col-lg-9">
+                <form id="prof_mate_form" class="form-inline">
+                  <div class="form-group" style="margin:1%;">
+                    <label for="in_palabra_proyecto">Filtros:</label>
+                    <select id="prof_materia" name="carreraFiltroProf" class="form-control mx-sm-3">
+                      <option disable selected>Seleccione una carrera</option>
+                    </select>
+                    <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombreMateria" class="form-control mx-sm-3">
+
+                      <!--%%%%%%%%%%%%%%%%-->
+                    <button id="btn_refrescar_filtros" onclick="getprofe_mate()" type="button" class="form-control mx-sm-3">Buscar</button>
+                    <!--%%%%%%%%%%%%%%%5-->
+                    <button id="btn_todo" type="button" class="form-control mx-sm-3" onclick="getAllatrib_profe()">Ver todos</button>
+                  </div>
+                </form>
+                <br>
+                <table class="table" id="table_prof_materia">
+                  <thead class="">
+                    <tr>
+                      <th scope="col">Carrera</th>
+                      <th scope="col">Profesor</th>
+                      <th scope="col">Materia</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">ISC</th>
+                      <td>Juan Perez</td>
+                      <td>Matemáticas II</td>
+                      <td><button id="btn_eliminarProf" type="button" class="form-control mx-sm-3">Eliminar</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="pagindaor">
+                  <ul id="paginas" style="list-style: none; "></ul>
+                </div>
+              </div>
+            </div>
+
+         </div>
+
      </div>
 
 
@@ -390,6 +457,46 @@
 
 </div>
 
+      <!-- Modal eliminar ProfMat -->
+
+      <div class="modal fade" id="eliminarp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      Está seguro que desea quitar la asignacion del profesor?
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+      <button type="button" class="btn btn-primary" onclick="confirmDeleteP()">Aceptar</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
 
 
       <!-- Modal -->
@@ -431,7 +538,9 @@
 
         function getMaterias(){
           $("#materia_ev").html('');
-          $("#materia_ev").append("<option disabled selected>Selecciona una materia</option>");      
+          $("#materia_ev").append("<option disabled selected>Selecciona una materia</option>");  
+          $("#materia_prof").html('');
+          $("#materia_prof").append("<option disabled selected>Selecciona una materia</option>");      
           $.ajax({
             type : 'POST',
             async : true,
@@ -440,13 +549,16 @@
             data : 'accion=Cmateria&depto='+localStorage.getItem('depto')+'&id_carrera='+$("#carrera_ev").val(),
             success : function(response){
               $("#materia_ev").append(response);
+              $("#materia_prof").append(response);
             } 
           });
         }
 
         function getProfesores(){
           $("#profesor_ev").html('');
-          $("#profesor_ev").append("<option disabled selected>Selecciona un(a) profesor(a)</option>");     
+          $("#profesor_ev").append("<option disabled selected>Selecciona un(a) profesor(a)</option>");
+          $("#profesor_materia").html('');
+          $("#profesor_materia").append("<option disabled selected>Selecciona un(a) profesor(a)</option>");     
           console.log($("#materia_ev").val());
           console.log($("#carrera_ev").val());       
           $.ajax({
@@ -457,11 +569,17 @@
             data : 'accion=Cprofesor&depto='+localStorage.getItem('depto')+'&id_materia='+$("#materia_ev").val()+'&id_carrera='+$("#carrera_ev").val(),
             success : function(response){
               $("#profesor_ev").append(response);
+              $("#profesor_materia").append(response);
             } 
           });
         }
 
-
+        var materias = document.getElementById('carrera_materia');
+        materias.addEventListener('change',
+          function(){
+            var selectedOption = this.options[materias.selectedIndex];
+            getMateria(selectedOption.value);
+          });
         var select = document.getElementById('carreras_criterio');
         select.addEventListener('change',
         function(){
@@ -471,6 +589,14 @@
         });
 
 
+        //-_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_-
+
+        
+        //-_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_--_-_-_-_-_-_-
+
+
+
+        getProfesor();
         
         
         //añado un click listener para el boton de agregar atributo.
