@@ -60,7 +60,7 @@
                  role="tab" aria-controls="profile" aria-selected="false">Profesores de Materias</a>
          </li>
          <li class="nav-item">
-          <a class="nav-link list-group-item-action" id="ev-tab" data-toggle="tab" href="#eval">
+              <a class="nav-link list-group-item-action" id="ev-tab" data-toggle="tab" href="#eval">
             Evaluaciones
           </a>
          </li>
@@ -76,7 +76,7 @@
 
          <div class="tab-pane fade show active" id="atributos" role="tabpanel" aria-labelledby="atributos-tab">
              <div class="row">
-                 <div class="col-lg-3">
+                 <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:320px;">
                    <form class="formulario" id="form" >
                     <p>Agregar atributo: </p>
                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
@@ -85,22 +85,22 @@
                       <option disabled selected>Selecciona una carrera</option>
                     </select>
                     <br>
-                    <button id="btn_atrib" class="btn" onclick="insertarAtributo()">Agregar</button>
+                    <button id="btn_atrib" class="btn btn-primary btn-block" onclick="insertarAtributo()">Agregar</button>
                    </form>
                    
                  </div>
                  <div class="col-lg-9">
-                     <form class="form-inline" id="Atributos">
-                         <div class="form-group" style="margin:1%;">
+                     <form class="form-inline" id="Atributos" style="background: #eee !important;border-radius: 10px;">
+                         <div class="form-group" style="margin:1%;width: 100%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" name="filtro" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos(/*departamento*/);">Buscar</button>
-                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos(/*departamento*/);">Ver todos</button>
+                             <input id="in_palabra_proyecto" name="filtro" type="text" style="width: 60%;" placeholder="buscar" class="form-control mx-sm-3">
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-primary" onclick="getAtributos(/*departamento*/);">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getAllAtributos(/*departamento*/);">Ver todos</button>
                          </div>
                      </form>
                      <br>
-                     <table class="table" id="tabla_atributos">
-                        <thead>
+                     <table class="table table-striped" id="tabla_atributos">
+                        <thead class="thead-dark">
                           <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
@@ -129,7 +129,7 @@
 
          <div class="tab-pane fade show active" id="eval" role="tabpanel" aria-labelledby="ev-tab">
              <div class="row">
-                 <div class="col-lg-3">
+                 <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:320px;">
                    <form class="formulario" id="formEv" >
                     <p>Asignación de Evaluaciones:</p>
                     <select id="tipo_ev" name="tipo" class="form-control">
@@ -138,25 +138,25 @@
                       <option value="Grupal">Grupal</option>
                     </select>
                    </form>
-                   <button class="btn btn-primary" onclick="SetEval()" style="margin-top: 5%;">Registrar</button>
+                   <button class="btn btn-primary btn-block" onclick="SetEval()" style="margin-top: 5%;">Registrar</button>
                  </div>
                  <div class="col-lg-9">
-                     <form class="form-inline" id="formFiltEv">
+                     <form class="form-inline" id="formFiltEv" style="background: #eee !important;border-radius: 10px;">
                          <div class="form-group" style="margin:1%;width:100%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
-                             <select id="carrera_ev_fil" name="carrera" style="margin-right:5%;margin-left:5%;" class="form-control" onchange="getMateriasFil()">
+                             <select id="carrera_ev_fil" name="carrera" style="margin-right:5%;margin-left:5%;width:30%;" class="form-control" onchange="getMateriasFil()">
                               <option disabled selected>Selecciona una carrera</option>
                              </select>
-                             <select id="materia_ev_fil" name="materia" class="form-control">
+                             <select id="materia_ev_fil" name="materia" class="form-control" style="width:30%;">
                               <option disabled selected>Selecciona una materia</option>
                              </select>
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getEvaluaciones('')">Buscar</button>
-                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getEvaluaciones('All')">Ver todos</button>
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-primary" onclick="getEvaluaciones('')">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getEvaluaciones('All')">Ver todos</button>
                          </div>
                      </form>
                      <br>
-                     <table class="table" id="tabla_Evaluaciones">
-                        <thead>
+                     <table class="table table-striped" id="tabla_Evaluaciones">
+                        <thead class="thead-dark">
                           <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Carrera</th>
@@ -187,7 +187,7 @@
         
          <div class="tab-pane fade" id="atrib_mate" role="tabpanel" aria-labelledby="atrib_mate-tab">
            <div class="row">
-               <div class="col-lg-3">
+               <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:350px;">
                  <form class="formulario" id="formcrit">
                   <p>Agregar atributos: </p>
                     <!--input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre"-->
@@ -208,11 +208,11 @@
 
                     <br><br>
                  </form>
-                 <button class="btn" name="login" onclick="revisaAsigmat()">Agregar</button>
+                 <button class="btn btn-primary btn-block" name="login" onclick="revisaAsigmat()">Agregar</button>
                </div> 
                <div class="col-lg-9">
-                   <form id="atrib_mate_form" class="form-inline">
-                       <div class="form-group" style="margin:1%;">
+                   <form id="atrib_mate_form" class="form-inline" style="background: #eee !important;border-radius: 10px;">
+                       <div class="form-group" style="margin:1%;width:100%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
                            
                            <select id="materia_ev_fil2" name="materia" class="form-control" onchange="getProfesores()">
@@ -221,13 +221,13 @@
                            <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
                            <input id="in_palabra_proyecto" type="text" placeholder="semestre" name="semestre" class="form-control mx-sm-3">
                           
-                           <button id="tbn_refrescar_filtros_proyectos" onclick="getatrib_mate()" type="button" class="form-control mx-sm-3">Buscar</button>
-                           <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllatrib_mate()">Ver todos</button>
+                           <button id="tbn_refrescar_filtros_proyectos" onclick="getatrib_mate()" type="button" class="form-control mx-sm-3 btn-primary">Buscar</button>
+                           <button id="btn_ver_todos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getAllatrib_mate()">Ver todos</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table" id="table_atrib_mate">
-                      <thead class="">
+                   <table class="table table-striped" id="table_atrib_mate">
+                      <thead class="thead-dark">
                         <tr>
                           <th scope="col">Nombre</th>
                           <th scope="col">Descripción</th>
@@ -266,7 +266,7 @@
 
          <div class="tab-pane fade" id="profes" role="tabpanel" aria-labelledby="prof-tab">
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:350px;">
                 <form class="formulario" id="formcrit">
                   <p>Asignar profesor a materia</p>
                   <select id="carrera_materia"  name="carreraFiltroProf" class="form-control">
@@ -285,26 +285,26 @@
                   <br><br>
                 </form>
                 <!--AGREGAR FUNCION DE AGREGAR-->
-                <button class="btn" name="mat-prof" onclick="validaProf()">Agregar</button>
+                <button class="btn btn-primary btn-block" name="mat-prof" onclick="validaProf()">Agregar</button>
               </div>
               <div class="col-lg-9">
-                <form id="prof_mate_form" class="form-inline">
-                  <div class="form-group" style="margin:1%;">
+                <form id="prof_mate_form" class="form-inline" style="background: #eee !important;border-radius: 10px;">
+                  <div class="form-group" style="margin:1%;width:100%;">
                     <label for="in_palabra_proyecto">Filtros:</label>
-                    <select id="prof_materia" name="carreraFiltroProf" class="form-control mx-sm-3">
+                    <select id="prof_materia" name="carreraFiltroProf" style="width:30%;" class="form-control mx-sm-3">
                       <option disable selected>Seleccione una carrera</option>
                     </select>
-                    <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombreMateria" class="form-control mx-sm-3">
+                    <input id="in_palabra_proyecto" type="text" placeholder="buscar" style="width:30%;" name="nombreMateria" class="form-control mx-sm-3">
 
                       <!--%%%%%%%%%%%%%%%%-->
-                    <button id="btn_refrescar_filtros" onclick="getprofe_mate()" type="button" class="form-control mx-sm-3">Buscar</button>
+                    <button id="btn_refrescar_filtros" onclick="getprofe_mate()" type="button" class="form-control mx-sm-3 btn-primary">Buscar</button>
                     <!--%%%%%%%%%%%%%%%5-->
-                    <button id="btn_todo" type="button" class="form-control mx-sm-3" onclick="getAllatrib_profe()">Ver todos</button>
+                    <button id="btn_todo" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getAllatrib_profe()">Ver todos</button>
                   </div>
                 </form>
                 <br>
-                <table class="table" id="table_prof_materia">
-                  <thead class="">
+                <table class="table table-striped" id="table_prof_materia">
+                  <thead class="thead-dark">
                     <tr>
                       <th scope="col">Carrera</th>
                       <th scope="col">Profesor</th>
