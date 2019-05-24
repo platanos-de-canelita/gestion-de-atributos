@@ -62,10 +62,6 @@
                  role="tab" aria-controls="profile" aria-selected="false">Profesores</a>
          </li>
          <li class="nav-item">
-             <a class="nav-link list-group-item-action" id="departamentos-tab" data-toggle="tab" href="#departamentos"
-                 role="tab" aria-controls="profile" aria-selected="false">Departamentos</a>
-         </li>
-         <li class="nav-item">
              <a class="nav-link list-group-item-action" id="carreras-tab" data-toggle="tab" href="#carreras"
                  role="tab" aria-controls="profile" aria-selected="false">Carreras</a>
          </li>
@@ -95,7 +91,7 @@
 
          <div class="tab-pane fade show active" id="atributos" role="tabpanel" aria-labelledby="atributos-tab">
              <div class="row">
-                 <div class="col-lg-3">
+                 <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:320px;">
                    <form class="formulario" id="form" >
                     <p>Agregar atributo: </p>
                     <input type="text" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
@@ -104,22 +100,22 @@
                       <option disabled selected>Selecciona una carrera</option>
                     </select>
                     <br>
-                    <button id="btn_atrib" class="btn" onclick="insertarAtributo()">Agregar</button>
+                    <button id="btn_atrib" class="btn btn-primary btn-block" onclick="insertarAtributo()">Agregar</button>
                    </form>
                    
                  </div>
                  <div class="col-lg-9">
-                     <form class="form-inline" id="Atributos">
-                         <div class="form-group" style="margin:1%;">
+                     <form class="form-inline" id="Atributos" style="background: #eee !important;border-radius: 10px;">
+                         <div class="form-group" style="margin:1%;width: 100%;">
                              <label for="in_palabra_proyecto">Filtros:</label>
-                             <input id="in_palabra_proyecto" name="filtro" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAtributos(/*departamento*/);">Buscar</button>
-                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllAtributos(/*departamento*/);">Ver todos</button>
+                             <input id="in_palabra_proyecto" name="filtro" style="width: 60%;" type="text" placeholder="buscar" class="form-control mx-sm-3">
+                             <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-primary" onclick="getAtributos(/*departamento*/);">Buscar</button>
+                             <button id="btn_ver_todos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getAllAtributos(/*departamento*/);">Ver todos</button>
                          </div>
                      </form>
                      <br>
-                     <table class="table" id="tabla_atributos">
-                        <thead>
+                     <table class="table table-striped" id="tabla_atributos">
+                        <thead class="thead-dark">
                           <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
@@ -153,15 +149,15 @@
          <!--Seccion de investigadores-->
          <div class="tab-pane fade" id="criterios" role="tabpanel" aria-labelledby="criterios-tab">
            <div class="row">
-               <div class="col-lg-3">
+               <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:480px;">
                  <form class="formulario" id="formcrit">
                  <p>Agregar criterios: </p>
                    <input type="text" min="0" max="100" class="form-control" name="Nombre" placeholder="Nombre">
-                   <br><br>
+                   <br>
                    <select id="atrib" class="form-control" name="atributo">
                      <option disabled selected>Seleccione un atributo</option>
                    </select>
-                   <br><br>
+                   <br>
 
                    <select class="form-control" name="tipo" id="opc">
                      <option value="individual/grupal">Individual/Grupal</option>
@@ -169,34 +165,34 @@
                      <option value="Grupal">Grupal</option>
                     
                    </select>
-                   <br><br>
+                   <br>
                    <input type="number" min="0" max="100" class="form-control" id="PonderaciónIndividual" name="ponderacionI" placeholder="Ponderación Individual " >
-                   <br><br>
+                   <br>
                    <input type="number" min="0" max="100" class="form-control" id="PonderaciónGrupal" name="ponderacionG" placeholder="Ponderación Grupal" >
-                   <br><br>
+                   <br>
                    <input type="text" min="0" max="100" class="form-control" name="Descripción" placeholder="Descripción">
-                   <br><br>
+                   <br>
                  </form>
-                 <button class="btn" name="login" onclick="revisacrit()">Agregar</button>
+                 <button class="btn btn-primary btn-block" name="login" onclick="revisacrit()">Agregar</button>
                </div>
                <div class="col-lg-9">
-                   <form id="criterios_form" class="form-inline">
+                   <form id="criterios_form" class="form-inline" style="background: #eee !important;border-radius: 10px;">
                        <div class="form-group" style="margin:1%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
-                           <select id="carreras_criterio" name="carreraFiltro" class="form-control mx-sm-3">
+                           <input id="in_palabra_proyecto" style="margin: 6px !important" type="text" placeholder="buscar" name="nombre" class="form-control mx-sm-3">
+                           <select id="carreras_criterio" name="carreraFiltro" style="margin: 6px !important" class="form-control mx-sm-3">
                             <option disabled selected>Selecciona una carrera</option>
                            </select>
-                           <select id="atributos_criterio" name="atributoFiltro" class="form-control mx-sm-3">
+                           <select id="atributos_criterio" name="atributoFiltro" style="margin: 6px !important" class="form-control mx-sm-3">
                             <option disabled selected>Selecciona un atributo</option>
                            </select>
-                           <button id="tbn_refrescar_filtros_proyectos" onclick="getCriterios()" type="button" class="form-control mx-sm-3">Buscar</button>
-                           <button id="btn_ver_todos" type="button" class="form-control mx-sm-3" onclick="getAllCriterios()">Ver todos</button>
+                           <button id="tbn_refrescar_filtros_proyectos" onclick="getCriterios()" type="button" class="form-control mx-sm-3 btn-primary">Buscar</button>
+                           <button id="btn_ver_todos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getAllCriterios()">Ver todos</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table" id="table_criterios">
-                      <thead class="">
+                   <table class="table table-striped" id="table_criterios">
+                      <thead class="thead-dark">
                         <tr>
                           <th scope="col">Nombre</th>
                           <th scope="col">Descripción</th>
@@ -249,8 +245,8 @@
                     <div class="row">
                       <div class="col-sm">
                           Profesores candidatos
-                        <table class="table">
-                            <thead>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
                               <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">Nombre</th>
@@ -264,8 +260,8 @@
                       </div>
                       <div class="col-sm">
                         Profesores autorizados
-                        <table class="table">
-                            <thead>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
                               <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">Nombre</th>
@@ -306,7 +302,7 @@
 
          <div class="tab-pane fade" id="carreras" role="tabpanel" aria-labelledby="carreras-tab">
            <div class="row">
-               <div class="col-lg-3">
+               <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:215px;">
                  <form class="formulario" id="formCarreraI">
                    <p>Agregar carreras: </p>
                    <br>
@@ -314,20 +310,20 @@
                    <input id="nameCarrI" type="text" name="carrera_insert" class="form-control">
                    <br>
                  </form>
-                 <button class="btn" onclick="insert_carrera()">Agregar</button>
+                 <button class="btn btn-primary btn-block" onclick="insert_carrera()">Agregar</button>
                </div>
                <div class="col-lg-9">
-                   <form class="form-inline" id="formCarrera">
-                       <div class="form-group" style="margin:1%;">
+                   <form class="form-inline" id="formCarrera" style="background: #eee !important;border-radius: 10px;">
+                       <div class="form-group" style="margin:1%;width:100%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" name="carrera" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getCarrerasFiltro('filtro')">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getCarrerasFiltro('All')">Ver todo</button>
+                           <input id="in_palabra_proyecto" style="width:60%;" type="text" name="carrera" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-primary" onclick="getCarrerasFiltro('filtro')">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getCarrerasFiltro('All')">Ver todo</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table" id="tableCarrera">
-                      <thead class="">
+                   <table class="table table-striped" id="tableCarrera">
+                      <thead class="thead-dark">
                         <tr>
                           <th scope="col">Carrera</th>
                           <th scope="col">departamento</th>
@@ -347,121 +343,9 @@
            </div>
          </div>
 
-         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
-           <div class="row">
-               <div class="col-lg-3">
-                 <form class="formulario" id="formDeptoInsert" >
-                   <p>Nombre del departamento: </p>
-                   <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
-                   <br><br>
-
-                 </form>
-                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
-               </div>
-               <div class="col-lg-9">
-                   <form class="form-inline" id="formDeptos">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" name="deptoName" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getDeptoFiltro()">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAlldeptos()">Ver todos</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table" id="departamentos">
-                      <thead>
-                        <tr>
-
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Logo</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody id="filas">
-                        <tr>
-
-                          <th scope="col">Sistemas y computación</th>
-                          <th scope="col">logo7.png</th>
-                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(1,'Sistemas')">Eliminar</button></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        
-                      </tbody>
-                    </table>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
-
-               </div>
-           </div>
-         </div>
-
-         <div class="tab-pane fade" id="departamentos" role="tabpanel" aria-labelledby="departamentos-tab">
-           <div class="row">
-               <div class="col-lg-3">
-                 <form class="formulario" id="formDeptoInsert" >
-                   <p>Nombre del departamento: </p>
-                   <input type="text" id="nombre_depto" class="form-control" name="nombre" value="" placeholder="Nombre"><br><br>
-                   <input type="file" class="form-control" name="logo" id="insertFileDepto">
-                   <br><br>
-
-                 </form>
-                 <button id="btn_atrib" class="btn" onclick="insertar_departamento()">Agregar</button>
-               </div>
-               <div class="col-lg-9">
-                   <form class="form-inline" id="formDeptos">
-                       <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" name="deptoName" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getDeptoFiltro()">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getAlldeptos()">Ver todos</button>
-                       </div>
-                   </form>
-                   <br>
-                   <table class="table" id="departamentos">
-                      <thead>
-                        <tr>
-
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Logo</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody id="filas">
-                        <tr>
-
-                          <th scope="col">Industrial</th>
-                          <th scope="col">logo6.png</th>
-                          <th scope="col"><button id="btn_eliCrit" type="button" class="form-control mx-sm-3" onclick="eliminarDto(2,'Industrial')">Eliminar</button></th>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="paginador">
-                      <ul id="paginas" style="list-style: none; ">
-
-                        <!--<li><a href="#">|<<</a></li>
-                        <li><a href="#"><<</a></li>
-                        <li class="pageSelected">1</li>
-
-                        <li><a href="#">>></a></li>
-                        <li><a href="#">>>|</a></li>-->
-                      </ul>
-                    </div>
-               </div>
-           </div>
-           <div class="container" style="margin-top:1em;">
-               <div id="contenedor_proyectos" class="row">
-
-               </div>
-           </div>
-         </div>
-
          <div id="materias" class="tab-pane fade" role="tabpanel" arial-labelledby="materias-tab">
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:320px;">
               <form class="formulario" id="formMateriaInsert" >
                 <p>Nombre de Materia:  </p>
                 <input type="text" id="nombre_materia" class="form-control" name="nombreM" value="" placeholder="Nombre de materia"><br><br>
@@ -481,24 +365,25 @@
                   <option value="8">8</option>
                   <option value="9">9</option>
                 </select>
+                <br>
               </form>
-              <button id="btn_atrib" class="btn" onclick="insertar_materia()">Agregar</button>
+              <button id="btn_atrib" class="btn btn-primary btn-block" onclick="insertar_materia()">Agregar</button>
             </div>
             <div class="col-lg-9">
-                   <form class="form-inline" id="formMaterias">
-                       <div class="form-group" style="margin:1%;">
+                   <form class="form-inline" id="formMaterias" style="background: #eee !important;border-radius: 10px;">
+                       <div class="form-group" style="margin:1%;width:100%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" name="nombre" placeholder="buscar" class="form-control mx-sm-3">
-                           <select name="carrera" id="materias_carrera" class="form-control mx-sm-3" style="margin-left: 0px !important">
+                           <input id="in_palabra_proyecto" style="width:30%;" type="text" name="nombre" placeholder="buscar" class="form-control mx-sm-3">
+                           <select name="carrera" id="materias_carrera" class="form-control mx-sm-3" style="margin-left: 0px !important;width:30%;">
                               <option value="" disabled selected>Seleccione una materia</option>
                             </select>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getMaterias('')">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="getMaterias('All')">Ver todos</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-primary" onclick="getMaterias('')">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="getMaterias('All')">Ver todos</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table" id="materias">
-                      <thead>
+                   <table class="table table-striped" id="materias">
+                      <thead class="thead-dark">
                         <tr>
 
                           <th scope="col">id</th>
@@ -525,30 +410,30 @@
 
           <div id="responsable" class="tab-pane fade" role="tabpanel" arial-labelledby="responsable-tab">
           <div class="row">
-            <div class="col-lg-3">
-              <form class="formulario" id="formResponsableInsert" >
+            <div class="col-lg-3" style="background: #eee !important;border-radius: 10px;height:260px;">
+              <form class="formulario" id="formResponsableInsert">
                 <h6>Nuevo Responsable</h6>
                 <input type="text" id="usuario_responsable" class="form-control" name="usuario" value="" placeholder="Usuario"><br>
                 <input type="password" id="pass_responsable" class="form-control" name="contraseña" value="" placeholder="Contraseña"><br>
                 <select name="profesor" id="profesores_select" class="form-control mx-sm-3" style="margin-left: 0px !important">
                   <option value="" disabled selected>Seleccione un profesor</option>
                 </select>
-                <br><br>
+                <br>
               </form>
-              <button id="btn_atrib" class="btn" onclick="insertar_responsable()">Agregar</button>
+              <button id="btn_atrib" class="btn btn-primary btn-block" onclick="insertar_responsable()">Agregar</button>
             </div>
             <div class="col-lg-9">
-                   <form class="form-inline" id="formResponsable">
-                       <div class="form-group" style="margin:1%;">
+                   <form class="form-inline" id="formResponsable" style="background: #eee !important;border-radius: 10px;">
+                       <div class="form-group" style="margin:1%;width:100%;">
                            <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="responsable_f" type="text" name="nombre" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="ResponsablesFiltro('')">Buscar</button>
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3" onclick="ResponsablesFiltro('All')">Ver todos</button>
+                           <input id="responsable_f" type="text" name="nombre" style="width:60%;" placeholder="buscar" class="form-control mx-sm-3">
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-primary" onclick="ResponsablesFiltro('')">Buscar</button>
+                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3 btn-secondary" onclick="ResponsablesFiltro('All')">Ver todos</button>
                        </div>
                    </form>
                    <br>
-                   <table class="table" id="responsables">
-                      <thead>
+                   <table class="table table-striped" id="responsables">
+                      <thead class="thead-dark">
                         <tr>
                           <th scope="col">id</th>
                           <th scope="col">Nombre</th>

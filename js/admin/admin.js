@@ -1096,6 +1096,16 @@ function confirmDeleteC(){
 
 }
 
+function eliminarAtributo(value){
+
+  $('#eliminar').modal('show');
+
+  $("#dato").append(value);
+
+  del = value;
+
+}
+
 function insertar_departamento(){
   var fun = "insertar";
   var fd = new FormData();

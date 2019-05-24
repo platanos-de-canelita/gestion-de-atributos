@@ -41,7 +41,7 @@
       <input type="text" class="form-control" name="txtusuario" value="" placeholder="Usuario"><br><br>
       <input type="password" class="form-control" name="txtpass" value="" placeholder="Contraseña"><br><br>
     </form>
-    <button class="btn" id="btn-login" disabled name="login" onclick="Login()">Iniciar sesión</button>
+    <button class="btn btn-primary" style="margin-left: 40%;" id="btn-login" disabled name="login" onclick="Login()">Iniciar sesión</button>
   </div>
 
   <br>
