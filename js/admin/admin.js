@@ -14,13 +14,13 @@ var datos_sesion;
         if(tipo.value == 'Individual/Grupal'){
           $("#PonderaciónGrupal").show();
           $("#PonderaciónIndividual").show();
-          
+
         }
         else
         {
             $("#PonderaciónGrupal").hide();
           $("#PonderaciónIndividual").hide();
-          
+
         }
       });
     });*/
@@ -115,7 +115,7 @@ var datos_sesion;
           $("#modificarResponsable").modal("hide");
         },
         error : function(jqXHR, textStatus, errorThrown) {
-          
+
         }
       });
     }
@@ -213,7 +213,7 @@ var datos_sesion;
       $("#eliminarMateria").modal("show");
       localStorage.setItem('id_materia', id);
       $("#id_materia").text(nombre);
-      
+
     }
 
     function confirmarEliminarMateria(){
@@ -460,7 +460,7 @@ function updateAllPlatform(){
     }
 
    function revisacrit(){
- 
+
     var podindiv=$('#PonderaciónIndividual').val();
     var pongrup=$('#PonderaciónGrupal').val();
     var tipo = $("#opc").val();
@@ -471,7 +471,7 @@ function updateAllPlatform(){
     }else
     {
       if(tipo == 'Individual'){
-         podindiv=100; 
+         podindiv=100;
          pongrup=0;
          insertarCricterio(podindiv, pongrup);
 
@@ -479,7 +479,7 @@ function updateAllPlatform(){
       {
         if(tipo == 'Grupal'){
           podindiv=0
-          pongrup=100;   
+          pongrup=100;
           insertarCricterio(podindiv, pongrup);
         }
         else{
@@ -490,7 +490,7 @@ function updateAllPlatform(){
   }
 
 function insertarCricterio(podindiv, pongrup){
-  
+
   var data = $('#formcrit').serialize();
   data = data + '&func=insertardef';
   var id = $("#atrib").val();
@@ -748,7 +748,7 @@ function getCriterios(){
 
     }
   });
-  
+
 }
 
 
@@ -843,7 +843,7 @@ function getAllAtributos(){
           $("#tabla_atributos > thead").html("<tr><th class='center'>No hay atributos registrados</th></tr>");
           $("#tabla_atributos tbody").append("<tr><td style='width:50%; height:50%; margin-top:20%; margin-left:20%;'>"+"<img style='width:50%;margin-left: 25%;' src='"+"../image/kisspng-drawing-clip-art-not-found-5b2e77b6deffe8.2356212115297719589134.jpg"+"'>"+"</td></tr>");
         }
-        else{      
+        else{
           $("#tabla_atributos > thead").html("");
           $("#tabla_atributos thead").append("<tr>"+
           "<th scope='col'>id</th>"+

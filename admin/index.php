@@ -102,7 +102,7 @@
                     <br>
                     <button id="btn_atrib" class="btn btn-primary btn-block" onclick="insertarAtributo()">Agregar</button>
                    </form>
-                   
+
                  </div>
                  <div class="col-lg-9">
                      <form class="form-inline" id="Atributos" style="background: #eee !important;border-radius: 10px;">
@@ -163,7 +163,7 @@
                      <option value="individual/grupal">Individual/Grupal</option>
                      <option value="Individual">Individual</option>
                      <option value="Grupal">Grupal</option>
-                    
+
                    </select>
                    <br>
                    <input type="number" min="0" max="100" class="form-control" id="PonderaciónIndividual" name="ponderacionI" placeholder="Ponderación Individual " >
@@ -331,7 +331,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
+
                       </tbody>
                     </table>
                </div>
@@ -702,7 +702,7 @@
      </div>
      <!--/Modal de nuevo proyecto-->
 
-     <!-- Modal actualización de departamento -->                            
+     <!-- Modal actualización de departamento -->
      <div class="modal fade" id="actualizarDepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <form id="modifDepto">
@@ -894,7 +894,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Está seguro que desea borrar: 
+        Está seguro que desea borrar:
         <p id="id_materia"></p>
         <p id="nombre_materia"></p>
       </div>
@@ -1030,13 +1030,13 @@
         if(tipo.value == 'individual/grupal'){
           $("#PonderaciónGrupal").show();
           $("#PonderaciónIndividual").show();
-          
+
         }
         else
         {
             $("#PonderaciónGrupal").hide();
           $("#PonderaciónIndividual").hide();
-          
+
         }
       });
     

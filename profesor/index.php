@@ -159,7 +159,7 @@
                     <h5>Agregar alumno: </h5>
                     <select id="carreras_alu" name="carreraFiltro" class="form-control">
                       <option disabled selected>Selecciona una carrera</option>
-                    </select> 
+                    </select>
                     <br>                                              <!--name=filtro el de atributos-->
                     <select id="materias_alu" class="form-control" name="materia">
                       <option disabled selected>Seleccionar materia</option>
@@ -286,14 +286,14 @@
 
         <div class="tab-pane fade" id="evaluaciones" role="tabpanel" aria-labelledby="evaluaciones-tab">
           <div class="row">
-            <div class="col-lg-12">
-                    <form class="form-inline">
+               <div class="col-lg-12">
+                   <form class="form-inline" action="../function/funciones_profesores/formato.php">
                        <div class="form-group" style="margin:1%;">
-                           <label for="in_palabra_proyecto">Filtros:</label>
-                           <input id="in_palabra_proyecto" type="text" placeholder="buscar" class="form-control mx-sm-3">
-                           <button id="tbn_refrescar_filtros_proyectos" type="button" class="form-control mx-sm-3">Buscar</button>
+                           <button class="form-control btn-primary mx-sm-3" type="submit">Descargar formato para evaluación</button>
                        </div>
-                    </form>
+                   </form>
+
+                </div>
             </div>
           </div>
           <div class="row">
@@ -600,14 +600,14 @@
         //llamamos al metodo get_datos para obtener todos los datos del administrador
         get_datos_sesion();
         get_datos_sesionPK();
-        
+
          //ALTA-FORMULARIO En cuanto cambie la carrera debe cambiar materias y alumnos incritos a la misma
         var selectCar = document.getElementById('group_carreras');
         selectCar.addEventListener('change',
         function(){
           var selectedCar = this.options[selectCar.selectedIndex];
           getMateria(selectedCar.value);
-          
+
         });
         var selectCarr = document.getElementById('carreras_alu');
         selectCarr.addEventListener('change',
